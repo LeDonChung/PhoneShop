@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 public class LoginController {
     @Autowired
@@ -32,41 +34,18 @@ public class LoginController {
         return "login";
     }
 
-    /*
-    @PostMapping("/do-login")
-    public String loginProcess(Model model, @ModelAttribute(SystemConstants.ADMIN_DTO) AdminDto adminDto) {
-        model.addAttribute((SystemConstants.ADMIN_DTO), adminDto);
-        if(adminDto.getUsername() == null || adminDto.getPassword() == null) {
-            System.out.println("1. " + adminDto.getUsername());
-            System.out.println("1. " + adminDto.getPassword());
-            return "redirect:/login?error";
-        }
-
-        AdminDto admin = adminService.findByUserName(adminDto.getUsername());
-        if(admin == null) {
-            System.out.println("2. " + adminDto.getUsername());
-            System.out.println("2. " + adminDto.getPassword());
-            return "redirect:/login?error";
-        }
-
-        if(!passwordEncoder.encode(adminDto.getPassword()).equals(admin.getPassword())) {
-            System.out.println("3. " + adminDto.getUsername());
-            System.out.println("3. " + adminDto.getPassword());
-            System.out.println("4. " + admin.getUsername());
-            System.out.println("4. " + admin.getPassword());
-            return "redirect:/login?error";
-        }
-
-        return "redirect:/index";
-    }
-    */
-
-    @RequestMapping("/index")
-    public String home(Model model) {
+    @RequestMapping(value = {"/index", "/"})
+    public String home(Model model, Principal principal) {
+        model.addAttribute(SystemConstants.TITLE, "Home page");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
         }
+
+        String username = principal.getName();
+        AdminDto adminDto = adminService.findByUserName(username);
+
+        model.addAttribute(SystemConstants.ADMIN_DTO, adminDto);
         return "index";
     }
 

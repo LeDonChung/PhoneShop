@@ -43,7 +43,7 @@ public class AdminConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .requestMatchers("/*")
+                .requestMatchers("/*", "/index/**")
                 .permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
