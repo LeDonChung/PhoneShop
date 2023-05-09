@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title th:text="${title}"></title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}">
+  <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+  <!-- Layout styles -->
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}" />
+</head>
+<body>
+
+  <div th:fragment="script">
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script th:src="@{/js/off-canvas.js}"></script>
+    <script th:src="@{/js/hoverable-collapse.js}"></script>
+    <script th:src="@{/js/misc.js}"></script>
+    <!-- endinject -->
+  </div>
+</body>
+</html>
