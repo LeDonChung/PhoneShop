@@ -34,4 +34,5 @@ public class ProductEntity {
 
     private boolean is_deleted;
 
+    private int quantity;
 }

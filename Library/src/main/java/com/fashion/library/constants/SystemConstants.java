@@ -9,6 +9,7 @@ public class SystemConstants {
     public static final String FAIL = "fail";
     public static final String ERROR = "error";
     public static final String MESSAGE = "message";
-
-
+    public static final String CATEGORIES = "categories";
+    public static final String CATEGORY = "category";
+    public static final String SIZE = "size";
 }

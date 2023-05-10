@@ -22,6 +22,8 @@ public class ProductDto {
 
     private CategoryEntity category;
 
+    private int quantity;
+
     private boolean is_activated;
 
     private boolean is_deleted;
