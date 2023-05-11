@@ -27,36 +27,82 @@
                                 <h4 class="card-title">Product Manager
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#addCategory">
+                                            data-bs-target="#addProduct">
                                         Add
                                     </button>
 
-                                    <!-- Modal
-                                    <div class="modal fade" id="addCategory" tabindex="-1"
+                                    <!-- Modal Add Product-->
+                                    <div class="modal fade" id="addProduct" tabindex="-1"
                                          aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <form th:action="@{/add-category}" method="post" class="forms-sample" th:object="${category}">
+                                        <form th:action="@{/add-product}" method="post" class="forms-sample"
+                                              enctype="multipart/form-data" th:object="${product}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Add category</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label for="categoryName">Category name</label>
-                                                            <input th:field="*{categoryName}" type="text" class="form-control"
-                                                                   id="categoryName" placeholder="Category name">
+                                                            <label for="productName">Product name</label>
+                                                            <input th:field="*{productName}" type="text"
+                                                                   class="form-control"
+                                                                   id="productName" placeholder="Product name">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="categoryCode">Category code</label>
-                                                            <input th:field="*{categoryCode}" type="text" class="form-control"
-                                                                   id="categoryCode" placeholder="Category code">
+                                                            <label for="costPrice">Cost price</label>
+                                                            <input th:field="*{costPrice}" type="text"
+                                                                   class="form-control"
+                                                                   id="costPrice" placeholder="Cost price">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="salePrice">Sale price</label>
+                                                            <input th:field="*{salePrice}" type="text"
+                                                                   class="form-control"
+                                                                   id="salePrice" placeholder="Sale price">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="description">Description</label>
-                                                            <input th:field="*{description}" type="text" class="form-control"
+                                                            <input th:field="*{description}" type="text"
+                                                                   class="form-control"
                                                                    id="description" placeholder="Description">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="quantity">Quantity</label>
+                                                            <input th:field="*{quantity}" type="text"
+                                                                   class="form-control"
+                                                                   id="quantity" placeholder="Quantity">
+                                                        </div>
+                                                        <!-- category -->
+                                                        <!-- Select Basic -->
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label" for="categories">Category</label>
+                                                            <div class="col-md-4">
+                                                                <select id="categories" th:field="*{category}"
+                                                                        name="categories" class="form-control">
+                                                                    <option th:value="null">-Select-</option>
+                                                                    <option th:each="categoryChoose : ${categories}"
+                                                                            th:value="${categoryChoose.id}"
+                                                                            th:text="${categoryChoose.categoryName}">
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- image product -->
+                                                        <!-- Text input-->
+                                                        <div class="form-group">
+                                                            <div class="col-md-4">
+                                                                <!-- File Button -->
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 control-label"
+                                                                           for="imageProduct">Image Product</label>
+                                                                    <div class="col-md-4">
+                                                                        <input id="imageProduct" name="imageProduct"
+                                                                               class="input-file" type="file">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -70,78 +116,51 @@
                                             </div>
                                         </form>
                                     </div>
-                                    -->
+
                                 </h4>
                                 <div th:if="${size == 0}" class="alert alert-warning text-center">
-                                    No category
+                                    No Product
                                 </div>
+
                                 <div th:if="${fail}" class="alert alert-warning text-center" th:text="${fail}">
 
                                 </div>
                                 <div th:if="${success}" class="alert alert-warning text-center" th:text="${success}">
 
                                 </div>
+
                                 <table th:if="${size != 0}" class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th> ID</th>
                                         <th> Name</th>
-                                        <th> Code</th>
+                                        <th> Category</th>
+                                        <th> Cost price</th>
+                                        <th> Quantity</th>
+                                        <th> Image</th>
                                         <th> Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="category : ${categories}">
-                                        <td th:text="${category.id}"></td>
-                                        <td th:text="${category.categoryName}"></td>
-                                        <td th:text="${category.categoryCode}"></td>
+                                    <tr th:each="product : ${products}">
+                                        <td th:text="*{product.id}"></td>
+                                        <td th:text="*{product.productName}"></td>
+
+                                        <td th:if="*{product.category != null}"
+                                            th:text="*{product.category.categoryName}"></td>
+                                        <td th:if="*{product.category == null}">No category</td>
+
+                                        <td th:text="*{product.costPrice}"></td>
+                                        <td th:text="*{product.quantity}"></td>
+                                        <td><img th:src="@{'data:image/jpeg;base64,' + ${product.image}}" alt=""
+                                                 style="height: 40px; width: 40px;"></td>
                                         <td>
-                                            <a th:if="${category.is_deleted() == true}" th:href="@{/enable-category(code = ${category.categoryCode})}" class="btn btn-primary">Active</a>
-                                            <a th:if="${category.is_activated() == true}" th:href="@{/delete-category(code = ${category.categoryCode})}" class="btn btn-warning">Delete</a>
-                                            <a th:href="@{/findCategoryByCode(code = ${category.categoryCode})}" id="btnUpdate" class="btn btn-primary">Update</a>
-                                            <div class="modal fade" id="updateCategory" tabindex="-1"
-                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <form th:action="@{/update-category}" method="get" class="forms-sample">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="titleUpdate">Update category</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="idEdit">ID</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="idEdit" name="id" placeholder="ID" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="nameEdit">Category name</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="nameEdit" name="categoryName" placeholder="Category name">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="codeEdit">Category code</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="codeEdit" name="categoryCode" placeholder="Category code">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="desEdit">Description</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="desEdit" name="description" placeholder="Description">
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close
-                                                                </button>
-                                                                <button type="submit" class="btn btn-primary">Save changes
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                            <a th:if="${product.is_deleted() == true}"
+                                               th:href="@{/enable-product(id = ${product.id})}" class="btn btn-primary">Active</a>
+                                            <a th:if="${product.is_activated() == true}"
+                                               th:href="@{/delete-product(id = ${product.id})}" class="btn btn-warning">Delete</a>
+                                            <a id="btnUpdateProduct" th:href="@{/update-product(id = ${product.id})}"
+                                               class="btn btn-primary">Update</a>
                                         </td>
                                     </tr>
                                     </tbody>

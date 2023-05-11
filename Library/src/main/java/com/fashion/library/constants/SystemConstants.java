@@ -1,5 +1,7 @@
 package com.fashion.library.constants;
 
+import org.apache.tomcat.websocket.server.WsFrameServer;
+
 public class SystemConstants {
     public static final String TITLE = "title";
     public static final String ADMIN_DTO = "adminDto";
@@ -12,4 +14,6 @@ public class SystemConstants {
     public static final String CATEGORIES = "categories";
     public static final String CATEGORY = "category";
     public static final String SIZE = "size";
+    public static final String PRODUCTS = "products";
+    public static final String PRODUCT = "product";
 }

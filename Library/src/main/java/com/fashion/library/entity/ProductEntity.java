@@ -21,7 +21,8 @@ public class ProductEntity {
 
     private String description;
 
-    private Double price;
+    private Double costPrice;
+    private Double salePrice;
 
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;

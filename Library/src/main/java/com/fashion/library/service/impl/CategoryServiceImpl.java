@@ -27,6 +27,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> findAll() {
         List<CategoryEntity> entityList = categoryRepository.findAll();
+        return convertListCategoryDto(entityList);
+    }
+
+    @Override
+    public List<CategoryDto> findAllByActivated() {
+        List<CategoryEntity> entityList = categoryRepository.findByActivated();
+
+        return convertListCategoryDto(entityList);
+    }
+
+    private List<CategoryDto> convertListCategoryDto(List<CategoryEntity> entityList) {
         if (entityList == null) {
             entityList = new ArrayList<>();
         }
@@ -57,10 +68,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto update(CategoryDto categoryDto) {
-        System.out.println(categoryDto);
         // find
         CategoryEntity entityOld = categoryRepository.findByCategoryCode(categoryDto.getCategoryCode());
-        System.out.println(entityOld);
         // config
         CategoryEntity entityNew = categoryMapper.toEntity(entityOld, categoryDto);
 

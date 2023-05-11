@@ -7,6 +7,7 @@ import java.util.List;
 public interface CategoryService {
     CategoryDto findByCode(String code);
     List<CategoryDto> findAll();
+    List<CategoryDto> findAllByActivated();
     CategoryDto save(CategoryDto categoryDto);
     CategoryDto update(CategoryDto categoryDto);
     void delete(String code);
