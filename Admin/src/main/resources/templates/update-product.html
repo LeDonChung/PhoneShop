@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+
+</head>
+
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav th:replace="~{fragments::navbar}">
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav th:replace="~{fragments::sidebar}">
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Manager </h3>
+                </div>
+                <div class="row">
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Update product</h4>
+                                <form th:action="@{/update-product/{id}(id = ${product.id})}" class="forms-sample" th:object="${product}"
+                                      method="post"
+                                      enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="productName">Product name</label>
+                                        <input th:field="*{productName}" type="text" class="form-control"
+                                               id="productName" placeholder="Product name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="costPrice">Cost price</label>
+                                        <input th:field="*{costPrice}" type="number" class="form-control" id="costPrice"
+                                               placeholder="Cost price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="costPrice">Sale price</label>
+                                        <input th:field="*{salePrice}" type="number" class="form-control" id="salePrice"
+                                               placeholder="Sale price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="quantity">Quantity</label>
+                                        <input th:field="*{quantity}" type="number" class="form-control" id="quantity"
+                                               placeholder="Quantity">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="categories">Category</label>
+                                        <select id="categories" name="categories" th:field="*{category}"
+                                                class="form-control">
+                                            <option th:value="null">-Select-</option>
+                                            <option th:each="categoryChoose : ${categories}"
+                                                    th:value="${categoryChoose.id}"
+                                                    th:text="${categoryChoose.categoryName}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>File upload</label>
+                                        <input type="file" id="imageProduct" name="imageProduct"
+                                               class="file-upload-default">
+
+                                        <div class="input-group col-xs-12">
+                                            <input type="text" class="form-control file-upload-info" disabled
+                                                   placeholder="Upload Image">
+                                            <span class="input-group-append">
+                                                <button class="file-upload-browse btn btn-gradient-primary"
+                                                        type="button">Upload</button>
+                                            </span>
+                                        </div>
+                                        <img class="col-xs-12 text-center"
+                                             th:src="@{'data:image/jpeg;base64,' + ${product.image}}" alt=""
+                                             style="margin-top: 20px; height: 100px; width: 100px;">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="description">Textarea</label>
+                                        <textarea th:field="*{description}" class="form-control" id="description"
+                                                  rows="4"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- main-panel ends -->
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+
+            <!-- container-scroller -->
+            <head th:replace="~{fragments::script}">
+            </head>
+            <script th:src="@{/js/categories.js}"></script>
+            <!-- Custom js for this page -->
+            <script th:src="@{/js/file-upload.js}"></script>
+            <!-- End custom js for this page -->
+</body>
+</html>

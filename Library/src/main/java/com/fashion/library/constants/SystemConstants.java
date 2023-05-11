@@ -14,6 +14,8 @@ public class SystemConstants {
     public static final String CATEGORIES = "categories";
     public static final String CATEGORY = "category";
     public static final String SIZE = "size";
+    public static final String TOTAL_PAGE = "totalPage";
+    public static final String CURRENT_PAGE = "currentPage";
     public static final String PRODUCTS = "products";
     public static final String PRODUCT = "product";
 }
