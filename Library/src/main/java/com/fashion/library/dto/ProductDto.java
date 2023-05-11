@@ -1,9 +1,6 @@
 package com.fashion.library.dto;
 
-import com.fashion.library.entity.CategoryEntity;
-import com.fashion.library.entity.ColorEntity;
-import com.fashion.library.entity.MemoryEntity;
-import com.fashion.library.entity.StorageEntity;
+import com.fashion.library.entity.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,6 +32,8 @@ public class ProductDto {
     private boolean is_activated;
 
     private boolean is_deleted;
+
+    private BrandEntity brand;
 
     private Collection<ColorEntity> colors;
 

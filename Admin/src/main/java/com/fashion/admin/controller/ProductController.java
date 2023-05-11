@@ -4,9 +4,11 @@ import com.fashion.library.constants.SystemConstants;
 import com.fashion.library.dto.AdminDto;
 import com.fashion.library.dto.CategoryDto;
 import com.fashion.library.dto.ProductDto;
-import com.fashion.library.service.AdminService;
-import com.fashion.library.service.CategoryService;
-import com.fashion.library.service.ProductService;
+import com.fashion.library.entity.BrandEntity;
+import com.fashion.library.entity.ColorEntity;
+import com.fashion.library.entity.MemoryEntity;
+import com.fashion.library.entity.StorageEntity;
+import com.fashion.library.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,14 @@ public class ProductController {
     private AdminService adminService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private StorageService storageService;
+    @Autowired
+    private ColorService colorService;
+    @Autowired
+    private BrandService brandService;
+    @Autowired
+    private MemoryService memoryService;
 
     @GetMapping("products")
     public String products(Model model, Principal principal) {
@@ -42,14 +52,24 @@ public class ProductController {
         // Get All category
         List<CategoryDto> categories = categoryService.findAllByActivated();
         // Get All brand
+        List<BrandEntity> brands = brandService.findAll();
         // Get All color
+        List<ColorEntity> colors = colorService.findAll();
         // Get All storage
+        List<StorageEntity> storages = storageService.findAll();
         // Get All memory
+        List<MemoryEntity> memories = memoryService.findAll();
+
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
+        model.addAttribute(SystemConstants.BRANDS, brands);
+        model.addAttribute(SystemConstants.COLORS, colors);
+        model.addAttribute(SystemConstants.STORAGES, storages);
+        model.addAttribute(SystemConstants.MEMORIES, memories);
+
         model.addAttribute(SystemConstants.ADMIN_DTO, adminDto);
         model.addAttribute(SystemConstants.TITLE, "Product Manager");
         model.addAttribute(SystemConstants.PRODUCTS, products);
         model.addAttribute(SystemConstants.PRODUCT, new ProductDto());
-        model.addAttribute(SystemConstants.CATEGORIES, categories);
         model.addAttribute(SystemConstants.SIZE, products.size());
         return "products";
     }
@@ -63,14 +83,26 @@ public class ProductController {
         // Get Admin
         String username = principal.getName();
         AdminDto adminDto = adminService.findByUserName(username);
-
-        // Get All Product
+        /// Get All Product
         Page<ProductDto> products = productService.pageProducts(pageNo);
-
         // Get All category
         List<CategoryDto> categories = categoryService.findAllByActivated();
+        // Get All brand
+        List<BrandEntity> brands = brandService.findAll();
+        // Get All color
+        List<ColorEntity> colors = colorService.findAll();
+        // Get All storage
+        List<StorageEntity> storages = storageService.findAll();
+        // Get All memory
+        List<MemoryEntity> memories = memoryService.findAll();
 
         model.addAttribute(SystemConstants.TITLE, "Product Manager");
+
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
+        model.addAttribute(SystemConstants.BRANDS, brands);
+        model.addAttribute(SystemConstants.COLORS, colors);
+        model.addAttribute(SystemConstants.STORAGES, storages);
+        model.addAttribute(SystemConstants.MEMORIES, memories);
 
         model.addAttribute(SystemConstants.ADMIN_DTO, adminDto);
         model.addAttribute(SystemConstants.PRODUCTS, products);
@@ -100,6 +132,7 @@ public class ProductController {
             attributes.addFlashAttribute(SystemConstants.FAIL, "The server has been errors");
             e.printStackTrace();
         }
+
         return "redirect:/products/0";
     }
 

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ColorRepository extends JpaRepository<ColorEntity, Long> {
-    ColorEntity finByCode(String code);
+    ColorEntity findByCode(String code);
 
 }

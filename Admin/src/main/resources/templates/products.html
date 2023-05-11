@@ -69,7 +69,7 @@
                                                                    id="description" placeholder="Description">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="quantity">Quantity</label>
+                                                            <label>Quantity</label>
                                                             <input th:field="*{quantity}" type="text"
                                                                    class="form-control"
                                                                    id="quantity" placeholder="Quantity">
@@ -77,85 +77,38 @@
                                                         <!-- category -->
                                                         <!-- memory -->
                                                         <div class="form-group">
-                                                            <label for="quantity">Memory</label>
-                                                            <div class="form-check">
+                                                            <label>Memory</label>
+                                                            <div class="form-check" th:each="memory : ${memories}">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input"> 2GB
+                                                                    <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                                           th:field="*{memories}"
+                                                                           th:value="${memory.id}"
+                                                                           th:text="${memory.name}">
                                                                 </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    8GB </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    16GB </label>
                                                             </div>
                                                         </div>
                                                         <!-- Storage -->
                                                         <div class="form-group">
-                                                            <label for="quantity">Storage</label>
-                                                            <div class="form-check">
+                                                            <label>Storage</label>
+                                                            <div class="form-check" th:each="storage : ${storages}">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input"> 8GB
+                                                                    <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                                           th:field="*{storages}"
+                                                                           th:value="${storage.id}"
+                                                                           th:text="${storage.name}">
                                                                 </label>
                                                             </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    16GB </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    32GB </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    64GB </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    128GB </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    256GB </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    512GB </label>
-                                                            </div>
-
                                                         </div>
                                                         <!-- Color -->
                                                         <div class="form-group">
-                                                            <label for="quantity">Color</label>
-                                                            <div class="form-check">
+                                                            <label>Color</label>
+                                                            <div class="form-check" th:each="color : ${colors}">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input"> Black
+                                                                    <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                                           th:field="*{colors}"
+                                                                           th:value="${color.id}"
+                                                                           th:text="${color.name}">
                                                                 </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    White </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Yellow </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Pink </label>
                                                             </div>
                                                         </div>
                                                         <!-- Select Category -->
@@ -174,13 +127,16 @@
                                                         </div>
                                                         <!-- Select Brand -->
                                                         <div class="form-group">
-                                                            <label class="col-md-4 control-label" for="categories">Brand</label>
+                                                            <label class="col-md-4 control-label"
+                                                                   for="brands">Brand</label>
                                                             <div class="col-md-4">
-                                                                <select id="brands"
+                                                                <select id="brands" th:field="*{brand}"
                                                                         name="brands" class="form-control">
                                                                     <option th:value="null">-Select-</option>
-                                                                    <option th:value="null">-Apple-</option>
-                                                                    <option th:value="null">-Samsung-</option>
+                                                                    <option th:each="brandChoose : ${brands}"
+                                                                            th:value="${brandChoose.id}"
+                                                                            th:text="${brandChoose.name}"></option>
+
                                                                 </select>
                                                             </div>
                                                         </div>

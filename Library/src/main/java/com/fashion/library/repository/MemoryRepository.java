@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MemoryRepository extends JpaRepository<MemoryEntity, Long> {
-    MemoryEntity finByCode(String code);
+    MemoryEntity findByCode(String code);
 
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
-    BrandEntity finByCode(String code);
+    BrandEntity findByCode(String code);
 }

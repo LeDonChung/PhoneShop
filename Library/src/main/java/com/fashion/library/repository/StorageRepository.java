@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StorageRepository extends JpaRepository<StorageEntity, Long> {
-    StorageEntity finByCode(String code);
+    StorageEntity findByCode(String code);
 }

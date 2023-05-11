@@ -62,7 +62,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto save(MultipartFile image, ProductDto dto) {
-        System.out.println(dto);
         try {
             ProductEntity entity = productMapper.toEntity(dto);
 
@@ -71,6 +70,22 @@ public class ProductServiceImpl implements ProductService {
             entity.set_activated(true);
             if (dto.getCategory() != null) {
                 entity.setCategory(dto.getCategory());
+            }
+
+            if(dto.getBrand() != null) {
+                entity.setBrand(dto.getBrand());
+            }
+
+            if(dto.getColors().size() != 0) {
+                entity.setColors(dto.getColors());
+            }
+
+            if(dto.getMemories().size() != 0) {
+                entity.setMemories(dto.getMemories());
+            }
+
+            if(dto.getStorages().size() != 0) {
+                entity.setStorages(dto.getStorages());
             }
 
             if (image == null) {
