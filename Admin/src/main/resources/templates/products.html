@@ -75,7 +75,90 @@
                                                                    id="quantity" placeholder="Quantity">
                                                         </div>
                                                         <!-- category -->
-                                                        <!-- Select Basic -->
+                                                        <!-- memory -->
+                                                        <div class="form-group">
+                                                            <label for="quantity">Memory</label>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input"> 2GB
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    8GB </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    16GB </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Storage -->
+                                                        <div class="form-group">
+                                                            <label for="quantity">Storage</label>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input"> 8GB
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    16GB </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    32GB </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    64GB </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    128GB </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    256GB </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    512GB </label>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- Color -->
+                                                        <div class="form-group">
+                                                            <label for="quantity">Color</label>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input"> Black
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    White </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    Yellow </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    Pink </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Select Category -->
                                                         <div class="form-group">
                                                             <label class="col-md-4 control-label" for="categories">Category</label>
                                                             <div class="col-md-4">
@@ -86,6 +169,18 @@
                                                                             th:value="${categoryChoose.id}"
                                                                             th:text="${categoryChoose.categoryName}">
                                                                     </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Select Brand -->
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label" for="categories">Brand</label>
+                                                            <div class="col-md-4">
+                                                                <select id="brands"
+                                                                        name="brands" class="form-control">
+                                                                    <option th:value="null">-Select-</option>
+                                                                    <option th:value="null">-Apple-</option>
+                                                                    <option th:value="null">-Samsung-</option>
                                                                 </select>
                                                             </div>
                                                         </div>

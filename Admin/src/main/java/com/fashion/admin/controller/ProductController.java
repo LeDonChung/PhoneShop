@@ -41,7 +41,10 @@ public class ProductController {
         List<ProductDto> products = productService.findAll();
         // Get All category
         List<CategoryDto> categories = categoryService.findAllByActivated();
-
+        // Get All brand
+        // Get All color
+        // Get All storage
+        // Get All memory
         model.addAttribute(SystemConstants.ADMIN_DTO, adminDto);
         model.addAttribute(SystemConstants.TITLE, "Product Manager");
         model.addAttribute(SystemConstants.PRODUCTS, products);
