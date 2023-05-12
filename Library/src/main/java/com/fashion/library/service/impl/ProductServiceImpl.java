@@ -39,9 +39,6 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDto> listDto = new ArrayList<>();
         for (ProductEntity entity : listEntity) {
             ProductDto dto = productMapper.toDto(entity);
-            if (entity.getCategory() != null) {
-                dto.setCategory(entity.getCategory());
-            }
             listDto.add(dto);
         }
         return listDto;
@@ -53,9 +50,6 @@ public class ProductServiceImpl implements ProductService {
         ProductDto dto = null;
         if (entity != null) {
             dto = productMapper.toDto(entity);
-            if (entity.getCategory() != null) {
-                dto.setCategory(entity.getCategory());
-            }
         }
         return dto;
     }
@@ -68,25 +62,6 @@ public class ProductServiceImpl implements ProductService {
             // default
             entity.set_deleted(false);
             entity.set_activated(true);
-            if (dto.getCategory() != null) {
-                entity.setCategory(dto.getCategory());
-            }
-
-            if(dto.getBrand() != null) {
-                entity.setBrand(dto.getBrand());
-            }
-
-            if(dto.getColors().size() != 0) {
-                entity.setColors(dto.getColors());
-            }
-
-            if(dto.getMemories().size() != 0) {
-                entity.setMemories(dto.getMemories());
-            }
-
-            if(dto.getStorages().size() != 0) {
-                entity.setStorages(dto.getStorages());
-            }
 
             if (image == null) {
                 entity.setImage(null);
@@ -109,9 +84,6 @@ public class ProductServiceImpl implements ProductService {
         // config
         ProductEntity entityNew = productMapper.toEntity(entityOld, dtoNew);
 
-        if (dtoNew.getCategory() != null) {
-            entityNew.setCategory(dtoNew.getCategory());
-        }
         try {
             if (image.getSize() != 0) {
                 // exits

@@ -114,13 +114,56 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("/update-product")
+    public String updateProduct(Model model, Principal principal, Long id) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        // Get Admin
+        String username = principal.getName();
+        AdminDto adminDto = adminService.findByUserName(username);
+
+        // Get All category
+        List<CategoryDto> categories = categoryService.findAllByActivated();
+        // Get All brand
+        List<BrandEntity> brands = brandService.findAll();
+        // Get All color
+        List<ColorEntity> colors = colorService.findAll();
+        // Get All storage
+        List<StorageEntity> storages = storageService.findAll();
+        // Get All memory
+        List<MemoryEntity> memories = memoryService.findAll();
+
+        ProductDto dto = productService.findById(id);
+        System.out.println(dto);
+        model.addAttribute(SystemConstants.PRODUCT, dto);
+        model.addAttribute(SystemConstants.TITLE, "Update product");
+        model.addAttribute(SystemConstants.BRANDS, brands);
+        model.addAttribute(SystemConstants.COLORS, colors);
+        model.addAttribute(SystemConstants.STORAGES, storages);
+        model.addAttribute(SystemConstants.MEMORIES, memories);
+        model.addAttribute(SystemConstants.ADMIN_DTO, adminDto);
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
+
+        return "update-product";
+    }
+
+    @PostMapping("/update-product/{id}")
+    public String processUpdateProduct(Model model, @PathVariable("id") Long id, @RequestParam(value = "imageProduct") MultipartFile imageProduct, @ModelAttribute(SystemConstants.PRODUCT) ProductDto productDto, RedirectAttributes attributes) {
+        try {
+            productDto.setId(id);
+            productService.update(imageProduct, productDto);
+            attributes.addFlashAttribute(SystemConstants.SUCCESS, "Update product successfully");
+        } catch (Exception e) {
+            attributes.addFlashAttribute(SystemConstants.FAIL, "The server has been errors");
+            e.printStackTrace();
+        }
+        return "redirect:/products/0";
+    }
+
 
     @PostMapping("/add-product")
-    public String addProduct(Model model,
-                             @RequestParam("imageProduct") MultipartFile imageProduct,
-                             RedirectAttributes attributes,
-                             @ModelAttribute(SystemConstants.PRODUCT) ProductDto productDto,
-                             Principal principal) {
+    public String addProduct(Model model, @RequestParam("imageProduct") MultipartFile imageProduct, RedirectAttributes attributes, @ModelAttribute(SystemConstants.PRODUCT) ProductDto productDto, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
@@ -166,46 +209,5 @@ public class ProductController {
         return productService.findById(id);
     }
 
-    @GetMapping("/update-product")
-    public String updateProduct(Model model,
-                                Principal principal, Long id) {
-        if (principal == null) {
-            return "redirect:/login";
-        }
-        // Get Admin
-        String username = principal.getName();
-        AdminDto adminDto = adminService.findByUserName(username);
-
-        // Get All category
-        List<CategoryDto> categories = categoryService.findAllByActivated();
-
-
-        ProductDto dto = productService.findById(id);
-        System.out.println(dto.getCategory());
-        model.addAttribute(SystemConstants.PRODUCT, dto);
-        model.addAttribute(SystemConstants.TITLE, "Update product");
-
-        model.addAttribute(SystemConstants.ADMIN_DTO, adminDto);
-        model.addAttribute(SystemConstants.CATEGORIES, categories);
-
-        return "update-product";
-    }
-
-    @PostMapping("/update-product/{id}")
-    public String processUpdateProduct(Model model,
-                                       @PathVariable("id") Long id,
-                                       @RequestParam(value = "imageProduct") MultipartFile imageProduct,
-                                       @ModelAttribute(SystemConstants.PRODUCT) ProductDto productDto,
-                                       RedirectAttributes attributes) {
-        try {
-            productDto.setId(id);
-            productService.update(imageProduct, productDto);
-            attributes.addFlashAttribute(SystemConstants.SUCCESS, "Update product successfully");
-        } catch (Exception e) {
-            attributes.addFlashAttribute(SystemConstants.FAIL, "The server has been errors");
-            e.printStackTrace();
-        }
-        return "redirect:/products/0";
-    }
 
 }

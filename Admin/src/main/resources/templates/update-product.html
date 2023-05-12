@@ -25,7 +25,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Update product</h4>
-                                <form th:action="@{/update-product/{id}(id = ${product.id})}" class="forms-sample" th:object="${product}"
+                                <form th:action="@{/update-product/{id}(id = ${product.id})}" class="forms-sample"
+                                      th:object="${product}"
                                       method="post"
                                       enctype="multipart/form-data">
                                     <div class="form-group">
@@ -49,6 +50,44 @@
                                                placeholder="Quantity">
                                     </div>
 
+
+                                    <!-- memory -->
+                                    <div class="form-group">
+                                        <label>Memory</label>
+                                        <div class="form-check" th:each="memory : ${memories}">
+                                            <label class="form-check-label">
+                                                <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                       th:field="*{memories}"
+                                                       th:value="${memory.id}"
+                                                       th:text="${memory.name}">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- Storage -->
+                                    <div class="form-group">
+                                        <label>Storage</label>
+                                        <div class="form-check" th:each="storage : ${storages}">
+                                            <label class="form-check-label">
+                                                <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                       th:field="*{storages}"
+                                                       th:value="${storage.id}"
+                                                       th:text="${storage.name}">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- Color -->
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <div class="form-check" th:each="color : ${colors}">
+                                            <label class="form-check-label">
+                                                <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                       th:field="*{colors}"
+                                                       th:value="${color.id}"
+                                                       th:text="${color.name}">
+                                            </label>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label for="categories">Category</label>
                                         <select id="categories" name="categories" th:field="*{category}"
@@ -60,6 +99,22 @@
                                             </option>
                                         </select>
                                     </div>
+                                    <!-- Select Brand -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"
+                                               for="brands">Brand</label>
+                                        <div class="col-md-4">
+                                            <select id="brands" th:field="*{brand}"
+                                                    name="brands" class="form-control">
+                                                <option th:value="null">-Select-</option>
+                                                <option th:each="brandChoose : ${brands}"
+                                                        th:value="${brandChoose.id}"
+                                                        th:text="${brandChoose.name}"></option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label>File upload</label>
                                         <input type="file" id="imageProduct" name="imageProduct"
