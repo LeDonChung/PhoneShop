@@ -25,11 +25,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private CategoryService categoryService;
-    @Autowired
     private ProductMapper productMapper;
-    @Autowired
-    private CategoryMapper categoryMapper;
     @Autowired
     private ImageUploadUtils imageUploadUtils;
 
