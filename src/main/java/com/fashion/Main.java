@@ -1,4 +1,4 @@
-package com.fashion;
+package com.phone;
 
 public class Main {
     public static void main(String[] args) {
