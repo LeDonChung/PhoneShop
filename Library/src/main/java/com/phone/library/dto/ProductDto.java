@@ -26,17 +26,11 @@ public class ProductDto {
 
     private CategoryEntity category;
 
-    private int quantity;
+    private int quantity; // have
 
     private boolean is_activated;
 
     private boolean is_deleted;
 
     private BrandEntity brand;
-
-    private Collection<ColorEntity> colors;
-
-    private Collection<MemoryEntity> memories;
-
-    private Collection<StorageEntity> storages;
 }

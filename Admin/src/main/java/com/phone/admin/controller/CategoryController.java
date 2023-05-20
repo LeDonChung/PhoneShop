@@ -56,8 +56,9 @@ public class CategoryController {
         return "redirect:/categories";
     }
     @GetMapping("/update-category")
-    public String updateCategory(Model model, CategoryDto categoryDto, RedirectAttributes attributes) {
+    public String updateCategory(Model model, @RequestParam("id") Long id, CategoryDto categoryDto, RedirectAttributes attributes) {
         try {
+            categoryDto.setId(id);
             categoryService.update(categoryDto);
             attributes.addFlashAttribute(SystemConstants.SUCCESS, "Update category successfully");
         } catch(Exception e) {

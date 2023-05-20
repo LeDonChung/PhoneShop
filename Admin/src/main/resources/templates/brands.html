@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+
+</head>
+
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav th:replace="~{fragments::navbar}">
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav th:replace="~{fragments::sidebar}">
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Manager </h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Brand Manager
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#addBrand">
+                                        Add
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addBrand" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <form th:action="@{/add-brand}" method="post" class="forms-sample" th:object="${brand}" enctype="multipart/form-data">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Add brand</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="categoryName">Brand name</label>
+                                                            <input th:field="*{name}" type="text" class="form-control"
+                                                                   id="categoryName" placeholder="Brand name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="categoryCode">Brand code</label>
+                                                            <input th:field="*{code}" type="text" class="form-control"
+                                                                   id="categoryCode" placeholder="Brand code">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-4">
+                                                                <!-- File Button -->
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 control-label"
+                                                                           for="logoBrand">Logo brand</label>
+                                                                    <div class="col-md-4">
+                                                                        <input id="logoBrand" name="logoBrand"
+                                                                               class="input-file" type="file">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Save changes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </h4>
+                                <div th:if="${size == 0}" class="alert alert-warning text-center">
+                                    No category
+                                </div>
+                                <div th:if="${fail}" class="alert alert-warning text-center" th:text="${fail}">
+
+                                </div>
+                                <div th:if="${success}" class="alert alert-warning text-center" th:text="${success}">
+
+                                </div>
+                                <table th:if="${size != 0}" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th> ID</th>
+                                        <th> Name</th>
+                                        <th> Code</th>
+                                        <th> Logo</th>
+                                        <th> Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="brand : ${brands}">
+                                        <td th:text="${brand.id}"></td>
+                                        <td th:text="${brand.name}"></td>
+                                        <td th:text="${brand.code}"></td>
+                                        <td><img th:src="@{'data:image/jpeg;base64,' + ${brand.logo}}" th:if="${brand.logo != null}" style="height: 40px; width: 40px;"/></td>
+                                        <td>
+                                            <a th:if="${brand.is_deleted() == true}" th:href="@{/enable-brand(code = ${brand.code})}" class="btn btn-primary">Active</a>
+                                            <a th:if="${brand.is_activated() == true}" th:href="@{/delete-brand(code = ${brand.code})}" class="btn btn-warning">Delete</a>
+                                            <a th:href="@{/findBrandByCode(code = ${brand.code})}" id="btnUpdate" class="btn btn-primary">Update</a>
+                                            <div class="modal fade" id="updateBrand" tabindex="-1"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <form th:action="@{/update-brand}" method="post" class="forms-sample" enctype="multipart/form-data">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="titleUpdate">Update brand</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="idEdit">ID</label>
+                                                                    <input type="text" class="form-control"
+                                                                           id="idEdit" placeholder="ID" disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="nameEdit">Brand name</label>
+                                                                    <input type="text" class="form-control"
+                                                                           id="nameEdit" name="name" placeholder="Brand name">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="codeEdit">Brand code</label>
+                                                                    <input type="text" class="form-control"
+                                                                           id="codeEdit" name="code" placeholder="Brand code">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="col-md-4">
+                                                                        <!-- File Button -->
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-4 control-label"
+                                                                                   for="logoBrand">Logo brand</label>
+                                                                            <div class="col-md-4">
+                                                                                <input id="logoBrandS" name="logoBrand"
+                                                                                       class="input-file" type="file">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary">Save changes
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer th:replace="~{fragments::footer}">
+
+            </footer>
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+
+
+<!-- container-scroller -->
+<head th:replace="~{fragments::script}">
+</head>
+<script th:src="@{/js/brands.js}"></script>
+</body>
+</html>

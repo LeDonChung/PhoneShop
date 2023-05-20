@@ -4,6 +4,8 @@ $('document').ready(() => {
 
         let href = $(this).attr('href');
         $.get(href, function(category, status) {
+            let inputId = `<input type="hidden" class="form-control" name="id" value="${category.id}">`;
+            $('#idEdit').parent('.form-group').append(inputId);
             $('#idEdit').val(category.id);
             $('#nameEdit').val(category.categoryName);
             $('#codeEdit').val(category.categoryCode);

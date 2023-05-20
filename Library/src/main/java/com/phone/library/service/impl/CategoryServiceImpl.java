@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto update(CategoryDto categoryDto) {
         // find
-        CategoryEntity entityOld = categoryRepository.findByCategoryCode(categoryDto.getCategoryCode());
+        CategoryEntity entityOld = categoryRepository.findById(categoryDto.getId()).get();
         // config
         CategoryEntity entityNew = categoryMapper.toEntity(entityOld, categoryDto);
 

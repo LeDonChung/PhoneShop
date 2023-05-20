@@ -1,6 +1,7 @@
 package com.phone.library.service;
 
 import com.phone.library.dto.ProductDto;
+import com.phone.library.model.ProductFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,5 +16,12 @@ public interface ProductService {
     void enable(Long id);
 
     Page<ProductDto> pageProducts(int pageNo);
+
+    // Customer
+    List<ProductDto> findFeaturedProduct();
+    List<ProductDto> findOfferProducts();
+    Page<ProductDto> getPageProducts(ProductFilter filter);
+    List<ProductDto> findAlsoLike(String category);
+
 
 }

@@ -51,24 +51,48 @@
                                                                    id="productName" placeholder="Product name">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="costPrice">Cost price</label>
-                                                            <input th:field="*{costPrice}" type="text"
-                                                                   class="form-control"
-                                                                   id="costPrice" placeholder="Cost price">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="salePrice">Sale price</label>
-                                                            <input th:field="*{salePrice}" type="text"
-                                                                   class="form-control"
-                                                                   id="salePrice" placeholder="Sale price">
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label for="description">Description</label>
                                                             <input th:field="*{description}" type="text"
                                                                    class="form-control"
                                                                    id="description" placeholder="Description">
                                                         </div>
                                                         <!-- category -->
+                                                        <!-- memory -->
+                                                        <div class="form-group">
+                                                            <label>Memory</label>
+                                                            <div class="form-check" th:each="memory : ${memories}">
+                                                                <label class="form-check-label">
+                                                                    <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                                           th:field="*{memories}"
+                                                                           th:value="${memory.id}"
+                                                                           th:text="${memory.name}">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Storage -->
+                                                        <div class="form-group">
+                                                            <label>Storage</label>
+                                                            <div class="form-check" th:each="storage : ${storages}">
+                                                                <label class="form-check-label">
+                                                                    <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                                           th:field="*{storages}"
+                                                                           th:value="${storage.id}"
+                                                                           th:text="${storage.name}">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Color -->
+                                                        <div class="form-group">
+                                                            <label>Color</label>
+                                                            <div class="form-check" th:each="color : ${colors}">
+                                                                <label class="form-check-label">
+                                                                    <input style="opacity: 1;" type="checkbox" class="form-check-input"
+                                                                           th:field="*{colors}"
+                                                                           th:value="${color.id}"
+                                                                           th:text="${color.name}">
+                                                                </label>
+                                                            </div>
+                                                        </div>
                                                         <!-- Select Category -->
                                                         <div class="form-group">
                                                             <label class="col-md-4 control-label" for="categories">Category</label>
@@ -144,8 +168,6 @@
                                         <th> ID</th>
                                         <th> Name</th>
                                         <th> Category</th>
-                                        <th> Cost price</th>
-                                        <th> Quantity </th>
                                         <th> Image</th>
                                         <th> Action</th>
                                     </tr>
@@ -159,8 +181,7 @@
                                             th:text="*{product.category.categoryName}"></td>
                                         <td th:if="*{product.category == null}">No category</td>
 
-                                        <td th:text="*{product.costPrice}"></td>
-                                        <td th:text="*{product.quantity}"></td>
+
                                         <td><img th:src="@{'data:image/jpeg;base64,' + ${product.image}}" alt=""
                                                  style="height: 40px; width: 40px;"></td>
                                         <td>

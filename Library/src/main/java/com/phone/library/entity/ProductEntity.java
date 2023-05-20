@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -37,25 +38,10 @@ public class ProductEntity {
 
     private boolean is_deleted;
 
-    private int quantity;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "products_colors", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-            , inverseJoinColumns = @JoinColumn(name = "color_id", referencedColumnName = "color_id"))
-    private Collection<ColorEntity> colors;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "products_memories", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-            , inverseJoinColumns = @JoinColumn(name = "memory_id", referencedColumnName = "memory_id"))
-    private Collection<MemoryEntity> memories;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "products_storages", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-            , inverseJoinColumns = @JoinColumn(name = "storage_id", referencedColumnName = "storage_id"))
-    private Collection<StorageEntity> storages;
-
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
     private BrandEntity brand;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<StoreEntity> stores;
 }

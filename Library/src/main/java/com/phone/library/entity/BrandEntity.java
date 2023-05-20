@@ -15,6 +15,15 @@ public class BrandEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")
     private Long id;
+
     private String name;
+
     private String code;
+
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String logo;
+
+    private boolean is_activated;
+
+    private boolean is_deleted;
 }

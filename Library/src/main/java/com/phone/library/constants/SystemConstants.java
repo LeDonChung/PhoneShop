@@ -17,9 +17,12 @@ public class SystemConstants {
     public static final String PRODUCTS = "products";
     public static final String PRODUCT = "product";
     public static final String BRANDS = "brands";
+    public static final String BRAND = "brand";
     public static final String MEMORIES = "memories";
 
     public static final String COLORS = "colors";
     public static final String STORAGES = "storages";
+    public static final String BREADCRUMB = "breadcrumbActive";
+    public static final String PRODUCT_FILTER = "productFilter";
 
 }

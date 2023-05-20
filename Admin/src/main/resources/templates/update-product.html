@@ -44,49 +44,6 @@
                                         <input th:field="*{salePrice}" type="number" class="form-control" id="salePrice"
                                                placeholder="Sale price">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="quantity">Quantity</label>
-                                        <input th:field="*{quantity}" type="number" class="form-control" id="quantity"
-                                               placeholder="Quantity">
-                                    </div>
-
-
-                                    <!-- memory -->
-                                    <div class="form-group">
-                                        <label>Memory</label>
-                                        <div class="form-check" th:each="memory : ${memories}">
-                                            <label class="form-check-label">
-                                                <input style="opacity: 1;" type="checkbox" class="form-check-input"
-                                                       th:field="*{memories}"
-                                                       th:value="${memory.id}"
-                                                       th:text="${memory.name}">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <!-- Storage -->
-                                    <div class="form-group">
-                                        <label>Storage</label>
-                                        <div class="form-check" th:each="storage : ${storages}">
-                                            <label class="form-check-label">
-                                                <input style="opacity: 1;" type="checkbox" class="form-check-input"
-                                                       th:field="*{storages}"
-                                                       th:value="${storage.id}"
-                                                       th:text="${storage.name}">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <!-- Color -->
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div class="form-check" th:each="color : ${colors}">
-                                            <label class="form-check-label">
-                                                <input style="opacity: 1;" type="checkbox" class="form-check-input"
-                                                       th:field="*{colors}"
-                                                       th:value="${color.id}"
-                                                       th:text="${color.name}">
-                                            </label>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group">
                                         <label for="categories">Category</label>

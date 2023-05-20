@@ -2,6 +2,7 @@ package com.phone.admin.controller;
 
 import com.phone.library.constants.SystemConstants;
 import com.phone.library.dto.AdminDto;
+import com.phone.library.dto.BrandDto;
 import com.phone.library.dto.CategoryDto;
 import com.phone.library.dto.ProductDto;
 import com.phone.library.entity.BrandEntity;
@@ -52,7 +53,7 @@ public class ProductController {
         // Get All category
         List<CategoryDto> categories = categoryService.findAllByActivated();
         // Get All brand
-        List<BrandEntity> brands = brandService.findAll();
+        List<BrandDto> brands = brandService.findAll();
         // Get All color
         List<ColorEntity> colors = colorService.findAll();
         // Get All storage
@@ -88,7 +89,7 @@ public class ProductController {
         // Get All category
         List<CategoryDto> categories = categoryService.findAllByActivated();
         // Get All brand
-        List<BrandEntity> brands = brandService.findAll();
+        List<BrandDto> brands = brandService.findAll();
         // Get All color
         List<ColorEntity> colors = colorService.findAll();
         // Get All storage
@@ -126,7 +127,7 @@ public class ProductController {
         // Get All category
         List<CategoryDto> categories = categoryService.findAllByActivated();
         // Get All brand
-        List<BrandEntity> brands = brandService.findAll();
+        List<BrandDto> brands = brandService.findAll();
         // Get All color
         List<ColorEntity> colors = colorService.findAll();
         // Get All storage
@@ -149,7 +150,7 @@ public class ProductController {
     }
 
     @PostMapping("/update-product/{id}")
-    public String processUpdateProduct(Model model, @PathVariable("id") Long id, @RequestParam(value = "imageProduct") MultipartFile imageProduct, @ModelAttribute(SystemConstants.PRODUCT) ProductDto productDto, RedirectAttributes attributes) {
+    public String processUpdateProduct(Model model, @PathVariable("id") Long id, @RequestParam(value = "imageProduct", required = false) MultipartFile imageProduct, @ModelAttribute(SystemConstants.PRODUCT) ProductDto productDto, RedirectAttributes attributes) {
         try {
             productDto.setId(id);
             productService.update(imageProduct, productDto);
