@@ -76,9 +76,8 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity entityOld = productRepository.findById(dtoNew.getId()).get();
         // config
         ProductEntity entityNew = productMapper.toEntity(entityOld, dtoNew);
-
         try {
-            if (image != null) {
+            if (image.getSize() != 0) {
                 // exits
                 if (!imageUploadUtils.checkExisted(image)) {
                     imageUploadUtils.uploadImage(image);

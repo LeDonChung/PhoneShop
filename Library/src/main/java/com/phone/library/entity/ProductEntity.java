@@ -21,7 +21,7 @@ public class ProductEntity {
     private Long id;
 
     private String productName;
-
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     private Double costPrice;
