@@ -22,10 +22,7 @@ public class ProductDto {
 
     private Double costPrice;
     private Double salePrice;
-
-
     private String image;
-
     private CategoryEntity category;
 
     private int quantity; // have
@@ -35,6 +32,6 @@ public class ProductDto {
     private boolean is_deleted;
 
     private BrandEntity brand;
-
+    private MemoryEntity memory;
 
 }

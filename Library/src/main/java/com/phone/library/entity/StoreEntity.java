@@ -33,8 +33,4 @@ public class StoreEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "storage_id", referencedColumnName = "storage_id")
     private StorageEntity storage;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "memory_id", referencedColumnName = "memory_id")
-    private MemoryEntity memory;
 }

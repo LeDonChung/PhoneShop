@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
             entity.set_deleted(false);
             entity.set_activated(true);
 
-            if (image == null) {
+            if (image.getSize() == 0) {
                 entity.setImage(null);
             } else {
                 imageUploadUtils.uploadImage(image);

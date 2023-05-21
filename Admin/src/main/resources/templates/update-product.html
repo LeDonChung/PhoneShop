@@ -43,7 +43,21 @@
                                         <input th:field="*{salePrice}" type="number" class="form-control" id="salePrice"
                                                placeholder="Sale price">
                                     </div>
+                                    <!-- Select Memory -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"
+                                               for="brands">Memory</label>
+                                        <div class="col-md-4">
+                                            <select id="brands" th:field="*{memory}"
+                                                    name="brands" class="form-control">
+                                                <option th:value="null">-Select-</option>
+                                                <option th:each="memoryChoose : ${memories}"
+                                                        th:value="${memoryChoose.id}"
+                                                        th:text="${memoryChoose.name}"></option>
 
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="categories">Category</label>
                                         <select id="categories" name="categories" th:field="*{category}"

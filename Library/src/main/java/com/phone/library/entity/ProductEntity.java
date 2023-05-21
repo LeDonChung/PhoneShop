@@ -41,4 +41,8 @@ public class ProductEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
     private BrandEntity brand;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "memory_id", referencedColumnName = "memory_id")
+    private MemoryEntity memory;
 }

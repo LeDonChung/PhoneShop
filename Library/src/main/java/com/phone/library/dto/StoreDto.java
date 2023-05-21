@@ -26,6 +26,4 @@ public class StoreDto {
     private ColorEntity color;
 
     private StorageEntity storage;
-
-    private MemoryEntity memory;
 }

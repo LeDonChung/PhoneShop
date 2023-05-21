@@ -13,8 +13,6 @@ import java.util.List;
 public interface StoreRepository extends JpaRepository<StoreEntity, Long> {
     @Query(value = "select s from StoreEntity s where s.quantity != 0 and s.product.id = ?1")
     List<StoreEntity> findByProductId(Long productId);
-    @Query(value = "select distinct s.memory from StoreEntity s where s.product.id = ?1 and s.quantity != 0")
-    List<MemoryEntity> findMemoriesByProductId(Long productId);
     @Query(value = "select distinct s.color from StoreEntity s where s.product.id = ?2 and s.quantity != 0 and s.storage.code = ?1")
     List<ColorEntity> findColorsByStorageCodeAndProductId(String storageCode,Long productId);
     @Query(value = "select distinct s.storage from StoreEntity s where s.product.id = ?1 and s.quantity != 0")

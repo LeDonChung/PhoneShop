@@ -136,7 +136,6 @@ public class ProductController {
         List<MemoryEntity> memories = memoryService.findAll();
 
         ProductDto dto = productService.findById(id);
-        System.out.println(dto);
         model.addAttribute(SystemConstants.PRODUCT, dto);
         model.addAttribute(SystemConstants.TITLE, "Update product");
         model.addAttribute(SystemConstants.BRANDS, brands);

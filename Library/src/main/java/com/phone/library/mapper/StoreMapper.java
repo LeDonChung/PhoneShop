@@ -24,9 +24,6 @@ public class StoreMapper {
         if (entity.getStorage() != null) {
             dto.setStorage(entity.getStorage());
         }
-        if (entity.getMemory() != null) {
-            dto.setMemory(entity.getMemory());
-        }
         return dto;
     }
 
@@ -46,9 +43,6 @@ public class StoreMapper {
         }
         if (dto.getStorage() != null) {
             entity.setStorage(dto.getStorage());
-        }
-        if (dto.getMemory() != null) {
-            entity.setMemory(dto.getMemory());
         }
         return entity;
     }

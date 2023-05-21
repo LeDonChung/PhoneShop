@@ -26,6 +26,9 @@ public class ProductMapper {
         if (dto.getBrand() != null) {
             entity.setBrand(dto.getBrand());
         }
+        if (dto.getMemory() != null) {
+            entity.setMemory(dto.getMemory());
+        }
 
         return entity;
     }
@@ -40,6 +43,9 @@ public class ProductMapper {
         }
         if (dto.getBrand() != null) {
             entityNew.setBrand(dto.getBrand());
+        }
+        if (dto.getMemory() != null) {
+            entityNew.setMemory(dto.getMemory());
         }
 
         return entityNew;
@@ -61,6 +67,9 @@ public class ProductMapper {
         }
         if (entity.getBrand() != null) {
             dto.setBrand(entity.getBrand());
+        }
+        if (entity.getMemory() != null) {
+            dto.setMemory(entity.getMemory());
         }
         int quantity = 0;
         /*
