@@ -1,9 +1,13 @@
 package com.phone.library.mapper;
 
 import com.phone.library.dto.ProductDto;
+import com.phone.library.dto.StoreDto;
 import com.phone.library.entity.ProductEntity;
 import com.phone.library.entity.StoreEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ProductMapper {
@@ -59,11 +63,13 @@ public class ProductMapper {
             dto.setBrand(entity.getBrand());
         }
         int quantity = 0;
+        /*
         if(entity.getStores() != null) {
             for (StoreEntity store: entity.getStores()) {
-                quantity += store.getQuantity();
+                    quantity += store.getQuantity();
             }
         }
+         */
         dto.setQuantity(quantity);
 
         return dto;

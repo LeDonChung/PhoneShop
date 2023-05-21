@@ -41,7 +41,4 @@ public class ProductEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
     private BrandEntity brand;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private List<StoreEntity> stores;
 }

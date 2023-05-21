@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -33,4 +35,6 @@ public class ProductDto {
     private boolean is_deleted;
 
     private BrandEntity brand;
+
+
 }

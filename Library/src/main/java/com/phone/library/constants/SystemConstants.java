@@ -22,7 +22,11 @@ public class SystemConstants {
 
     public static final String COLORS = "colors";
     public static final String STORAGES = "storages";
+    public static final String STORAGE_CHOOSE = "storageChoose";
+    public static final String COLOR_CHOOSE = "colorChoose";
+    public static final String STORES = "stores";
     public static final String BREADCRUMB = "breadcrumbActive";
     public static final String PRODUCT_FILTER = "productFilter";
 
+    public static final String PRICE = "price";
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query(value="select p from ProductEntity  p where p.is_deleted = false and p.is_activated = true")
     List<ProductEntity> getAll();
+
     @Query(value = "select * from products p where p.is_deleted = false and p.is_activated = true order by rand() asc limit 8 ", nativeQuery = true)
     List<ProductEntity> getFeaturedProducts();
 

@@ -1,6 +1,7 @@
 package com.phone.customer.controller;
 
 import com.phone.library.constants.SystemConstants;
+import com.phone.library.dto.BrandDto;
 import com.phone.library.dto.CategoryDto;
 import com.phone.library.dto.ProductDto;
 import com.phone.library.entity.BrandEntity;
@@ -49,7 +50,7 @@ public class ShopController {
         // Get All Categories
         List<CategoryDto> categories = categoryService.findAllByActivated();
         // Get All Brands
-        List<BrandEntity> brands = brandService.findAll();
+        List<BrandDto> brands = brandService.findAll();
 
         model.addAttribute(SystemConstants.PRODUCTS, products);
         model.addAttribute(SystemConstants.CATEGORIES, categories);
