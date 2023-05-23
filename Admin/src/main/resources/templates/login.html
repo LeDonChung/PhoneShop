@@ -14,11 +14,11 @@
                         </div>
                         <h4>Hello! let's get started</h4>
                         <h6 class="font-weight-light">Sign in to continue.</h6>
-                        <div th:if="${param.error}">
+                        <div class="alert alert-danger" th:if="${param.error}" th:text="${param.error}">
                             <p>Username or password invalid</p>
                         </div>
-                        <div th:if="${param.logout}">
-                            <p>you have been logged out</p>
+                        <div class="alert alert-danger" th:if="${param.logout}">
+                            <p>You have been logged out</p>
                         </div>
                         <form  th:action="@{/do-login}" class="pt-3" method="post">
                             <div class="form-group">
@@ -32,7 +32,7 @@
                             <div class="mt-3">
                                 <button type="submit"
                                         class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">
-                                    SIGN IN
+                                    Sign up
                                 </button>
                             </div>
                         </form>

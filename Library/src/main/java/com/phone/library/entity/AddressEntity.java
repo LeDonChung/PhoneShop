@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "address_deliveries")
-public class AddressDeliveryEntity {
+@Table(name = "address")
+public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_delivery_id")
+    @Column(name = "address_id")
     private Long id;
-
     private String address;
     private String city;
     private String country;

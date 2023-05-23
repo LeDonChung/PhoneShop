@@ -37,7 +37,8 @@
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">
                 <h3 th:text="${product.productName}"></h3>
-                <h3 class="font-weight-semi-bold mb-4" th:th:text="${price}"></h3>
+                <h3 class="font-weight-semi-bold mb-4" th:if="${price}" th:th:text="${price}"></h3>
+                <h3 class="font-weight-semi-bold mb-4" th:if="${price == null}" th:th:text="${product.costPrice}"></h3>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
@@ -57,14 +58,15 @@
                         Cart
                     </button>
                 </div>
-                <div class="d-flex mb-4">
+                <p class="alert alert-info" th:if="${error}" th:text="${error}"/>
+                <div class="d-flex mb-4" th:if="${storages}">
                     <strong class="text-dark mr-3">Storages:</strong>
                     <form th:action="@{/product/{id}(id = ${product.id})}" method="get">
                         <button th:each="storage: ${storages}" name="storageCode" th:value="${storage.code}"  type="submit"class="btn btn-outline-info" th:classappend="${storageChoose == storage.getCode() ? 'active' : ''}"  th:text="${storage.name}"/>
                     </form>
                 </div>
 
-                <div class="d-flex mb-4">
+                <div class="d-flex mb-4" th:if="${colors}">
                     <strong class="text-dark mr-3">Colors:</strong>
                     <form th:action="@{/product/{id}(id = ${product.id})}" method="get">
                         <input type="hidden" name="storageCode" th:value="${storageChoose}">
@@ -72,7 +74,7 @@
                     </form>
                 </div>
 
-            </div>
+            </p>
         </div>
     </div>
     <div class="row px-xl-5">
@@ -93,6 +95,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- Shop Detail End -->
 

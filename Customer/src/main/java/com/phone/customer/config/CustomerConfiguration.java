@@ -50,7 +50,7 @@ public class CustomerConfiguration {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/do-login")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/home")
                 // .failureForwardUrl("/login?error") (Have custom by http)
                 .permitAll()
                 .and()

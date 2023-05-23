@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments::header}">
+</head>
+
+<body>
+<!-- Topbar Start -->
+<div th:replace="~{fragments::topbar}"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{fragments::navbar}"></div>
+<!-- Navbar End -->
+
+<div class="container-fluid" style="padding: 20px;
+    background-color: #fff;">
+    <div class="row d-flex justify-content-center my-lg-5 my-3">
+        <div class="col-md-6">
+            <p class="alert alert-danger" th:if="${param.error}">
+                Username or password invalid
+            </p>
+            <p class="alert alert-danger" th:if="${param.logout}">
+                You have been logged out
+            </p>
+            <form th:action="@{/do-login}" method="post">
+                <div class="text-center mb-3">
+                    <p>Sign in with:</p>
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                    </button>
+                </div>
+
+                <p class="text-center">or:</p>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <input type="email" id="username" name="username" class="form-control" />
+                    <label class="form-label" for="username">Email or username</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input type="password" id="password" name="password" class="form-control" />
+                    <label class="form-label" for="password">Password</label>
+                </div>
+
+                <!-- 2 column grid layout -->
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <!-- Simple link -->
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+                <!-- Register buttons -->
+                <div class="text-center">
+                    <p>Not a member? <a th:href="@{/register}">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer Start -->
+<div th:replace="~{fragments::footer}"></div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a th:replace="~{fragments::back-to-top}"></a>
+
+<div th:replace="~{fragments::script}"></div>
+</body>
+
+</html>

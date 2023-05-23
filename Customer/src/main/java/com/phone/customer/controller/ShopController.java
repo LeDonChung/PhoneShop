@@ -31,7 +31,7 @@ public class ShopController {
 
     @GetMapping("/products")
     public String shopPage(Model model,
-                           @RequestParam("pageNo") Integer pageNo,
+                           @RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
                            @RequestParam(value = "category", required = false) String category,
                            @RequestParam(value = "brand", required = false) String brand,
                            @RequestParam(value = "sortBy", required = false) String sortBy,

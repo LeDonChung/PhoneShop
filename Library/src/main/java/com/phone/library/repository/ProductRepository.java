@@ -9,9 +9,21 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
+    // Admin
     @Query(value="select p from ProductEntity  p where p.is_deleted = false and p.is_activated = true")
     List<ProductEntity> getAll();
 
+
+    // Customer
+    @Query(value = "select * from products\n" +
+            "where product_id in\n" +
+            "(\n" +
+            "\tselect p.product_id from (select * from products where is_deleted = false and is_activated = true) as p\n" +
+            "\tjoin stores as s on p.product_id = s.product_id\n" +
+            "\tgroup by p.product_id\n" +
+            "\thaving count(s.quantity) != 0\n" +
+            ")\n", nativeQuery = true)
+    List<ProductEntity> getAllProductInStores();
     @Query(value = "select * from products p where p.is_deleted = false and p.is_activated = true order by rand() asc limit 8 ", nativeQuery = true)
     List<ProductEntity> getFeaturedProducts();
 
