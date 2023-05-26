@@ -38,6 +38,12 @@ public class ShopController {
                            @RequestParam(value = "sortType", required = false) String sortType,
                            HttpSession session) {
 
+        if(session.getAttribute(SystemConstants.STORAGE_CHOOSE) != null) {
+            session.removeAttribute(SystemConstants.STORAGE_CHOOSE);
+        }
+        if(session.getAttribute(SystemConstants.COLOR_CHOOSE) != null) {
+            session.removeAttribute(SystemConstants.COLOR_CHOOSE);
+        }
         ProductFilter filter = (ProductFilter) session.getAttribute(SystemConstants.PRODUCT_FILTER);
         if (filter == null) {
             filter = new ProductFilter();

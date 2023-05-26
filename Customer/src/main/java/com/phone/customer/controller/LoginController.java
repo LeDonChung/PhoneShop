@@ -2,7 +2,9 @@ package com.phone.customer.controller;
 
 import com.phone.library.constants.SystemConstants;
 import com.phone.library.dto.AdminDto;
+import com.phone.library.dto.CategoryDto;
 import com.phone.library.dto.CustomerDto;
+import com.phone.library.service.CategoryService;
 import com.phone.library.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +18,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class LoginController {
     @Autowired
     private CustomerService customerService;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private CategoryService categoryService;
     @RequestMapping("/login")
     public String loginPage(Model model) {
+        List<CategoryDto> categories = categoryService.findAllByActivated();
         model.addAttribute(SystemConstants.TITLE, "Login");
         model.addAttribute(SystemConstants.CUSTOMER, new CustomerDto());
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
         return "login";
     }
     @GetMapping("/register")
     public String registerPage(Model model) {
-        CustomerDto customerDto = new CustomerDto();
-        model.addAttribute(SystemConstants.CUSTOMER, customerDto);
+        List<CategoryDto> categories = categoryService.findAllByActivated();
+        model.addAttribute(SystemConstants.CUSTOMER, new CustomerDto());
         model.addAttribute(SystemConstants.TITLE, "Register");
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
         return "register";
     }
     @PostMapping("/do-register")
@@ -41,6 +50,8 @@ public class LoginController {
                                   BindingResult result
                                   ) {
         // handler
+        List<CategoryDto> categories = categoryService.findAllByActivated();
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
         model.addAttribute(SystemConstants.CUSTOMER, customer);
         try {
             // Check valid

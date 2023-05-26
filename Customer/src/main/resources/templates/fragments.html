@@ -71,7 +71,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                <a th:href="@{/cart}" class="dropdown-item">Shopping Cart</a>
                                 <a href="checkout.html" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" th:href="@{/login}">Sign in</a>
-                        <a class="dropdown-item" th:href="@{/login}">Sign up</a>
+                        <a class="dropdown-item" th:href="@{/register}">Sign up</a>
                     </div>
                 </div>
                 <div class="btn-group mx-2">
@@ -185,7 +185,7 @@
                     <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-secondary mb-2" th:href="@{/home}"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                        <a class="text-secondary mb-2" th:href="@{/products/0}"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                        <a class="text-secondary mb-2" th:href="@{/products/14}"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
                         <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                         <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>

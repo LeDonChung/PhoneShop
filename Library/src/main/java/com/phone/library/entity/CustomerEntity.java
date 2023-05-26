@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "customers")
 public class CustomerEntity {
@@ -38,9 +36,6 @@ public class CustomerEntity {
     private boolean gender;
 
     private Date birthDate;
-
-    @OneToOne(mappedBy = "customer")
-    private ShoppingCartEntity shoppingCart;
 
     @OneToMany(mappedBy = "customer")
     private List<OrderEntity> orders;

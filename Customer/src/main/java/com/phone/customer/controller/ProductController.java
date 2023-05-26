@@ -38,9 +38,9 @@ public class ProductController {
             if(storages.size() != 0) {
                 List<ColorDto> colors = storeService.findColorsByStorageCodeAndProductId(storageCode == null ? storages.get(0).getCode() : storageCode, productDto.getId());
                 String storageChoose = storageCode == null ? storages.get(0).getCode() : storageCode;
-                model.addAttribute(SystemConstants.STORAGE_CHOOSE, storageChoose);
+                session.setAttribute(SystemConstants.STORAGE_CHOOSE, storageChoose);
                 String colorChoose = colorCode == null ? colors.get(0).getCode() : colorCode;
-                model.addAttribute(SystemConstants.COLOR_CHOOSE, colorChoose);
+                session.setAttribute(SystemConstants.COLOR_CHOOSE, colorChoose);
                 model.addAttribute(SystemConstants.STORAGES, storages);
                 model.addAttribute(SystemConstants.COLORS, colors);
                 model.addAttribute(SystemConstants.PRICE, storeService.getPriceByProductIdAndColorCodeAndStorageCode(id, colorChoose, storageChoose));

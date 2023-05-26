@@ -7,6 +7,7 @@ import com.phone.library.dto.ProductDto;
 import com.phone.library.service.BrandService;
 import com.phone.library.service.CategoryService;
 import com.phone.library.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,14 @@ public class HomeController {
     @Autowired
     private ProductService productService;
     @GetMapping(value = {"/", "/home"})
-    public String homePage(Model model) {
+    public String homePage(Model model, HttpSession session) {
+        if(session.getAttribute(SystemConstants.STORAGE_CHOOSE) != null) {
+            session.removeAttribute(SystemConstants.STORAGE_CHOOSE);
+        }
+        if(session.getAttribute(SystemConstants.COLOR_CHOOSE) != null) {
+            session.removeAttribute(SystemConstants.COLOR_CHOOSE);
+        }
+
         List<CategoryDto> categories = categoryService.findAllByActivated();
         List<BrandDto> brands = brandService.findAllBrandAndProduct();
         List<ProductDto> featuredProducts = productService.findFeaturedProduct();
