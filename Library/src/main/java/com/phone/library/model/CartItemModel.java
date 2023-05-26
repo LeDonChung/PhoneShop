@@ -20,11 +20,11 @@ public class CartItemModel {
 
     private double totalPrice;
 
-    private String memoryCode;
+    private MemoryEntity memory;
 
-    private String colorCode;
+    private ColorEntity color;
 
-    private String storageCode;
+    private StorageEntity storage;
 
     private ProductDto productDto;
 }

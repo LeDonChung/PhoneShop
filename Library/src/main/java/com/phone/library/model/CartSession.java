@@ -42,9 +42,9 @@ public class CartSession {
         if(cartItem == null) {
             cartItem = new CartItemModel();
             cartItem.setQuantity(quantity);
-            cartItem.setColorCode(productDto.getColorCode());
-            cartItem.setStorageCode(productDto.getStorageCode());
-            cartItem.setMemoryCode(productDto.getMemory().getCode());
+            cartItem.setColor(colorRepository.findByCode(productDto.getColorCode()));
+            cartItem.setStorage(storageRepository.findByCode(productDto.getStorageCode()));
+            cartItem.setMemory(memoryRepository.findByCode(productDto.getMemory().getCode()));
             cartItem.setTotalPrice(quantity * price);
             cartItem.setProductDto(productDto);
             cartItems.add(cartItem);
@@ -53,8 +53,8 @@ public class CartSession {
             cartItem.setTotalPrice(cartItem.getQuantity() * price);
 
             cartItems.removeIf(cartItemModel -> cartItemModel.getProductDto().getId() == productDto.getId()
-                    && cartItemModel.getColorCode().equals(productDto.getColorCode())
-                    && cartItemModel.getStorageCode().equals(productDto.getStorageCode()));
+                    && cartItemModel.getColor().getCode().equals(productDto.getColorCode())
+                    && cartItemModel.getStorage().getCode().equals(productDto.getStorageCode()));
         }
         cartItems.add(cartItem);
 
@@ -81,12 +81,12 @@ public class CartSession {
         StoreEntity store = storeRepository.getStorageByProductIdAndColorCodeAndStorageCode(productDto.getId(), productDto.getColorCode(), productDto.getStorageCode());
         double price = store.getSalePrice() == 0 ? store.getCostPrice() : store.getSalePrice();
 
-        cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        cartItem.setQuantity(quantity);
         cartItem.setTotalPrice(cartItem.getQuantity() * price);
 
         cartItems.removeIf(cartItemModel -> cartItemModel.getProductDto().getId() == productDto.getId()
-                && cartItemModel.getColorCode().equals(productDto.getColorCode())
-                && cartItemModel.getStorageCode().equals(productDto.getStorageCode()));
+                && cartItemModel.getColor().getCode().equals(productDto.getColorCode())
+                && cartItemModel.getStorage().getCode().equals(productDto.getStorageCode()));
 
         cartItems.add(cartItem);
 
@@ -109,8 +109,8 @@ public class CartSession {
         }
 
         cartItems.removeIf(cartItemModel -> cartItemModel.getProductDto().getId() == productDto.getId()
-                && cartItemModel.getColorCode().equals(productDto.getColorCode())
-                && cartItemModel.getStorageCode().equals(productDto.getStorageCode()));
+                && cartItemModel.getColor().getCode().equals(productDto.getColorCode())
+                && cartItemModel.getStorage().getCode().equals(productDto.getStorageCode()));
 
         cart.setTotalItem(getTotalItem(cartItems));
         cart.setTotalPrice(getToTalPrice(cartItems));
@@ -142,8 +142,8 @@ public class CartSession {
         CartItemModel model = null;
         for (CartItemModel cartItem: cartItems) {
             if(cartItem.getProductDto().getId() == product.getId()
-            && cartItem.getColorCode().equals(product.getColorCode())
-            && cartItem.getStorageCode().equals(product.getStorageCode())) {
+                    && cartItem.getColor().getCode().equals(product.getColorCode())
+                    && cartItem.getStorage().getCode().equals(product.getStorageCode())) {
                 model = cartItem;
             }
         }
