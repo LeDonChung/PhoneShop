@@ -23,9 +23,9 @@ public class OrderEntity {
 
     private Date deliveryDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="address_id", referencedColumnName = "address_id")
-    private AddressEntity address;
+    private String address;
+
+    private String phoneNumber;
 
     private double totalPrice;
 

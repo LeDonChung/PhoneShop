@@ -41,5 +41,7 @@ public class CustomerDto {
 
     private Date birthDate;
 
+    private String address;
+
     private int status;
 }

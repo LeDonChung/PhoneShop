@@ -135,8 +135,7 @@
                 <div class="border-bottom pb-2">
                     <div class="d-flex justify-content-between mb-3">
                         <h6>Subtotal</h6>
-                        <h6 th:if="${session.shoppingCart == null}">$0</h6>
-                        <h6 th:if="${session.shoppingCart != null}" th:text="'$' + ${session.shoppingCart.totalPrice}"></h6>
+                        <h6 th:text="'$' + ${session.shoppingCart.totalPrice}"></h6>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">Shipping</h6>
@@ -146,8 +145,7 @@
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Total</h5>
-                        <h5 th:if="${session.shoppingCart == null}">$0</h5>
-                        <h5 th:if="${session.shoppingCart != null}" th:text="'$' + ${session.shoppingCart.totalPrice}"></h5>
+                        <h5 th:text="'$' + ${session.shoppingCart.totalPrice}"></h5>
                     </div>
                     <button
                             class="btn btn-block btn-primary font-weight-bold my-3 py-3"

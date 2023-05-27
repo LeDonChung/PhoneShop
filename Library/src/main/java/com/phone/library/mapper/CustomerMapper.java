@@ -20,6 +20,7 @@ public class CustomerMapper {
         dto.setPhone(entity.getPhone());
         dto.setEmail(entity.getEmail());
         dto.setGender(entity.isGender());
+        dto.setAddress(entity.getAddress());
         return dto;
     }
 
@@ -30,7 +31,11 @@ public class CustomerMapper {
         entity.setUsername(dto.getUsername());
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
-        entity.setBirthDate(entity.getBirthDate());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setPhone(dto.getPhone());
+        entity.setEmail(dto.getEmail());
+        entity.setGender(dto.isGender());
+        entity.setAddress(dto.getAddress());
         return entity;
     }
 }

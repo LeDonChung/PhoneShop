@@ -20,6 +20,7 @@ public class CustomerEntity {
     private Long id;
 
     private String firstName;
+
     private String lastName;
 
     private String phone;
@@ -40,9 +41,7 @@ public class CustomerEntity {
     @OneToMany(mappedBy = "customer")
     private List<OrderEntity> orders;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
-    private AddressEntity address;
+    private String address;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "customers_roles", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
