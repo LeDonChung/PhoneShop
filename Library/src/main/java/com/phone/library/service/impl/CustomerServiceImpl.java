@@ -69,4 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
         return true;
     }
 
+    @Override
+    public CustomerDto changePassword(CustomerDto customerDto, String newPassword) {
+        CustomerEntity customer = customerRepository.findByUsername(customerDto.getUsername());
+        customer.setPassword(newPassword);
+        return customerMapper.toDto(customerRepository.save(customer));
+    }
+
 }

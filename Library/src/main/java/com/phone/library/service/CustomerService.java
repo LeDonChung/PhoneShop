@@ -7,6 +7,7 @@ public interface CustomerService {
     CustomerDto findByUsername(String username);
     boolean addFavorite(Long productId, CustomerDto customerDto);
     boolean removeFavorite(Long productId, CustomerDto customerDto);
+    CustomerDto changePassword(CustomerDto customerDto, String newPassword);
 
 
 }

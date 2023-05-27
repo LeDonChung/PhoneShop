@@ -66,6 +66,7 @@ public class ProductController {
                 if(favorites.contains(productEntity)) {
                     model.addAttribute("isFavorite", "true");
                 }
+                model.addAttribute(SystemConstants.FAVORITE_SIZE, customerDto.getFavorites().size());
             }
         }catch(Exception e) {
             e.printStackTrace();

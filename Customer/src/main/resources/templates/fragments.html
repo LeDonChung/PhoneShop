@@ -85,26 +85,29 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a th:href="@{/home}" class="nav-item nav-link active">Home</a>
-                        <a th:href="@{/products(pageNo = 0)}" class="nav-item nav-link">Shop</a>
-                        <a th:href="@{/product/14}" class="nav-item nav-link">Shop Detail</a>
+                        <a th:href="@{/home}" class="nav-item nav-link" th:classappend="${homeActive != null ? 'active' : ''}">Home</a>
+                        <a th:href="@{/products(pageNo = 0)}" class="nav-item nav-link" th:classappend="${shopActive != null ? 'active' : ''}">Shop</a>
+                        <a th:href="@{/product/14}" class="nav-item nav-link" th:classappend="${shopDetailActive != null ? 'active' : ''}">Shop Detail</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
+                            <a href="#" class="nav-link dropdown-toggle" th:classappend="${pagesActive != null ? 'active' : ''}" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 <a th:href="@{/cart}" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                <a th:href="@{/checkout}" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a th:href="@{/contact}" class="nav-item nav-link" th:classappend="${contactActive != null ? 'active' : ''}">Contact</a>
                     </div>
+
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <a href="" class="btn px-0">
+                        <a th:href="@{/account/favorites}" class="btn px-0">
                             <i class="fas fa-heart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                            <span th:if="${favoriteSize != null}" th:text="${favoriteSize}" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"></span>
+                            <span th:if="${favoriteSize == null}" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                         </a>
-                        <a href="" class="btn px-0 ml-3">
+                        <a th:href="@{/cart}" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                            <span th:if="${session.shoppingCart == null}" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                            <span th:if="${session.shoppingCart != null}" th:text="${session.shoppingCart.totalItem}" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"></span>
                         </a>
                     </div>
                 </div>
@@ -134,39 +137,13 @@
                         <a class="dropdown-item" th:href="@{/register}">Sign up</a>
                     </div>
                 </div>
-                <div class="btn-group mx-2">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">EUR</button>
-                        <button class="dropdown-item" type="button">GBP</button>
-                        <button class="dropdown-item" type="button">CAD</button>
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">FR</button>
-                        <button class="dropdown-item" type="button">AR</button>
-                        <button class="dropdown-item" type="button">RU</button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-inline-flex align-items-center d-block d-lg-none">
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-heart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
             </div>
         </div>
     </div>
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a th:href="@{/}" class="text-decoration-none">
-                <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                <span class="h1 text-uppercase text-primary bg-dark px-2">Phone</span>
                 <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
             </a>
         </div>
@@ -360,7 +337,7 @@
 
             <li class="border-bottom justify-content-center px-4 py-3">
                 <a href="#">
-                    <div class="sidebar-item">
+                    <div class="sidebar-item" >
                         <!-- <i class="icons.personal-information mr-2"></i>    -->
                         <svg
                                 class="mr-2"
@@ -380,8 +357,8 @@
                 </a>
             </li>
             <li class="border-bottom justify-content-center px-4 py-3">
-                <a href="#">
-                    <div class="sidebar-item">
+                <a th:href="@{/account/change-password}">
+                    <div class="sidebar-item" th:classappend="${changePasswordActive != null ? 'sidebar-item-active' : ''}">
                         <!-- <i class="icons.change-password mr-2"></i>    -->
                         <svg
                                 class="mr-2"
@@ -401,7 +378,7 @@
                 </a>
             </li>
             <li class="justify-content-center px-4 py-3">
-                <a href="#">
+                <a th:href="@{/login(logout)}">
                     <div class="sidebar-item">
                         <!-- <i class="icons.logout mr-2"></i>    -->
                         <svg

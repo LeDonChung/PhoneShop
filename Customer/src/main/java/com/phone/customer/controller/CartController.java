@@ -30,11 +30,17 @@ public class CartController {
     private ProductService productService;
     @Autowired
     private CartSession cartSession;
+    @Autowired
+    private CustomerService customerService;
+
 
     @GetMapping("/cart")
     public String showCart(Model model, Principal principal, HttpSession session) {
         if(principal == null) {
             return "redirect:/login";
+        } else {
+            CustomerDto customer = customerService.findByUsername(principal.getName());
+            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
 
         // Get All Categories

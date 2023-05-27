@@ -36,6 +36,8 @@ public class SystemConstants {
     public static final String ORDERS = "orders";
     public static final String FAVORITE_ACTIVE = "favoriteActive";
     public static final String ORDER_HISTORY_ACTIVE = "orderHistoryActive";
+    public static final String CHANGE_PASSWORD_ACTIVE = "changePasswordActive";
     public static final String FAVORITES = "favorites";
+    public static final String FAVORITE_SIZE = "favoriteSize";
 
 }

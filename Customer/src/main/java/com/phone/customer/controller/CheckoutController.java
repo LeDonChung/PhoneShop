@@ -44,6 +44,9 @@ public class CheckoutController {
                                ) {
         if(principal == null ){
             return "redirect:/login";
+        } else {
+            CustomerDto customer = customerService.findByUsername(principal.getName());
+            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
 
         ShoppingCartModel cart = (ShoppingCartModel) session.getAttribute(SystemConstants.SHOPPING_CART);
