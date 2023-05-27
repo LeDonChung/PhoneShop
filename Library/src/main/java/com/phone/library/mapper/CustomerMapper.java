@@ -21,6 +21,9 @@ public class CustomerMapper {
         dto.setEmail(entity.getEmail());
         dto.setGender(entity.isGender());
         dto.setAddress(entity.getAddress());
+        if (entity.getFavorites() != null) {
+            dto.setFavorites(entity.getFavorites());
+        }
         return dto;
     }
 
@@ -36,6 +39,9 @@ public class CustomerMapper {
         entity.setEmail(dto.getEmail());
         entity.setGender(dto.isGender());
         entity.setAddress(dto.getAddress());
+        if (dto.getFavorites() != null) {
+            entity.setFavorites(dto.getFavorites());
+        }
         return entity;
     }
 }

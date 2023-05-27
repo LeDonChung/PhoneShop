@@ -58,6 +58,12 @@
                         <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
                             Cart
                         </button>
+                        <a th:if="${isFavorite != null}" th:href="@{/account/remove-favorite/{productId} (productId = ${product.id})}"  type="button" style="margin-left: 20px;" class="btn btn-primary px-3"><i class="far fa-heart"></i> Remove To
+                            Favorite
+                        </a>
+                        <a th:if="${isFavorite == null}" th:href="@{/account/add-favorite/{productId} (productId = ${product.id})}" type="button" style="margin-left: 20px;" class="btn btn-primary px-3"><i class="far fa-heart"></i> Add To
+                            Favorite
+                        </a>
                     </div>
                 </form>
                 <p class="alert alert-info" th:if="${error}" th:text="${error}"/>
@@ -114,7 +120,6 @@
                         <img class="img-fluid w-100" th:src="@{'data:image/jpeg;base64,' + ${product.image}}" alt="Image">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i class="fa fa-search"></i></a>
                         </div>

@@ -33,4 +33,9 @@ public class SystemConstants {
     public static final String PRICE = "price";
     public static final String SHOPPING_CART = "shoppingCart";
     public static final String CART_ITEMS = "cartItems";
+    public static final String ORDERS = "orders";
+    public static final String FAVORITE_ACTIVE = "favoriteActive";
+    public static final String ORDER_HISTORY_ACTIVE = "orderHistoryActive";
+    public static final String FAVORITES = "favorites";
+
 }

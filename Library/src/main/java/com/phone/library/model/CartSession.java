@@ -47,6 +47,7 @@ public class CartSession {
             cartItem.setMemory(memoryRepository.findByCode(productDto.getMemory().getCode()));
             cartItem.setTotalPrice(quantity * price);
             cartItem.setProductDto(productDto);
+            cartItem.setUnitPrice(price);
             cartItems.add(cartItem);
         } else {
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
@@ -95,6 +96,11 @@ public class CartSession {
 
         session.setAttribute(SystemConstants.SHOPPING_CART, cart);
         session.setAttribute(SystemConstants.CART_ITEMS, cartItems);
+    }
+
+    public void removeAll(HttpSession session) {
+        session.removeAttribute(SystemConstants.SHOPPING_CART);
+        session.removeAttribute(SystemConstants.CART_ITEMS);
     }
 
     public void deleteToCart(HttpSession session,

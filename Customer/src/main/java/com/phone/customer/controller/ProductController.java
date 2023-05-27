@@ -2,10 +2,8 @@ package com.phone.customer.controller;
 
 import com.phone.library.constants.SystemConstants;
 import com.phone.library.dto.*;
-import com.phone.library.service.CategoryService;
-import com.phone.library.service.MemoryService;
-import com.phone.library.service.ProductService;
-import com.phone.library.service.StoreService;
+import com.phone.library.entity.ProductEntity;
+import com.phone.library.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +26,13 @@ public class ProductController {
     private StoreService storeService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CustomerService customerService;
     @GetMapping("/product/{id}")
     public String showProduct(Model model, @PathVariable("id") Long id, HttpSession session,
                               @RequestParam(value = "storageCode", required = false) String storageCode,
-                              @RequestParam(value = "colorCode", required = false) String colorCode){
+                              @RequestParam(value = "colorCode", required = false) String colorCode,
+                              Principal principal){
         try {
             List<CategoryDto> categories = categoryService.findAllByActivated();
             ProductDto productDto = productService.findById(id);
@@ -56,6 +58,15 @@ public class ProductController {
             model.addAttribute(SystemConstants.CATEGORIES, categories);
             model.addAttribute(SystemConstants.BREADCRUMB, productDto.getCategory().getCategoryName());
 
+            if(principal != null) {
+                CustomerDto customerDto = customerService.findByUsername(principal.getName());
+                List<ProductEntity> favorites = customerDto.getFavorites();
+                ProductEntity productEntity = new ProductEntity();
+                productEntity.setId(id);
+                if(favorites.contains(productEntity)) {
+                    model.addAttribute("isFavorite", "true");
+                }
+            }
         }catch(Exception e) {
             e.printStackTrace();
         }

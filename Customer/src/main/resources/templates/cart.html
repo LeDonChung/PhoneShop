@@ -147,11 +147,11 @@
                         <h5>Total</h5>
                         <h5 th:text="'$' + ${session.shoppingCart.totalPrice}"></h5>
                     </div>
-                    <button
+                    <a
                             class="btn btn-block btn-primary font-weight-bold my-3 py-3"
-                    >
+                            th:href="@{/checkout}">
                         Checkout
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

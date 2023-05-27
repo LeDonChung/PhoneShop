@@ -1,5 +1,7 @@
-package com.phone.library.entity;
+package com.phone.library.dto;
 
+import com.phone.library.entity.CustomerEntity;
+import com.phone.library.entity.OrderDetailEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,15 +10,10 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class OrderEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
+public class OrderDto {
     private Long id;
 
     private Date orderDate;
@@ -35,10 +32,7 @@ public class OrderEntity {
 
     private String notes;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private CustomerEntity customer;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDetailEntity> orderDetails;
 }

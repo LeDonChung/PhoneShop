@@ -22,75 +22,83 @@
 
 <!-- Checkout Start -->
 <div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
-            <div class="bg-light p-30 mb-5">
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <label>Mobile No</label>
-                        <input class="form-control" type="text" th:text="${customer.phone}" placeholder="+123 456 789">
+    <form th:action="@{/do-checkout}" method="post" id="formSubmit">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label>Mobile No</label>
+                            <input class="form-control" id="phoneNumber" name="phoneNumber" type="text" th:text="${customer.phone}" placeholder="+123 456 789">
+                            <div class="alert alert-warning form-message" style="display: none; margin-top: 10px;"></div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Delivery Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" th:text="${customer.address}" placeholder="123  Street"></textarea>
+                            <div class="alert alert-warning form-message" style="display: none; margin-top: 10px;"></div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control" name="notes" rows="3"  placeholder="Note"></textarea>
+                        </div>
                     </div>
-                    <div class="col-md-12 form-group">
-                        <label>Delivery Address</label>
-                        <textarea class="form-control" rows="3" th:text="${customer.address}" placeholder="123  Street"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="border-bottom">
+                        <h6 class="mb-3">Products</h6>
+                        <div class="d-flex justify-content-between" th:each="cartItem: ${session.cartItems}">
+                            <p th:text="${cartItem.productDto.productName}"></p>
+                            <p th:text="${cartItem.totalPrice}"></p>
+                        </div>
+                    </div>
+                    <div class="border-bottom pt-3 pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6 th:text="'$' + ${session.shoppingCart.totalPrice}"></h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">$0</h6>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            <h5 th:text="'$' + ${session.shoppingCart.totalPrice}">$160</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
+                    <div class="bg-light p-30">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" value="1" name="payment" id="paypal" checked>
+                                <label class="custom-control-label" for="paypal" >Paypal</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" value="2" name="payment" id="directcheck">
+                                <label class="custom-control-label" for="directcheck" >Direct Check</label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" value="3" name="payment" id="banktransfer">
+                                <label class="custom-control-label" for="banktransfer" >Bank Transfer</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3" id="do-checkout">Place Order</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
-            <div class="bg-light p-30 mb-5">
-                <div class="border-bottom">
-                    <h6 class="mb-3">Products</h6>
-                    <div class="d-flex justify-content-between" th:each="cartItem: ${session.cartItems}">
-                        <p th:text="${cartItem.productDto.productName}"></p>
-                        <p th:text="${cartItem.totalPrice}"></p>
-                    </div>
-                </div>
-                <div class="border-bottom pt-3 pb-2">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h6>Subtotal</h6>
-                        <h6 th:text="'$' + ${session.shoppingCart.totalPrice}"></h6>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">$0</h6>
-                    </div>
-                </div>
-                <div class="pt-2">
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5>Total</h5>
-                        <h5 th:text="'$' + ${session.shoppingCart.totalPrice}">$160</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-5">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
-                <div class="bg-light p-30">
-                    <div class="form-group">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="paypal">
-                            <label class="custom-control-label" for="paypal">Paypal</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                            <label class="custom-control-label" for="directcheck">Direct Check</label>
-                        </div>
-                    </div>
-                    <div class="form-group mb-4">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                            <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
-                        </div>
-                    </div>
-                    <button class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
 <!-- Checkout End -->
 
@@ -103,6 +111,53 @@
 <a th:replace="~{fragments::back-to-top}"></a>
 
 <div th:replace="~{fragments::script}"></div>
+<script>
+    $(document).ready(function() {
+       function validPhoneNumber() {
+           let value = $('#phoneNumber').val();
+           let formMessage = $('#phoneNumber').parent('.form-group').children('.form-message');
+           let regexPhone = /^0(\d){9}$/;
+           if(!regexPhone.test(value)) {
+               formMessage.show();
+               formMessage.text('The phone number field is required.');
+               return false;
+           }
+           formMessage.hide();
+           return true;
+       }
+        $('#phoneNumber').blur(function() {
+            validPhoneNumber();
+        });
+
+        function validAddress() {
+            let value = $('#address').val();
+            let formMessage = $('#address').parent('.form-group').children('.form-message');
+            if(value.length <= 0) {
+                formMessage.show();
+                formMessage.text('The address field is required.');
+                return false;
+            }
+            formMessage.hide();
+            return true;
+        }
+        $('#address').blur(function() {
+            validAddress();
+        });
+
+        $('#do-checkout').click(function(e) {
+            e.preventDefault();
+            if(!validPhoneNumber() || !validAddress()) {
+                return false;
+            }
+            $('#formSubmit').submit();
+
+        });
+
+
+
+
+    });
+</script>
 </body>
 
 </html>

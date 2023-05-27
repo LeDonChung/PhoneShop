@@ -20,6 +20,8 @@ public class CartItemModel {
 
     private double totalPrice;
 
+    private double unitPrice;
+
     private MemoryEntity memory;
 
     private ColorEntity color;

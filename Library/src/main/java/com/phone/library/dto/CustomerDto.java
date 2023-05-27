@@ -1,5 +1,6 @@
 package com.phone.library.dto;
 
+import com.phone.library.entity.ProductEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -44,4 +46,7 @@ public class CustomerDto {
     private String address;
 
     private int status;
+    
+    private List<ProductEntity> favorites;
+
 }
