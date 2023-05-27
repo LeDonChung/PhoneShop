@@ -39,5 +39,12 @@ public class SystemConstants {
     public static final String CHANGE_PASSWORD_ACTIVE = "changePasswordActive";
     public static final String FAVORITES = "favorites";
     public static final String FAVORITE_SIZE = "favoriteSize";
+    public static final String HOME_ACTIVE = "homeActive";
+    public static final String SHOP_ACTIVE = "shopActive";
+    public static final String SHOP_DETAIL_ACTIVE = "shopDetailActive";
+    public static final String PAGES_ACTIVE = "pagesActive";
+    public static final String CONTACT_ACTIVE = "contactActive";
+
+
 
 }

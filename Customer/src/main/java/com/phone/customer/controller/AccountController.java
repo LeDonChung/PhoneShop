@@ -69,6 +69,7 @@ public class AccountController {
         model.addAttribute(SystemConstants.CATEGORIES, categories);
         model.addAttribute(SystemConstants.FAVORITE_ACTIVE, "active");
         model.addAttribute(SystemConstants.TITLE, "Favorites");
+
         return "my-favorite";
     }
     @RequestMapping(value = "/remove-favorite/{productId}", method = {RequestMethod.GET, RequestMethod.POST})

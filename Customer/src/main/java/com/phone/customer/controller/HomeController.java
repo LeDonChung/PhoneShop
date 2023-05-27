@@ -50,7 +50,7 @@ public class HomeController {
         model.addAttribute(SystemConstants.TITLE, "Home");
         model.addAttribute(SystemConstants.CATEGORIES, categories);
         model.addAttribute(SystemConstants.BRANDS, brands);
-
+        model.addAttribute(SystemConstants.HOME_ACTIVE, "active");
         model.addAttribute("featuredProducts", featuredProducts);
         model.addAttribute("offerProducts", offerProducts);
         return "index";

@@ -57,6 +57,7 @@ public class ProductController {
             model.addAttribute(SystemConstants.PRODUCT, productDto);
             model.addAttribute(SystemConstants.CATEGORIES, categories);
             model.addAttribute(SystemConstants.BREADCRUMB, productDto.getCategory().getCategoryName());
+            model.addAttribute(SystemConstants.SHOP_DETAIL_ACTIVE, "active");
 
             if(principal != null) {
                 CustomerDto customerDto = customerService.findByUsername(principal.getName());

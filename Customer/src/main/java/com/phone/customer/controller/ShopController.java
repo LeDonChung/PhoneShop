@@ -73,7 +73,7 @@ public class ShopController {
         model.addAttribute(SystemConstants.TOTAL_PAGE, products.getTotalPages());
         model.addAttribute(SystemConstants.BREADCRUMB, "Products");
         model.addAttribute(SystemConstants.TITLE, "Shop");
-
+        model.addAttribute(SystemConstants.SHOP_ACTIVE, "active");
         session.setAttribute(SystemConstants.PRODUCT_FILTER, filter);
 
         return "shop";

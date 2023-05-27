@@ -60,6 +60,7 @@ public class CartController {
         model.addAttribute(SystemConstants.TITLE, "Cart");
         model.addAttribute(SystemConstants.BREADCRUMB, "Shopping Cart");
         model.addAttribute(SystemConstants.CATEGORIES, categories);
+        model.addAttribute(SystemConstants.PAGES_ACTIVE, "active");
         return "cart";
     }
 

@@ -67,6 +67,8 @@ public class CheckoutController {
         model.addAttribute(SystemConstants.CATEGORIES, categories);
         session.setAttribute(SystemConstants.SHOPPING_CART, cart);
         session.setAttribute(SystemConstants.CART_ITEMS, cartItems);
+        model.addAttribute(SystemConstants.PAGES_ACTIVE, "active");
+
         return "checkout";
     }
     @PostMapping("/do-checkout")
