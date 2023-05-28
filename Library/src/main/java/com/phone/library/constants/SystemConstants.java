@@ -3,6 +3,7 @@ package com.phone.library.constants;
 public class SystemConstants {
     public static final String TITLE = "title";
     public static final String ADMIN_DTO = "adminDto";
+    public static final String USER_LOGIN = "userLogin";
     public static final String USERNAME_ERROR = "usernameError";
     public static final String PASSWORD_NOT_SAME = "passwordError";
     public static final String SUCCESS = "success";

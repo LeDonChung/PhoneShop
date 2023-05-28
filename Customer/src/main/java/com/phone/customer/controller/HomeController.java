@@ -40,6 +40,7 @@ public class HomeController {
         if (principal != null) {
             CustomerDto customer = customerService.findByUsername(principal.getName());
             model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
+            session.setAttribute(SystemConstants.USER_LOGIN, customer);
         }
 
         List<CategoryDto> categories = categoryService.findAllByActivated();
