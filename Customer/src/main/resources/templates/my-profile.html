@@ -29,26 +29,27 @@
                             Personal Information
                         </h3>
                     </div>
-                    <form action="https://soklyphone.com/account/profile/avatar/update" method="POST" class id="avatar-form"
+                    <p class="alert alert-success" style="margin-top: 10px;" th:if="${message}" th:text="${message}"></p>
+                    <form th:action="@{/account/profile/avatar-update}" method="post" class id="avatar-form"
                           enctype="multipart/form-data">
+                        <input type="hidden" name="_method" value="PUT" />
                         <div class="bg-secondary rounded-lg p-4 mb-4">
                             <div class="avatar-wrapper">
                                 <div id="avatar-controls" class="media align-items-center px-4">
-                                    <img class="rounded-circle" src="https://soklyphone.com/img/avatar.jpeg" width="90" alt="avatar" />
+                                    <img class="rounded-circle" th:if="${customer.image == null}" src="https://soklyphone.com/img/avatar.jpeg" width="90" alt="avatar" />
+                                    <img class="rounded-circle" th:if="${customer.image != null}" th:src="@{'data:image/jpeg;base64,' + ${customer.image}}" width="90" alt="avatar" />
+
                                     <div class="media-body pl-3">
-                                        <button type="button" class="btn btn-light btn-shadow btn-sm mb-2" id="change-avatar"
-                                                data-toggle="modal" data-target="#choose-modal">
-                                            <i class="czi-loading mr-2"></i>Change avatar
+                                        <input type="file" name="imageUser" id="avatar-upload" accept="image/png, image/jpeg">
+                                        <button type="submit" class="btn btn-light btn-shadow btn-sm mb-2" id="change-avatar">
+                                            <i class="czi-loading mr-2"></i>Save
                                         </button>
-                                        <div class="p mb-0 font-size-ms text-muted">
-                                            Upload JPG, PNG image required.
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <p class="alert alert-success" style="margin-top: 10px;" th:if="${message}" th:text="${message}"></p>
+
                     <form th:action="@{/account/profile}" method="post" th:object="${customer}">
                         <div class="row px-4">
                             <div class="col-sm-6">

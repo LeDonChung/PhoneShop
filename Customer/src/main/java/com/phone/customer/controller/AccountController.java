@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -147,6 +148,9 @@ public class AccountController {
                               Principal principal) {
         if (principal == null) {
             return "redirect:/login";
+        } else {
+            CustomerDto customer = customerService.findByUsername(principal.getName());
+            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
 
         CustomerDto customer = customerService.findByUsername(principal.getName());
@@ -158,6 +162,24 @@ public class AccountController {
         model.addAttribute(SystemConstants.TITLE, "Profile");
         return "my-profile";
     }
+    @PostMapping("/profile/avatar-update")
+    public String avatarUpdate(RedirectAttributes attributes,
+                               @RequestParam("imageUser")MultipartFile imageUser,
+                               Principal principal) {
+        try {
+            if (principal == null) {
+                return "redirect:/login";
+            }
+            CustomerDto customerDto = customerService.findByUsername(principal.getName());
+            customerService.saveImage(customerDto, imageUser);
+            attributes.addFlashAttribute(SystemConstants.MESSAGE, "Update image successfully");
+        }catch (Exception e) {
+            attributes.addFlashAttribute(SystemConstants.MESSAGE, "The server has been errors");
+            e.printStackTrace();
+        }
+
+        return "redirect:/account/profile";
+    }
 
     @PostMapping("/profile")
     public String saveProfile(
@@ -167,6 +189,9 @@ public class AccountController {
                         Model model) {
         if (principal == null) {
             return "redirect:/login";
+        } else {
+            CustomerDto customer = customerService.findByUsername(principal.getName());
+            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
         List<CategoryDto> categories = categoryService.findAllByActivated();
         model.addAttribute(SystemConstants.CATEGORIES, categories);
@@ -182,8 +207,6 @@ public class AccountController {
         customer.setAddress(customerModel.getAddress());
         customer.setBirthDate(customerModel.getBirthDate());
         model.addAttribute(SystemConstants.CUSTOMER, customerMapper.toModel(customer));
-        System.out.println("A1: " + customer);
-        System.out.println("A2: " + customerModel);
 
         try {
             if (result.hasErrors()) {

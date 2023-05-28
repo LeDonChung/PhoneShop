@@ -12,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 public class ImageUploadUtils {
     private final String UPLOAD_FOLDER = "D:\\SpringBoot\\FashionShop\\Admin\\src\\main\\resources\\static\\images\\img-product";
     private final String UPLOAD_FOLDER_LOGO = "D:\\SpringBoot\\FashionShop\\Admin\\src\\main\\resources\\static\\images\\logo-brand";
+    private final String UPLOAD_FOLDER_IMAGE_USER = "D:\\SpringBoot\\PhoneShop\\Customer\\src\\main\\resources\\static\\img\\user-image";
 
     public boolean uploadImage(MultipartFile imageProduct) {
         boolean isUpload = false;
@@ -55,4 +56,27 @@ public class ImageUploadUtils {
         }
         return isExisted;
     }
+
+    public boolean uploadImageUser(MultipartFile imageUser) {
+        boolean isUpload = false;
+        try {
+            Files.copy(imageUser.getInputStream(), Paths.get(UPLOAD_FOLDER_IMAGE_USER + File.separator, imageUser.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+            isUpload = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isUpload;
+    }
+
+    public boolean checkImageUserExisted(MultipartFile imageUser) {
+        boolean isExisted = false;
+        try {
+            File file = new File(UPLOAD_FOLDER_IMAGE_USER + File.separator, imageUser.getOriginalFilename());
+            isExisted = file.exists();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isExisted;
+    }
+
 }

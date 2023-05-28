@@ -8,9 +8,12 @@ import com.phone.library.repository.CustomerRepository;
 import com.phone.library.repository.ProductRepository;
 import com.phone.library.repository.RoleRepository;
 import com.phone.library.service.CustomerService;
+import com.phone.library.utils.ImageUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,6 +27,8 @@ public class CustomerServiceImpl implements CustomerService {
     private RoleRepository roleRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ImageUploadUtils imageUploadUtils;
 
     @Override
     public CustomerDto save(CustomerDto dto) {
@@ -33,6 +38,24 @@ public class CustomerServiceImpl implements CustomerService {
         }
         entity.setRoles(Collections.singletonList(roleRepository.findByName("CUSTOMER")));
         return customerMapper.toDto(customerRepository.save(entity));
+    }
+
+    @Override
+    public CustomerDto saveImage(CustomerDto dto, MultipartFile imageUser) {
+        CustomerEntity customer = customerRepository.findByUsername(dto.getUsername());
+        try {
+            if (imageUser.getSize() != 0) {
+                // exits
+                if (!imageUploadUtils.checkImageUserExisted(imageUser)) {
+                    imageUploadUtils.uploadImageUser(imageUser);
+                }
+                customer.setImage(Base64.getEncoder().encodeToString(imageUser.getBytes()));
+            }
+            customerRepository.save(customer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customerMapper.toDto(customer);
     }
 
     @Override
