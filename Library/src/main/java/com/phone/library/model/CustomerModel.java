@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDto {
+public class CustomerModel {
 
     private Long id;
 
@@ -30,7 +30,6 @@ public class CustomerDto {
 
     private String username;
 
-    @Size(min = 6, message ="The password must be at least 6 characters.")
     private String password;
 
     private String repeatPassword;
@@ -46,7 +45,7 @@ public class CustomerDto {
     private String address;
 
     private int status;
-    
+
     private List<ProductEntity> favorites;
 
 }

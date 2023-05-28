@@ -37,6 +37,7 @@ public class SystemConstants {
     public static final String FAVORITE_ACTIVE = "favoriteActive";
     public static final String ORDER_HISTORY_ACTIVE = "orderHistoryActive";
     public static final String CHANGE_PASSWORD_ACTIVE = "changePasswordActive";
+    public static final String PROFILE_ACTIVE = "profileActive";
     public static final String FAVORITES = "favorites";
     public static final String FAVORITE_SIZE = "favoriteSize";
     public static final String HOME_ACTIVE = "homeActive";
@@ -45,4 +46,7 @@ public class SystemConstants {
     public static final String PAGES_ACTIVE = "pagesActive";
     public static final String CONTACT_ACTIVE = "contactActive";
     public static final String CONTACT = "contact";
+    public static final String PHONE_ERROR = "phoneError";
+    public static final String EMAIL_ERROR = "emailError";
+
 }

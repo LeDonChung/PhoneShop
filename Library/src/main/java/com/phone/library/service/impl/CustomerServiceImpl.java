@@ -28,6 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto save(CustomerDto dto) {
         CustomerEntity entity = customerMapper.toEntity(dto);
+        if(dto.getId() != null) {
+            entity.setId(dto.getId());
+        }
         entity.setRoles(Collections.singletonList(roleRepository.findByName("CUSTOMER")));
         return customerMapper.toDto(customerRepository.save(entity));
     }

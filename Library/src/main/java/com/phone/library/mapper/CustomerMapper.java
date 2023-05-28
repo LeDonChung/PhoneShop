@@ -2,6 +2,7 @@ package com.phone.library.mapper;
 
 import com.phone.library.dto.AdminDto;
 import com.phone.library.dto.CustomerDto;
+import com.phone.library.dto.CustomerModel;
 import com.phone.library.entity.AdminEntity;
 import com.phone.library.entity.CustomerEntity;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,36 @@ public class CustomerMapper {
             dto.setFavorites(entity.getFavorites());
         }
         return dto;
+    }
+    public CustomerDto toDto(CustomerModel model) {
+        CustomerDto dto = new CustomerDto();
+        dto.setId(model.getId());
+        dto.setImage(model.getImage());
+        dto.setPassword(model.getPassword());
+        dto.setUsername(model.getUsername());
+        dto.setFirstName(model.getFirstName());
+        dto.setLastName(model.getLastName());
+        dto.setBirthDate(model.getBirthDate());
+        dto.setPhone(model.getPhone());
+        dto.setEmail(model.getEmail());
+        dto.setGender(model.isGender());
+        dto.setAddress(model.getAddress());
+        return dto;
+    }
+    public CustomerModel toModel(CustomerDto dto) {
+        CustomerModel model = new CustomerModel();
+        model.setId(dto.getId());
+        model.setImage(dto.getImage());
+        model.setPassword(dto.getPassword());
+        model.setUsername(dto.getUsername());
+        model.setFirstName(dto.getFirstName());
+        model.setLastName(dto.getLastName());
+        model.setBirthDate(dto.getBirthDate());
+        model.setPhone(dto.getPhone());
+        model.setEmail(dto.getEmail());
+        model.setGender(dto.isGender());
+        model.setAddress(dto.getAddress());
+        return model;
     }
 
     public CustomerEntity toEntity(CustomerDto dto) {

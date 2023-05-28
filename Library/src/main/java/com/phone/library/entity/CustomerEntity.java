@@ -36,7 +36,7 @@ public class CustomerEntity {
 
     private boolean gender;
 
-    private Date birthDate;
+    private String birthDate;
 
     private String address;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

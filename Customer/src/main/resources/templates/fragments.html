@@ -306,8 +306,8 @@
             </li>
 
             <li class="border-bottom justify-content-center px-4 py-3">
-                <a href="#">
-                    <div class="sidebar-item">
+                <a th:href="@{/account/profile}">
+                    <div class="sidebar-item" th:classappend="${profileActive != null ? 'sidebar-item-active' : ''}">
                         <!-- <i class="icons.personal-information mr-2"></i>    -->
                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
                             <path id="Subtraction_17" data-name="Subtraction 17"

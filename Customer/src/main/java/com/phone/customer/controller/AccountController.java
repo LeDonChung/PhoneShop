@@ -3,16 +3,20 @@ package com.phone.customer.controller;
 import com.phone.library.constants.SystemConstants;
 import com.phone.library.dto.CategoryDto;
 import com.phone.library.dto.CustomerDto;
+import com.phone.library.dto.CustomerModel;
 import com.phone.library.dto.OrderDto;
 import com.phone.library.entity.ProductEntity;
+import com.phone.library.mapper.CustomerMapper;
 import com.phone.library.service.CategoryService;
 import com.phone.library.service.CustomerService;
 import com.phone.library.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,11 +34,13 @@ public class AccountController {
     private CategoryService categoryService;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private CustomerMapper customerMapper;
 
 
     @GetMapping("/order-history")
     public String showMyOrder(Principal principal, Model model) {
-        if(principal  == null) {
+        if (principal == null) {
             return "redirect:/login";
         } else {
             CustomerDto customer = customerService.findByUsername(principal.getName());
@@ -51,9 +57,10 @@ public class AccountController {
         model.addAttribute(SystemConstants.TITLE, "Orders");
         return "my-order";
     }
+
     @GetMapping("/favorites")
     public String showFavorites(Principal principal, Model model) {
-        if(principal  == null) {
+        if (principal == null) {
             return "redirect:/login";
         } else {
             CustomerDto customer = customerService.findByUsername(principal.getName());
@@ -72,32 +79,35 @@ public class AccountController {
 
         return "my-favorite";
     }
+
     @RequestMapping(value = "/remove-favorite/{productId}", method = {RequestMethod.GET, RequestMethod.POST})
     public String removeFavorite(Principal principal,
                                  @PathVariable Long productId,
                                  HttpServletRequest request) {
-        if(principal  == null) {
+        if (principal == null) {
             return "redirect:/login";
         }
         CustomerDto customerDto = customerService.findByUsername(principal.getName());
         customerService.removeFavorite(productId, customerDto);
         return "redirect:" + request.getHeader("Referer");
     }
+
     @RequestMapping(value = "/add-favorite/{productId}", method = {RequestMethod.GET, RequestMethod.POST})
     public String addFavorite(Principal principal,
                               @PathVariable Long productId,
                               HttpServletRequest request) {
-        if(principal  == null) {
+        if (principal == null) {
             return "redirect:/login";
         }
         CustomerDto customerDto = customerService.findByUsername(principal.getName());
         customerService.addFavorite(productId, customerDto);
         return "redirect:" + request.getHeader("Referer");
     }
+
     @GetMapping("/change-password")
     public String showChangePassword(Model model,
                                      Principal principal) {
-        if(principal == null) {
+        if (principal == null) {
             return "redirect:/login";
         } else {
             CustomerDto customer = customerService.findByUsername(principal.getName());
@@ -117,12 +127,12 @@ public class AccountController {
                                         RedirectAttributes attributes,
                                         @RequestParam("currentPassword") String currentPassword,
                                         @RequestParam("newPassword") String newPassword) {
-        if(principal == null) {
+        if (principal == null) {
             return "redirect:/login";
         }
 
         CustomerDto customer = customerService.findByUsername(principal.getName());
-        if(!(passwordEncoder.matches(currentPassword, customer.getPassword()))) {
+        if (!(passwordEncoder.matches(currentPassword, customer.getPassword()))) {
             attributes.addFlashAttribute(SystemConstants.MESSAGE, "The current password and old password must match.");
             return "redirect:/account/change-password";
         }
@@ -130,6 +140,83 @@ public class AccountController {
         customerService.changePassword(customer, passwordEncoder.encode(newPassword));
         attributes.addFlashAttribute(SystemConstants.MESSAGE, "Change password successfully.");
         return "redirect:/account/change-password";
+    }
+
+    @GetMapping("/profile")
+    public String showProfile(Model model,
+                              Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        CustomerDto customer = customerService.findByUsername(principal.getName());
+        List<CategoryDto> categories = categoryService.findAllByActivated();
+        model.addAttribute(SystemConstants.CUSTOMER, customerMapper.toModel(customer));
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
+
+        model.addAttribute(SystemConstants.PROFILE_ACTIVE, "active");
+        model.addAttribute(SystemConstants.TITLE, "Profile");
+        return "my-profile";
+    }
+
+    @PostMapping("/profile")
+    public String saveProfile(
+                        @Valid @ModelAttribute(SystemConstants.CUSTOMER) CustomerModel customerModel,
+                        BindingResult result,
+                        Principal principal,
+                        Model model) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        List<CategoryDto> categories = categoryService.findAllByActivated();
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
+
+        model.addAttribute(SystemConstants.PROFILE_ACTIVE, "active");
+        model.addAttribute(SystemConstants.TITLE, "Profile");
+
+        CustomerDto customer = customerService.findByUsername(principal.getName());
+        customer.setFirstName(customerModel.getFirstName());
+        customer.setLastName(customerModel.getLastName());
+        customer.setPhone(customerModel.getPhone());
+        customer.setEmail(customerModel.getEmail());
+        customer.setAddress(customerModel.getAddress());
+        customer.setBirthDate(customerModel.getBirthDate());
+        model.addAttribute(SystemConstants.CUSTOMER, customerMapper.toModel(customer));
+        System.out.println("A1: " + customer);
+        System.out.println("A2: " + customerModel);
+
+        try {
+            if (result.hasErrors()) {
+                return "my-profile";
+            }
+            // check phone valid
+            if (!customer.getPhone().equals("")) {
+                String regexPhone = "^0(\\d){9}$";
+                if (!(customer.getPhone().matches(regexPhone))) {
+                    model.addAttribute(SystemConstants.PHONE_ERROR, "The phone must be a valid phone.");
+                    return "my-profile";
+                }
+            }
+
+            // check phone email
+            if (!customer.getEmail().equals("")) {
+                String regexEmail = "^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$";
+                if (!(customer.getEmail().matches(regexEmail))) {
+                    model.addAttribute(SystemConstants.EMAIL_ERROR, "The email must be a valid email address.");
+                    return "my-profile";
+                }
+            }
+
+            // save customer
+            customerService.save(customer);
+            model.addAttribute(SystemConstants.MESSAGE, "Update profile successfully.");
+        } catch (Exception e) {
+            model.addAttribute(SystemConstants.MESSAGE, "The server has been errors");
+            e.printStackTrace();
+        }
+
+
+        return "my-profile";
     }
 
 
