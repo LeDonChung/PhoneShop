@@ -44,7 +44,5 @@ public class SystemConstants {
     public static final String SHOP_DETAIL_ACTIVE = "shopDetailActive";
     public static final String PAGES_ACTIVE = "pagesActive";
     public static final String CONTACT_ACTIVE = "contactActive";
-
-
-
+    public static final String CONTACT = "contact";
 }
