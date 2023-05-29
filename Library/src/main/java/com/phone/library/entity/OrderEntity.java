@@ -1,5 +1,6 @@
 package com.phone.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,5 +41,6 @@ public class OrderEntity {
     private CustomerEntity customer;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @JsonIgnore
     private List<OrderDetailEntity> orderDetails;
 }

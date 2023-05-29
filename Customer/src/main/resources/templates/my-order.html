@@ -48,14 +48,16 @@
                                 <td th:text="${order.totalPrice}"></td>
                                 <td th:text="${order.orderStatus}"></td>
                                 <td>
-
+                                    <a class="btn btn-primary" id="btnCancel" th:if="${order.orderStatus == 'PENDING'}"
+                                       th:onclick="changeStatus([[${order.id}]], 'CANCEL');">Cancel</a>
+                                    <a class="btn btn-primary">Show Detail</a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <!-- end table -->
-                    <hr class="pb-4" />
+                    <hr class="pb-4"/>
                 </div>
             </div>
         </div>
@@ -70,6 +72,34 @@
 <a th:replace="~{fragments::back-to-top}"></a>
 
 <div th:replace="~{fragments::script}"></div>
+
+<script th:inline="javascript">
+    function changeStatus(orderId, status) {
+        $.ajax({
+            url: `http://localhost:8020/shop/order/${orderId}?status=${status}`,
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (result) {
+                swal({
+                    title: "Success!",
+                    text: "Cancel successfully order!",
+                    icon: "success",
+                    button: "Close!",
+                }).then((value) => {
+                    window.location.href = "http://localhost:8020/shop/account/order-history";
+                });
+
+            },
+            error: function (error) {
+                swal({
+                    title: "Error!",
+                    text: "The server has been errors!",
+                    icon: "error",
+                });
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 package com.phone.library.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.phone.library.entity.CustomerEntity;
 import com.phone.library.entity.OrderDetailEntity;
 import jakarta.persistence.*;
@@ -34,5 +35,6 @@ public class OrderDto {
 
     private CustomerEntity customer;
 
+    @JsonIgnore
     private List<OrderDetailEntity> orderDetails;
 }

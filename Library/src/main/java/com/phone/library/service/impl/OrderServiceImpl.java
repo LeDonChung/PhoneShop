@@ -46,6 +46,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDto updateStatus(Long orderId, String status) {
+        OrderEntity orderEntity = orderRepository.findById(orderId).get();
+        orderEntity.setOrderStatus(status);
+        return orderMapper.toDto(orderRepository.save(orderEntity));
+    }
+
+    @Override
     public OrderDto saveOrder(ShoppingCartModel cart, Set<CartItemModel> cartItems, CustomerDto customer, int payment, String notes) {
         OrderEntity entity = new OrderEntity();
         entity.setOrderDate(new Date());
