@@ -36,6 +36,8 @@
 
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">
+                <body th:if="${success}" onload="addToCartSuccess()"></body>
+                <body th:if="${fail}" onload="addToCartFail()"></body>
                 <form th:action="@{/add-to-cart/{id}(id = ${product.id})}" method="post">
                     <h3 th:text="${product.productName}"></h3>
                     <h3 class="font-weight-semi-bold mb-4" th:if="${price}" th:th:text="${price}"></h3>
@@ -145,7 +147,6 @@
 <div th:replace="~{fragments::footer}"></div>
 <!-- Footer End -->
 
-
 <!-- Back to Top -->
 <a th:replace="~{fragments::back-to-top}"></a>
 
@@ -155,6 +156,23 @@
         $('#showDescription').text('');
         $('#showDescription').append(data);
         $('#header-description').hide();
+    }
+
+    function addToCartSuccess() {
+        swal({
+            title: "Cart!",
+            text: "Add item to cart successfully!",
+            icon: "success",
+            button: "Close!",
+        });
+    }
+    function addToCartFail() {
+        swal({
+            title: "Cart!",
+            text: "This item is temporarily out of stock!",
+            icon: "error",
+            button: "Close!",
+        });
     }
 
 </script>

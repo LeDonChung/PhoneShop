@@ -24,7 +24,7 @@ public class CartSession {
     private ProductRepository productRepository;
     @Autowired
     private StoreRepository storeRepository;
-    public void addItemToCart(HttpSession session,
+    public boolean addItemToCart(HttpSession session,
                                            ProductDto productDto,
                                            int quantity) {
         ShoppingCartModel cart = (ShoppingCartModel) session.getAttribute(SystemConstants.SHOPPING_CART);
@@ -38,6 +38,9 @@ public class CartSession {
 
         CartItemModel cartItem = getCartItem(cartItems, productDto);
         StoreEntity store = storeRepository.getStorageByProductIdAndColorCodeAndStorageCode(productDto.getId(), productDto.getColorCode(), productDto.getStorageCode());
+        if(store == null) {
+            return false;
+        }
         double price = store.getSalePrice() == 0 ? store.getCostPrice() : store.getSalePrice();
         if(cartItem == null) {
             cartItem = new CartItemModel();
@@ -64,6 +67,7 @@ public class CartSession {
 
         session.setAttribute(SystemConstants.SHOPPING_CART, cart);
         session.setAttribute(SystemConstants.CART_ITEMS, cartItems);
+        return true;
     }
 
     public void updateItemToCart(HttpSession session,
