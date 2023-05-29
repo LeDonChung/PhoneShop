@@ -41,7 +41,8 @@
                 <form th:action="@{/add-to-cart/{id}(id = ${product.id})}" method="post">
                     <h3 th:text="${product.productName}"></h3>
                     <h3 class="font-weight-semi-bold mb-4" th:if="${price}" th:th:text="${price}"></h3>
-                    <h3 class="font-weight-semi-bold mb-4" th:if="${price == null}" th:th:text="${product.costPrice}"></h3>
+                    <h3 class="font-weight-semi-bold mb-4" th:if="${price == null}"
+                        th:th:text="${product.costPrice}"></h3>
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
@@ -49,21 +50,29 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" name="quantity" id="quantity" class="form-control bg-secondary border-0 text-center" value="1"/>
+                            <input type="text" name="quantity" id="quantity"
+                                   class="form-control bg-secondary border-0 text-center" value="1"/>
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-primary btn-plus">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                        <body th:if="${addFavoriteSuccess}" onload="addFavoriteSuccess()"></body>
+                        <body th:if="${removeFavoriteSuccess}" onload="removeFavoriteSuccess()"></body>
+                        <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add
+                            To
                             Cart
                         </button>
-                        <a th:if="${isFavorite != null}" th:href="@{/account/remove-favorite/{productId} (productId = ${product.id})}"  type="button" style="margin-left: 20px;" class="btn btn-primary px-3"><i class="far fa-heart"></i> Remove To
+                        <a th:if="${isFavorite != null}"
+                           th:href="@{/account/remove-favorite/{productId} (productId = ${product.id})}" type="button"
+                           style="margin-left: 20px;" class="btn btn-primary px-3"><i class="far fa-heart"></i> Remove
+                            To
                             Favorite
                         </a>
-                        <a th:if="${isFavorite == null}" th:href="@{/account/add-favorite/{productId} (productId = ${product.id})}" type="button" style="margin-left: 20px;" class="btn btn-primary px-3"><i class="far fa-heart"></i> Add To
+                        <a th:if="${isFavorite == null}"
+                           th:href="@{/account/add-favorite/{productId} (productId = ${product.id})}" type="button"
+                           style="margin-left: 20px;" class="btn btn-primary px-3"><i class="far fa-heart"></i> Add To
                             Favorite
                         </a>
                     </div>
@@ -72,7 +81,10 @@
                 <div class="d-flex mb-4" th:if="${storages}">
                     <strong class="text-dark mr-3">Storages:</strong>
                     <form th:action="@{/product/{id}(id = ${product.id})}" method="get">
-                        <button th:each="storage: ${storages}" name="storageCode" th:value="${storage.code}"  type="submit"class="btn btn-outline-info" th:classappend="${session.storageChoose == storage.getCode() ? 'active' : ''}"  th:text="${storage.name}"/>
+                        <button th:each="storage: ${storages}" name="storageCode" th:value="${storage.code}"
+                                type="submit" class="btn btn-outline-info"
+                                th:classappend="${session.storageChoose == storage.getCode() ? 'active' : ''}"
+                                th:text="${storage.name}"/>
                     </form>
                 </div>
 
@@ -80,32 +92,36 @@
                     <strong class="text-dark mr-3">Colors:</strong>
                     <form th:action="@{/product/{id}(id = ${product.id})}" method="get">
                         <input type="hidden" name="storageCode" th:value="${session.storageChoose}">
-                        <button th:each="color: ${colors}" name="colorCode" th:value="${color.code}"  type="submit"class="btn btn-outline-info" th:classappend="${session.colorChoose == color.getCode() ? 'active' : ''}"  th:text="${color.name}"/>
+                        <button th:each="color: ${colors}" name="colorCode" th:value="${color.code}" type="submit"
+                                class="btn btn-outline-info"
+                                th:classappend="${session.colorChoose == color.getCode() ? 'active' : ''}"
+                                th:text="${color.name}"/>
                     </form>
                 </div>
 
-            </p>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="row px-xl-5">
-        <div class="col">
-            <div class="bg-light p-30">
-                <div class="nav nav-tabs mb-4">
-                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#show-description" th:onclick="showDescription([[${product.description}]])">Description</a>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="tab-pane-1">
-                        <h4 id="header-description" class="mb-3">Please select description to view
-                        </h4>
-                        <p id="showDescription" >
-                        </p>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="bg-light p-30">
+                    <div class="nav nav-tabs mb-4">
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#show-description"
+                           th:onclick="showDescription([[${product.description}]])">Description</a>
                     </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-pane-1">
+                            <h4 id="header-description" class="mb-3">Please select description to view
+                            </h4>
+                            <p id="showDescription">
+                            </p>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Shop Detail End -->
 
@@ -119,15 +135,19 @@
             <div class="owl-carousel related-carousel">
                 <div class="product-item bg-light" th:each="product : ${products}">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" th:src="@{'data:image/jpeg;base64,' + ${product.image}}" alt="Image">
+                        <img class="img-fluid w-100" th:src="@{'data:image/jpeg;base64,' + ${product.image}}"
+                             alt="Image">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i
+                                    class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i
+                                    class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" th:href="@{/product/{id}(id = ${product.id})}" th:text="${product.productName}"></a>
+                        <a class="h6 text-decoration-none text-truncate" th:href="@{/product/{id}(id = ${product.id})}"
+                           th:text="${product.productName}"></a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5 th:text="${product.salePrice}"></h5>
                             <h6 class="text-muted ml-2">
@@ -166,11 +186,30 @@
             button: "Close!",
         });
     }
+
     function addToCartFail() {
         swal({
             title: "Cart!",
             text: "This item is temporarily out of stock!",
             icon: "error",
+            button: "Close!",
+        });
+    }
+
+    function addFavoriteSuccess() {
+        swal({
+            title: "Favorite!",
+            text: "Added to favorites",
+            icon: "success",
+            button: "Close!",
+        });
+    }
+
+    function removeFavoriteSuccess() {
+        swal({
+            title: "Favorite!",
+            text: "removed to favorites",
+            icon: "success",
             button: "Close!",
         });
     }

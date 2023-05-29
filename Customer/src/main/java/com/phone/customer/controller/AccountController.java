@@ -84,24 +84,28 @@ public class AccountController {
     @RequestMapping(value = "/remove-favorite/{productId}", method = {RequestMethod.GET, RequestMethod.POST})
     public String removeFavorite(Principal principal,
                                  @PathVariable Long productId,
-                                 HttpServletRequest request) {
+                                 HttpServletRequest request,
+                                 RedirectAttributes attributes) {
         if (principal == null) {
             return "redirect:/login";
         }
         CustomerDto customerDto = customerService.findByUsername(principal.getName());
         customerService.removeFavorite(productId, customerDto);
+        attributes.addFlashAttribute("removeFavoriteSuccess", "Removed to favorites");
         return "redirect:" + request.getHeader("Referer");
     }
 
     @RequestMapping(value = "/add-favorite/{productId}", method = {RequestMethod.GET, RequestMethod.POST})
     public String addFavorite(Principal principal,
                               @PathVariable Long productId,
-                              HttpServletRequest request) {
+                              HttpServletRequest request,
+                              RedirectAttributes attributes) {
         if (principal == null) {
             return "redirect:/login";
         }
         CustomerDto customerDto = customerService.findByUsername(principal.getName());
         customerService.addFavorite(productId, customerDto);
+        attributes.addFlashAttribute("addFavoriteSuccess", "Added to favorites");
         return "redirect:" + request.getHeader("Referer");
     }
 

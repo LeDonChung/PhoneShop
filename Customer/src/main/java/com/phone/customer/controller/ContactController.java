@@ -66,11 +66,11 @@ public class ContactController {
             }
 
             contactService.save(contact);
-            model.addAttribute(SystemConstants.MESSAGE, "Send message successfully");
+            model.addAttribute(SystemConstants.SUCCESS, "success");
 
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute(SystemConstants.MESSAGE, "The server has been errors");
+            model.addAttribute(SystemConstants.FAIL, "fail");
         }
 
         return "contact";

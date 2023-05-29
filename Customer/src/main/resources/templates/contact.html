@@ -26,6 +26,8 @@
         <div class="col-lg-7 mb-5">
             <div class="contact-form bg-light p-30">
                 <div class="alert-info alert" th:if="${message}" th:text="${message}"></div>
+                <body th:if="${success}" onload="sendSuccess()"></body>
+                <body th:if="${fail}" onload="sendFail()"></body>
                 <form th:action="@{/send-contact}" th:object="${contact}" method="post">
                     <div class="form-group">
                         <input type="text" class="form-control" id="fullName" placeholder="Your Name"
@@ -61,6 +63,7 @@
                            th:if="${#fields.hasErrors('message')}"></p>
                     </div>
                     <div>
+
                         <button class="btn btn-primary py-2 px-4" type="submit" id="btnSendMessage">
                             Submit
                         </button>
@@ -94,6 +97,25 @@
 <a th:replace="~{fragments::back-to-top}"></a>
 
 <div th:replace="~{fragments::script}"></div>
+<script th:inline="javascript">
+    function sendSuccess() {
+        swal({
+            title: "Contact!",
+            text: "Thanks for contacting us!",
+            icon: "success",
+            button: "Close!",
+        });
+    }
+
+    function sendFail() {
+        swal({
+            title: "Contact!",
+            text: "The server has been errors!",
+            icon: "error",
+            button: "Close!",
+        });
+    }
+</script>
 </body>
 
 </html>

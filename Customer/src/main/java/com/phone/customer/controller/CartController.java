@@ -79,6 +79,9 @@ public class CartController {
         String colorCode = (String) session.getAttribute(SystemConstants.COLOR_CHOOSE);
         String storageCode = (String) session.getAttribute(SystemConstants.STORAGE_CHOOSE);
 
+        if(colorCode == null || storageCode == null) {
+            return "redirect:/product/" + productId;
+        }
         ProductDto productDto = productService.findById(productId);
         productDto.setColorCode(colorCode);
         productDto.setStorageCode(storageCode);
