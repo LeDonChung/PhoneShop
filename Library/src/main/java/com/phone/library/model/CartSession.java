@@ -37,7 +37,7 @@ public class CartSession {
         }
 
         CartItemModel cartItem = getCartItem(cartItems, productDto);
-        StoreEntity store = storeRepository.getStorageByProductIdAndColorCodeAndStorageCode(productDto.getId(), productDto.getColorCode(), productDto.getStorageCode());
+        StoreEntity store = storeRepository.getStoreByProductIdAndColorCodeAndStorageCode(productDto.getId(), productDto.getColorCode(), productDto.getStorageCode());
         if(store == null) {
             return false;
         }
@@ -70,7 +70,7 @@ public class CartSession {
         return true;
     }
 
-    public void updateItemToCart(HttpSession session,
+    public boolean updateItemToCart(HttpSession session,
                               ProductDto productDto,
                               int quantity) {
         ShoppingCartModel cart = (ShoppingCartModel) session.getAttribute(SystemConstants.SHOPPING_CART);
@@ -83,7 +83,8 @@ public class CartSession {
         }
 
         CartItemModel cartItem = getCartItem(cartItems, productDto);
-        StoreEntity store = storeRepository.getStorageByProductIdAndColorCodeAndStorageCode(productDto.getId(), productDto.getColorCode(), productDto.getStorageCode());
+        StoreEntity store = storeRepository.getStoreByProductIdAndColorCodeAndStorageCode(productDto.getId(), productDto.getColorCode(), productDto.getStorageCode());
+
         double price = store.getSalePrice() == 0 ? store.getCostPrice() : store.getSalePrice();
 
         cartItem.setQuantity(quantity);
@@ -100,6 +101,7 @@ public class CartSession {
 
         session.setAttribute(SystemConstants.SHOPPING_CART, cart);
         session.setAttribute(SystemConstants.CART_ITEMS, cartItems);
+        return true;
     }
 
     public void removeAll(HttpSession session) {

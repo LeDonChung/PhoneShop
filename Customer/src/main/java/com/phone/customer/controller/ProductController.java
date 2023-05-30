@@ -46,7 +46,6 @@ public class ProductController {
                 model.addAttribute(SystemConstants.STORAGES, storages);
                 model.addAttribute(SystemConstants.COLORS, colors);
                 model.addAttribute(SystemConstants.PRICE, storeService.getPriceByProductIdAndColorCodeAndStorageCode(id, colorChoose, storageChoose));
-
             } else {
                 model.addAttribute(SystemConstants.ERROR, "This item is temporarily out of stock");
             }

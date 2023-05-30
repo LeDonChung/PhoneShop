@@ -80,6 +80,7 @@ public class CartController {
         String storageCode = (String) session.getAttribute(SystemConstants.STORAGE_CHOOSE);
 
         if(colorCode == null || storageCode == null) {
+            attributes.addFlashAttribute(SystemConstants.FAIL, "This item is temporarily out of stock");
             return "redirect:/product/" + productId;
         }
         ProductDto productDto = productService.findById(productId);

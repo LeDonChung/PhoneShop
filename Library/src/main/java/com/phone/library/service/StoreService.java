@@ -11,6 +11,7 @@ import java.util.List;
 public interface StoreService {
     List<StoreDto> findAll();
     StoreDto save(StoreDto dto);
+    int getQuantityByProductIdAndStorageCodeAndColorCode(Long productId, String storageCode, String colorCode);
     StoreDto findByKeyword(String keyword);
     List<StoreDto> findByProductId(Long productId);
     List<StorageDto> findStoragesByProductId(Long id);

@@ -41,6 +41,16 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public int getQuantityByProductIdAndStorageCodeAndColorCode(Long productId, String storageCode, String colorCode) {
+        int quantity = 0;
+        StoreEntity store = storeRepository.getByProductIdAndColorCodeAndStorageCode(productId, colorCode, storageCode);
+        if(store != null) {
+            quantity = store.getQuantity();
+        }
+        return quantity;
+    }
+
+    @Override
     public StoreDto findByKeyword(String keyword) {
         return null;
     }
@@ -83,8 +93,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Double getPriceByProductIdAndColorCodeAndStorageCode(Long productId, String colorCode, String storageCode) {
-        StoreEntity entity = storeRepository.getStorageByProductIdAndColorCodeAndStorageCode(productId, colorCode, storageCode);
-
+        StoreEntity entity = storeRepository.getStoreByProductIdAndColorCodeAndStorageCode(productId, colorCode, storageCode);
         return entity.getSalePrice() == 0 ? entity.getCostPrice() : entity.getSalePrice();
     }
 

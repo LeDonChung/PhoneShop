@@ -18,5 +18,7 @@ public interface StoreRepository extends JpaRepository<StoreEntity, Long> {
     @Query(value = "select distinct s.storage from StoreEntity s where s.product.id = ?1 and s.quantity != 0")
     List<StorageEntity> findStoragesByProductId(Long productId);
     @Query(value = "select s from StoreEntity s where s.product.id = ?1 and s.quantity != 0 and s.color.code = ?2 and s.storage.code = ?3")
-    StoreEntity getStorageByProductIdAndColorCodeAndStorageCode(Long productId, String colorCode, String storageCode);
+    StoreEntity getStoreByProductIdAndColorCodeAndStorageCode(Long productId, String colorCode, String storageCode);
+    @Query(value = "select s from StoreEntity s where s.product.id = ?1 and s.color.code = ?2 and s.storage.code = ?3")
+    StoreEntity getByProductIdAndColorCodeAndStorageCode(Long productId, String colorCode, String storageCode);
 }
