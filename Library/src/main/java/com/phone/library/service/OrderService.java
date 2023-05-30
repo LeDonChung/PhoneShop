@@ -12,6 +12,7 @@ import java.util.Set;
 
 public interface OrderService {
     List<OrderDto> findByCustomerId(Long id);
+    OrderDto findById(Long id);
     OrderDto updateStatus(Long orderId, String status);
     OrderDto saveOrder(ShoppingCartModel cart, Set<CartItemModel> cartItems, CustomerDto customer, int payment, String notes);
 }

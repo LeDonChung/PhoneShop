@@ -20,6 +20,7 @@
     <div class="content-page py-3">
         <div class="container pb-5">
             <h5 class="home-title text-primary mb-lg-5 font-weight-medium"></h5>
+            <body th:if="${orderSuccess}" onload="orderSuccess();"></body>
             <div class="row">
                 <div class="col-lg-4 pt-4 pt-lg-0">
                     <div th:replace="~{fragments::sidebar-user}"></div>
@@ -50,7 +51,8 @@
                                 <td>
                                     <a class="btn btn-primary" id="btnCancel" th:if="${order.orderStatus == 'PENDING'}"
                                        th:onclick="changeStatus([[${order.id}]], 'CANCEL');">Cancel</a>
-                                    <a class="btn btn-primary">Show Detail</a>
+                                    <a class="btn btn-primary" th:href="@{/account/order/{id}(id = ${order.id})}">Show Detail</a>
+
                                 </td>
                             </tr>
                             </tbody>
@@ -74,6 +76,14 @@
 <div th:replace="~{fragments::script}"></div>
 
 <script th:inline="javascript">
+    function orderSuccess() {
+        swal({
+            title: "Order!",
+            text: "Order success!",
+            icon: "success",
+            button: "Close!",
+        });
+    }
     function changeStatus(orderId, status) {
         $.ajax({
             url: `http://localhost:8020/shop/order/${orderId}?status=${status}`,

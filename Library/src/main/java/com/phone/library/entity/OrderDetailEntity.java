@@ -30,4 +30,16 @@ public class OrderDetailEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private ProductEntity product;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "memory_id", referencedColumnName = "memory_id")
+    private MemoryEntity memory;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "color_id", referencedColumnName = "color_id")
+    private ColorEntity color;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "storage_id", referencedColumnName = "storage_id")
+    private StorageEntity storage;
 }

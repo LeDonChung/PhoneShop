@@ -50,4 +50,6 @@ public class SystemConstants {
     public static final String PHONE_ERROR = "phoneError";
     public static final String EMAIL_ERROR = "emailError";
 
+    public static final String ORDER = "order";
+    public static final String ORDER_SUCCESS = "orderSuccess";
 }

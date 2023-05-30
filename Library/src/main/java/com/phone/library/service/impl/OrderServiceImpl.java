@@ -46,6 +46,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDto findById(Long id) {
+        return orderMapper.toDto(orderRepository.findById(id).get());
+    }
+
+    @Override
     public OrderDto updateStatus(Long orderId, String status) {
         OrderEntity orderEntity = orderRepository.findById(orderId).get();
         orderEntity.setOrderStatus(status);
@@ -74,6 +79,9 @@ public class OrderServiceImpl implements OrderService {
                 orderDetail.setUnitPrice(cartItem.getUnitPrice());
                 orderDetail.setOrder(entity);
                 orderDetail.setProduct(productRepository.findById(cartItem.getProductDto().getId()).get());
+                orderDetail.setMemory(cartItem.getMemory());
+                orderDetail.setStorage(cartItem.getStorage());
+                orderDetail.setColor(cartItem.getColor());
                 orderDetailRepository.save(orderDetail);
                 orders.add(orderDetail);
             }

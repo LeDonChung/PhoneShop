@@ -102,7 +102,8 @@ public class CheckoutController {
             return "redirect:/cart";
         }
         cartSession.removeAll(session);
-        return "redirect:/order-history";
+        attributes.addFlashAttribute(SystemConstants.ORDER_SUCCESS, "success");
+        return "redirect:/account/order-history";
     }
 
 }

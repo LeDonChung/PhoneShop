@@ -58,7 +58,27 @@ public class AccountController {
         model.addAttribute(SystemConstants.TITLE, "Orders");
         return "my-order";
     }
+    @GetMapping("/order/{id}")
+    public String getOrder(Principal principal,
+                           @PathVariable("id") Long id,
+                           Model model) {
 
+        if(principal == null) {
+            return "redirect:/login";
+        } else {
+            CustomerDto customer = customerService.findByUsername(principal.getName());
+            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
+        }
+
+        List<CategoryDto> categories = categoryService.findAllByActivated();
+        CustomerDto customer = customerService.findByUsername(principal.getName());
+        OrderDto order = orderService.findById(id);
+        model.addAttribute(SystemConstants.ORDER, order);
+        model.addAttribute(SystemConstants.CUSTOMER, customer);
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
+        model.addAttribute(SystemConstants.TITLE, "Orders");
+        return "order-details";
+    }
     @GetMapping("/favorites")
     public String showFavorites(Principal principal, Model model) {
         if (principal == null) {
