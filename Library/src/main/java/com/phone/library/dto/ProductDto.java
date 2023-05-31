@@ -28,8 +28,6 @@ public class ProductDto {
 
     private CategoryEntity category;
 
-    private int quantity; // have
-
     private boolean is_activated;
 
     private boolean is_deleted;
