@@ -38,6 +38,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductEntity> findAllProduct() {
+        return productRepository.getAll();
+    }
+
+    @Override
     public ProductDto findById(Long id) {
         ProductEntity entity = productRepository.findById(id).get();
         ProductDto dto = null;

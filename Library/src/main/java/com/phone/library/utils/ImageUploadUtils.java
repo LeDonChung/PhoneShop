@@ -10,8 +10,8 @@ import java.nio.file.StandardCopyOption;
 
 @Component
 public class ImageUploadUtils {
-    private final String UPLOAD_FOLDER = "D:\\SpringBoot\\FashionShop\\Admin\\src\\main\\resources\\static\\images\\img-product";
-    private final String UPLOAD_FOLDER_LOGO = "D:\\SpringBoot\\FashionShop\\Admin\\src\\main\\resources\\static\\images\\logo-brand";
+    private final String UPLOAD_FOLDER = "D:\\SpringBoot\\PhoneShop\\Admin\\src\\main\\resources\\static\\images\\img-product";
+    private final String UPLOAD_FOLDER_LOGO = "D:\\SpringBoot\\PhoneShop\\Admin\\src\\main\\resources\\static\\images\\logo-brand";
     private final String UPLOAD_FOLDER_IMAGE_USER = "D:\\SpringBoot\\PhoneShop\\Customer\\src\\main\\resources\\static\\img\\user-image";
 
     public boolean uploadImage(MultipartFile imageProduct) {

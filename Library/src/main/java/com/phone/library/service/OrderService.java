@@ -2,6 +2,7 @@ package com.phone.library.service;
 
 import com.phone.library.dto.CustomerDto;
 import com.phone.library.dto.OrderDto;
+import com.phone.library.dto.StoreDto;
 import com.phone.library.entity.OrderDetailEntity;
 import com.phone.library.entity.OrderEntity;
 import com.phone.library.model.CartItemModel;
@@ -11,8 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 public interface OrderService {
+    // Customer
     List<OrderDto> findByCustomerId(Long id);
     OrderDto findById(Long id);
     OrderDto updateStatus(Long orderId, String status);
     OrderDto saveOrder(ShoppingCartModel cart, Set<CartItemModel> cartItems, CustomerDto customer, int payment, String notes);
+
 }

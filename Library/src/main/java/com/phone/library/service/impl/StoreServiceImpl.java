@@ -4,10 +4,7 @@ import com.phone.library.dto.ColorDto;
 import com.phone.library.dto.MemoryDto;
 import com.phone.library.dto.StorageDto;
 import com.phone.library.dto.StoreDto;
-import com.phone.library.entity.ColorEntity;
-import com.phone.library.entity.MemoryEntity;
-import com.phone.library.entity.StorageEntity;
-import com.phone.library.entity.StoreEntity;
+import com.phone.library.entity.*;
 import com.phone.library.mapper.ColorMapper;
 import com.phone.library.mapper.MemoryMapper;
 import com.phone.library.mapper.StorageMapper;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class StoreServiceImpl implements StoreService {
     @Autowired
@@ -31,20 +29,42 @@ public class StoreServiceImpl implements StoreService {
     private ColorMapper colorMapper;
 
     @Override
+    public boolean delete(Long id) {
+        StoreEntity store = storeRepository.findById(id).get();
+        if(store == null) {
+            return false;
+        }
+
+        storeRepository.delete(store);
+        return true;
+    }
+
+    @Override
     public List<StoreDto> findAll() {
-        return null;
+        List<StoreDto> dtos = new ArrayList<>();
+        List<StoreEntity> entities = storeRepository.findAll();
+        for (StoreEntity entity : entities) {
+            dtos.add(storeMapper.toDto(entity));
+        }
+        return dtos;
     }
 
     @Override
     public StoreDto save(StoreDto dto) {
-        return null;
+        StoreEntity entity = storeRepository.getByProductIdAndColorCodeAndStorageCode(dto.getProduct().getId(), dto.getColor().getCode(), dto.getStorage().getCode());
+        if(entity != null) {
+            entity.setQuantity(entity.getQuantity() + dto.getQuantity());
+        } else {
+            entity = storeMapper.toEntity(dto);
+        }
+        return storeMapper.toDto(storeRepository.save(entity));
     }
 
     @Override
     public int getQuantityByProductIdAndStorageCodeAndColorCode(Long productId, String storageCode, String colorCode) {
         int quantity = 0;
         StoreEntity store = storeRepository.getByProductIdAndColorCodeAndStorageCode(productId, colorCode, storageCode);
-        if(store != null) {
+        if (store != null) {
             quantity = store.getQuantity();
         }
         return quantity;
@@ -59,8 +79,8 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreDto> findByProductId(Long productId) {
         List<StoreDto> dtos = new ArrayList<>();
         List<StoreEntity> entities = storeRepository.findByProductId(productId);
-        if(entities != null) {
-            for (StoreEntity entity: entities) {
+        if (entities != null) {
+            for (StoreEntity entity : entities) {
                 dtos.add(storeMapper.toDto(entity));
             }
         }
@@ -71,8 +91,8 @@ public class StoreServiceImpl implements StoreService {
     public List<StorageDto> findStoragesByProductId(Long id) {
         List<StorageEntity> entities = storeRepository.findStoragesByProductId(id);
         List<StorageDto> dtos = new ArrayList<>();
-        if(entities != null) {
-            for (StorageEntity entity: entities) {
+        if (entities != null) {
+            for (StorageEntity entity : entities) {
                 dtos.add(storageMapper.toDto(entity));
             }
         }
@@ -83,8 +103,8 @@ public class StoreServiceImpl implements StoreService {
     public List<ColorDto> findColorsByStorageCodeAndProductId(String storageCode, Long productId) {
         List<ColorEntity> entities = storeRepository.findColorsByStorageCodeAndProductId(storageCode, productId);
         List<ColorDto> dtos = new ArrayList<>();
-        if(entities != null) {
-            for (ColorEntity entity: entities) {
+        if (entities != null) {
+            for (ColorEntity entity : entities) {
                 dtos.add(colorMapper.toDto(entity));
             }
         }

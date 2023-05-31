@@ -31,7 +31,7 @@ public class ProductEntity {
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private CategoryEntity category;
 
@@ -39,11 +39,11 @@ public class ProductEntity {
 
     private boolean is_deleted;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
     private BrandEntity brand;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "memory_id", referencedColumnName = "memory_id")
     private MemoryEntity memory;
 

@@ -111,7 +111,7 @@
                 <a class="text-decoration-none" th:href="@{/products(pageNo=0, brand=${brand.code})}">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="display: flex; align-items: center; width: 100px; height: 100px;">
-                            <img class="img-fluid" th:src="${brand.logo}" alt="">
+                            <img class="img-fluid" th:src="@{'data:image/jpeg;base64,' + ${brand.logo}}" alt="">
                         </div>
                         <div class="flex-fill pl-3">
                             <h6 th:text="${brand.name}"></h6>

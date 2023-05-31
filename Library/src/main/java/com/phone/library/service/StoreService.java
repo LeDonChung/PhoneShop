@@ -9,6 +9,7 @@ import com.phone.library.entity.ColorEntity;
 import java.util.List;
 
 public interface StoreService {
+    boolean delete(Long id);
     List<StoreDto> findAll();
     StoreDto save(StoreDto dto);
     int getQuantityByProductIdAndStorageCodeAndColorCode(Long productId, String storageCode, String colorCode);

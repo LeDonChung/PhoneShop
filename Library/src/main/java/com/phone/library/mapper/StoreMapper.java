@@ -15,9 +15,6 @@ public class StoreMapper {
         if (entity.getProduct() != null) {
             dto.setProduct(entity.getProduct());
         }
-        if (entity.getProduct() != null) {
-            dto.setProduct(entity.getProduct());
-        }
         if (entity.getColor() != null) {
             dto.setColor(entity.getColor());
         }
@@ -32,9 +29,7 @@ public class StoreMapper {
         entity.setSalePrice(dto.getSalePrice());
         entity.setCostPrice(dto.getCostPrice());
         entity.setQuantity(dto.getQuantity());
-        if (dto.getProduct() != null) {
-            entity.setProduct(dto.getProduct());
-        }
+
         if (dto.getProduct() != null) {
             entity.setProduct(dto.getProduct());
         }
