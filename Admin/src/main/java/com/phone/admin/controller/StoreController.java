@@ -80,4 +80,9 @@ public class StoreController {
         storeService.delete(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+    @RequestMapping(value = "/findStoreById")
+    public StoreDto findStoreById(@RequestParam("id") Long id){
+        StoreDto storeDto = storeService.findById(id);
+        return storeDto;
+    }
 }

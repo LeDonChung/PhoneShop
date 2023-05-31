@@ -40,6 +40,11 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public StoreDto findById(Long id) {
+        return storeMapper.toDto(storeRepository.findById(id).get());
+    }
+
+    @Override
     public List<StoreDto> findAll() {
         List<StoreDto> dtos = new ArrayList<>();
         List<StoreEntity> entities = storeRepository.findAll();

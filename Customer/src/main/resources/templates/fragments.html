@@ -74,8 +74,6 @@
                            th:classappend="${homeActive != null ? 'active' : ''}">Home</a>
                         <a th:href="@{/products(pageNo = 0)}" class="nav-item nav-link"
                            th:classappend="${shopActive != null ? 'active' : ''}">Shop</a>
-                        <a th:href="@{/product/14}" class="nav-item nav-link"
-                           th:classappend="${shopDetailActive != null ? 'active' : ''}">Shop Detail</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" th:classappend="${pagesActive != null ? 'active' : ''}"
                                data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
@@ -188,8 +186,6 @@
                         <a class="text-secondary mb-2" th:href="@{/home}"><i class="fa fa-angle-right mr-2"></i>Home</a>
                         <a class="text-secondary mb-2" th:href="@{/products(pageNo = 0)}"><i
                                 class="fa fa-angle-right mr-2"></i>Shop</a>
-                        <a class="text-secondary mb-2" th:href="@{/product/14}"><i class="fa fa-angle-right mr-2"></i>Shop
-                            Detail</a>
                         <a class="text-secondary mb-2" th:href="@{/cart}"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-secondary mb-2" th:href="@{/checkout}"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
                         <a class="text-secondary" th:href="@{/contact}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>

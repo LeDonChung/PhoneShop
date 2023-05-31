@@ -71,15 +71,6 @@ public class ProductMapper {
         if (entity.getMemory() != null) {
             dto.setMemory(entity.getMemory());
         }
-        int quantity = 0;
-        /*
-        if(entity.getStores() != null) {
-            for (StoreEntity store: entity.getStores()) {
-                    quantity += store.getQuantity();
-            }
-        }
-         */
-        dto.setQuantity(quantity);
 
         return dto;
     }
