@@ -9,6 +9,7 @@ import com.phone.library.entity.ColorEntity;
 import java.util.List;
 
 public interface StoreService {
+    StoreDto updateStore(StoreDto storeDto);
     boolean delete(Long id);
     StoreDto findById(Long id);
     List<StoreDto> findAll();

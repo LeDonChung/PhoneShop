@@ -1,5 +1,6 @@
 package com.phone.library.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.phone.library.entity.ColorEntity;
 import com.phone.library.entity.MemoryEntity;
 import com.phone.library.entity.ProductEntity;

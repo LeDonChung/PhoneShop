@@ -80,9 +80,16 @@ public class StoreController {
         storeService.delete(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
-    @RequestMapping(value = "/findStoreById")
+    @RequestMapping(value = "/stores/findById", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
     public StoreDto findStoreById(@RequestParam("id") Long id){
         StoreDto storeDto = storeService.findById(id);
         return storeDto;
+    }
+    @PostMapping("/update-store")
+    public String updateStore(StoreDto store, RedirectAttributes attributes) {
+        storeService.updateStore(store);
+        attributes.addFlashAttribute(SystemConstants.SUCCESS, "Update store successfully");
+        return "redirect:/stores";
     }
 }

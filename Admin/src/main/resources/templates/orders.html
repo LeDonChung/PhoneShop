@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+
+</head>
+
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav th:replace="~{fragments::navbar}">
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav th:replace="~{fragments::sidebar}">
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Manager </h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Order Manager
+                                </h4>
+                                <div th:if="${orders.size() == 0}" class="alert alert-warning text-center">
+                                    No order
+                                </div>
+
+                                <div th:if="${fail}" class="alert alert-warning text-center" th:text="${fail}">
+
+                                </div>
+                                <div th:if="${success}" class="alert alert-warning text-center" th:text="${success}">
+
+                                </div>
+
+                                <table th:if="${orders.size() != 0}" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th> ID</th>
+                                        <th> Customer</th>
+                                        <th> Order Date</th>
+                                        <th> Order Status</th>
+                                        <th> Total Price</th>
+                                        <th> Shipping Fee </th>
+                                        <th> Address</th>
+                                        <th> Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="order : ${orders}">
+                                        <td th:text="*{order.id}"></td>
+                                        <td th:text="*{order.customer.firstName + ' ' + order.customer.lastName}"></td>
+
+                                        <td th:text="*{order.orderDate}"></td>
+                                        <td th:text="*{order.orderStatus}"></td>
+
+                                        <td th:text="*{order.totalPrice}"></td>
+                                        <td th:text="*{order.shippingFee}"></td>
+                                        <td th:text="${order.address}"></td>
+                                        <td>
+                                            <a th:href="@{/orders/{id}(id = ${order.id})}"
+                                               class="btn btn-primary">Show details</a>
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status</button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" th:href="@{/change-status-order/{id}(id = ${order.id}, status = 'PENDING')}">PENDING</a>
+                                                <a class="dropdown-item" th:href="@{/change-status-order/{id}(id = ${order.id}, status = 'SHIPPING')}">SHIPPING</a>
+                                                <a class="dropdown-item" th:href="@{/change-status-order/{id}(id = ${order.id}, status = 'CANCEL')}">CANCEL</a>
+                                                <a class="dropdown-item" th:href="@{/change-status-order/{id}(id = ${order.id}, status = 'AWAITING')}">AWAITING</a>
+                                                <a class="dropdown-item" th:href="@{/change-status-order/{id}(id = ${order.id}, status = 'COMPLETED')}">COMPLETED</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer th:replace="~{fragments::footer}">
+
+            </footer>
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+
+
+<!-- container-scroller -->
+<head th:replace="~{fragments::script}">
+</head>
+</body>
+</html>

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
@@ -41,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> findByCustomerId(Long id) {
         List<OrderDto> dtos = new ArrayList<>();
         List<OrderEntity> entities = orderRepository.findByCustomerId(id);
-        for (OrderEntity entity: entities) {
+        for (OrderEntity entity : entities) {
             dtos.add(orderMapper.toDto(entity));
         }
         return dtos;
@@ -69,12 +70,12 @@ public class OrderServiceImpl implements OrderService {
         entity.setShippingFee(0);
         entity.setOrderStatus("PENDING");
         entity.setNotes(notes);
-        if(customer != null) {
+        if (customer != null) {
             entity.setCustomer(customerRepository.findByUsername(customer.getUsername()));
         }
         List<OrderDetailEntity> orders = new ArrayList<>();
-        if(cartItems != null) {
-            for (CartItemModel cartItem: cartItems) {
+        if (cartItems != null) {
+            for (CartItemModel cartItem : cartItems) {
                 OrderDetailEntity orderDetail = new OrderDetailEntity();
                 orderDetail.setQuantity(cartItem.getQuantity());
                 orderDetail.setTotalPrice(cartItem.getTotalPrice());
@@ -91,5 +92,15 @@ public class OrderServiceImpl implements OrderService {
         entity.setOrderDetails(orders);
         entity = orderRepository.save(entity);
         return orderMapper.toDto(entity);
+    }
+
+    @Override
+    public List<OrderDto> findAll() {
+        List<OrderDto> results = new ArrayList<>();
+        List<OrderEntity> orders = orderRepository.findAll();
+        for (OrderEntity entity : orders) {
+            results.add(orderMapper.toDto(entity));
+        }
+        return results;
     }
 }

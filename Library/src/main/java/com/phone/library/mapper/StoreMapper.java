@@ -41,4 +41,21 @@ public class StoreMapper {
         }
         return entity;
     }
+
+    public StoreEntity toEntity(StoreEntity entity, StoreDto dto) {
+        entity.setSalePrice(dto.getSalePrice());
+        entity.setCostPrice(dto.getCostPrice());
+        entity.setQuantity(dto.getQuantity());
+
+        if (dto.getProduct() != null) {
+            entity.setProduct(dto.getProduct());
+        }
+        if (dto.getColor() != null) {
+            entity.setColor(dto.getColor());
+        }
+        if (dto.getStorage() != null) {
+            entity.setStorage(dto.getStorage());
+        }
+        return entity;
+    }
 }

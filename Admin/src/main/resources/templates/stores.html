@@ -144,9 +144,10 @@
                                         <td th:text="${store.color.name}"></td>
                                         <td>
                                             <button class="btn btn-warning" type="button" th:onclick="removeStore([[${store.id}]])">Delete</button>
-                                            <button class="btn btn-primary" type="button">Update</button>
+                                            <a class="btn btn-primary" id="btnUpdateStore" th:href="@{/stores/findById(id = ${store.id})}">Update</a>
                                         </td>
                                     </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -154,16 +155,52 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="updateStore" tabindex="-1"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <form th:action="@{/update-store}" method="post" class="forms-sample" id="formUpdate">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="titleUpdate">Update product</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="idEdit">ID</label>
+                                    <input type="text" class="form-control"
+                                           id="idEdit" name="id" placeholder="ID" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="costEdit">Cost price</label>
+                                    <input type="text" class="form-control"
+                                           id="costEdit" name="costPrice" placeholder="Cost price">
+                                </div>
+                                <div class="form-group">
+                                    <label for="saleEdit">Sale price</label>
+                                    <input type="text" class="form-control"
+                                           id="saleEdit" name="salePrice" placeholder="Sale price">
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantityEdit">Quantity</label>
+                                    <input type="text" class="form-control"
+                                           id="quantityEdit" name="quantity" placeholder="Quantity">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Save changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <!-- content-wrapper ends -->
             <!-- partial:../../partials/_footer.html -->
-            <footer class="footer">
-                <div class="container-fluid d-flex justify-content-between">
-            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com
-              2021</span>
-                    <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a
-                            href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
-                template</a> from Bootstrapdash.com</span>
-                </div>
+            <footer th:replace="~{fragments::footer}">
             </footer>
             <!-- partial -->
         </div>
@@ -176,32 +213,6 @@
 <!-- container-scroller -->
 <head th:replace="~{fragments::script}">
 </head>
-<script th:inline="javascript">
-        function removeStore(storeId) {
-            $.ajax({
-                url: `http://localhost:8019/admin/stores/${storeId}`,
-                type: 'DELETE',
-                contentType: 'application/json',
-                success: function (result) {
-                    swal({
-                        title: "Success!",
-                        text: "Delete success store!",
-                        icon: "success",
-                        button: "Close!",
-                    }).then((value) => {
-                        window.location.href = "http://localhost:8019/admin/stores";
-                    });
-
-                },
-                error: function (error) {
-                    swal({
-                        title: "Error!",
-                        text: "The server has been errors!",
-                        icon: "error",
-                    });
-                }
-            });
-        }
-</script>
+<script th:src="@{/js/stores.js}"></script>
 </body>
 </html>

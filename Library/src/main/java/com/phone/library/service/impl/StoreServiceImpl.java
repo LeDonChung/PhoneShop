@@ -29,6 +29,13 @@ public class StoreServiceImpl implements StoreService {
     private ColorMapper colorMapper;
 
     @Override
+    public StoreDto updateStore(StoreDto storeDto) {
+        StoreEntity storeOld = storeRepository.findById(storeDto.getId()).get();
+        StoreEntity storeNew = storeMapper.toEntity(storeOld, storeDto);
+        return storeMapper.toDto(storeRepository.save(storeNew));
+    }
+
+    @Override
     public boolean delete(Long id) {
         StoreEntity store = storeRepository.findById(id).get();
         if(store == null) {
