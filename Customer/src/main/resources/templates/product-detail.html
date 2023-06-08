@@ -40,9 +40,9 @@
                 <body th:if="${fail}" onload="addToCartFail()"></body>
                 <form th:action="@{/add-to-cart/{id}(id = ${product.id})}" method="post">
                     <h3 th:text="${product.productName}"></h3>
-                    <h3 class="font-weight-semi-bold mb-4" th:if="${price}" th:th:text="${price}"></h3>
+                    <h3 class="font-weight-semi-bold mb-4" th:if="${price}"  th:text="'$' + ${price}"></h3>
                     <h3 class="font-weight-semi-bold mb-4" th:if="${price == null}"
-                        th:th:text="${product.costPrice}"></h3>
+                        th:th:text="'$' + ${product.costPrice}"></h3>
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
@@ -149,9 +149,9 @@
                         <a class="h6 text-decoration-none text-truncate" th:href="@{/product/{id}(id = ${product.id})}"
                            th:text="${product.productName}"></a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5 th:text="${product.salePrice}"></h5>
+                            <h5 th:text="'$' + ${product.salePrice}"></h5>
                             <h6 class="text-muted ml-2">
-                                <del th:text="${product.costPrice}"></del>
+                                <del th:text="'$' + ${product.costPrice}"></del>
                             </h6>
                         </div>
                     </div>

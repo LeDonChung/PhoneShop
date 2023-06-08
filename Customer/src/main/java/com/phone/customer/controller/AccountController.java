@@ -3,7 +3,7 @@ package com.phone.customer.controller;
 import com.phone.library.constants.SystemConstants;
 import com.phone.library.dto.CategoryDto;
 import com.phone.library.dto.CustomerDto;
-import com.phone.library.dto.CustomerModel;
+import com.phone.library.model.CustomerModel;
 import com.phone.library.dto.OrderDto;
 import com.phone.library.entity.ProductEntity;
 import com.phone.library.mapper.CustomerMapper;

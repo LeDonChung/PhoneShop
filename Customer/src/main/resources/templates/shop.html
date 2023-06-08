@@ -141,9 +141,9 @@
                             <a class="h6 text-decoration-none text-truncate" href=""
                                th:text="${product.productName}"></a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5 th:text="${product.salePrice}"></h5>
+                                <h5 th:text="'$' + ${product.salePrice}"></h5>
                                 <h6 class="text-muted ml-2">
-                                    <del th:text="${product.costPrice}"></del>
+                                    <del th:text="'$' + ${product.costPrice}"></del>
                                 </h6>
                             </div>
                         </div>

@@ -86,7 +86,7 @@
     }
     function changeStatus(orderId, status) {
         $.ajax({
-            url: `http://localhost:8021/shop/order/${orderId}?status=${status}`,
+            url: `https://phoneshop.azurewebsites.net:8021/shop/order/${orderId}?status=${status}`,
             type: 'POST',
             contentType: 'application/json',
             success: function (result) {
@@ -96,7 +96,7 @@
                     icon: "success",
                     button: "Close!",
                 }).then((value) => {
-                    window.location.href = "http://localhost:8021/shop/account/order-history";
+                    window.location.href = "https://phoneshop.azurewebsites.net:8021/shop/account/order-history";
                 });
 
             },

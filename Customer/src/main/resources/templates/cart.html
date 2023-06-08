@@ -72,10 +72,10 @@
 
                                         <div class="input-group quantity mx-auto">
                                             <div class="input-group-btn">
-                                                <a th:if="${cartItem.quantity == 0}" th:href="@{/remove-item-to-cart/{id}(id = ${cartItem.productDto.id}, color = ${cartItem.color.code}, storage = ${cartItem.storage.code})}" class="btn btn-sm btn-primary btn-minus">
+                                                <a th:if="${cartItem.quantity - 1 == 0}" th:href="@{/remove-item-to-cart/{id}(id = ${cartItem.productDto.id}, color = ${cartItem.color.code}, storage = ${cartItem.storage.code})}" class="btn btn-sm btn-primary btn-minus">
                                                     <i class="fa fa-minus"></i>
                                                 </a>
-                                                <a th:if="${cartItem.quantity != 0}" th:href="@{/update-item-to-cart/{id}(id = ${cartItem.productDto.id}, quantity = ${cartItem.quantity - 1}, color = ${cartItem.color.code}, storage = ${cartItem.storage.code})}" class="btn btn-sm btn-primary btn-minus">
+                                                <a th:if="${cartItem.quantity - 1 != 0}" th:href="@{/update-item-to-cart/{id}(id = ${cartItem.productDto.id}, quantity = ${cartItem.quantity - 1}, color = ${cartItem.color.code}, storage = ${cartItem.storage.code})}" class="btn btn-sm btn-primary btn-minus">
                                                     <i class="fa fa-minus"></i>
                                                 </a>
 
