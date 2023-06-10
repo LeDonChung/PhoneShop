@@ -134,7 +134,6 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" th:src="@{'data:image/jpeg;base64,' + ${feature.image}}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" th:href="@{/add-to-cart/{id}(id = ${feature.id})}"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${feature.id})}"><i class="fa fa-search"></i></a>
                         </div>
@@ -160,7 +159,6 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" th:src="@{'data:image/jpeg;base64,' + ${offer.image}}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" th:href="@{/add-to-cart/{id}(id = ${offer.id})}"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${offer.id})}"><i class="fa fa-search"></i></a>
                         </div>

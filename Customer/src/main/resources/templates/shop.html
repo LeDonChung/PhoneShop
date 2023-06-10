@@ -95,7 +95,7 @@
 
 
         <!-- Shop Product Start -->
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-9 col-md-8" th:if="${products.size != 0}">
             <div class="row pb-3">
                 <div class="col-12 pb-1">
                     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -109,7 +109,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item"
-                                       th:href="@{/products(pageNo = ${session.productFilter.pageNo}, category = ${session.productFilter.category}, brand = ${session.productFilter.brand})}">All</a>
+                                       th:href="@{/products(pageNo = ${session.productFilter.pageNo != null}, category = ${session.productFilter.category}, brand = ${session.productFilter.brand})}">All</a>
                                     <a class="dropdown-item"
                                        th:href="@{/products(pageNo = ${session.productFilter.pageNo}, category = ${session.productFilter.category}, brand = ${session.productFilter.brand}, sortBy = 'salePrice', sortType = 'asc')}">High
                                         Price</a>
@@ -166,6 +166,13 @@
                         </ul>
                     </nav>
                 </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-8" th:if="${products.size == 0}">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 20px;">
+                <img th:src="@{/img/no-result.png}">
+                <p style="font-weight: 900;">No matching products found</p>
+                <p class="fs-senull-l3">Please adjust the filter again</p>
             </div>
         </div>
         <!-- Shop Product End -->

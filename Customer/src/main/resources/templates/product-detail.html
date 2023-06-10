@@ -42,7 +42,7 @@
                     <h3 th:text="${product.productName}"></h3>
                     <h3 class="font-weight-semi-bold mb-4" th:if="${price}"  th:text="'$' + ${price}"></h3>
                     <h3 class="font-weight-semi-bold mb-4" th:if="${price == null}"
-                        th:th:text="'$' + ${product.costPrice}"></h3>
+                        th:text="'$' + ${product.costPrice}"></h3>
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
@@ -138,8 +138,6 @@
                         <img class="img-fluid w-100" th:src="@{'data:image/jpeg;base64,' + ${product.image}}"
                              alt="Image">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i
-                                    class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" th:href="@{/product/{id}(id = ${product.id})}"><i
                                     class="fa fa-search"></i></a>
