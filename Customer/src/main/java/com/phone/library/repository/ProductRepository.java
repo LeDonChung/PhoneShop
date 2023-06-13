@@ -41,4 +41,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query(value = "select p from ProductEntity p where p.category.categoryCode = ?1 and p.is_deleted = false and p.is_activated = true order by rand() asc limit 6")
     List<ProductEntity> findAlsoLike(String categoryCode);
+
+    @Query(value = "select p from ProductEntity p where p.productName like %:key% and p.is_deleted = false and p.is_activated = true")
+    List<ProductEntity> search(String key);
 }

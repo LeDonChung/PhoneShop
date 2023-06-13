@@ -1,12 +1,16 @@
 package com.phone.library.service.impl;
 
+import com.phone.library.dto.CommentDto;
 import com.phone.library.dto.ProductDto;
+import com.phone.library.entity.CommentEntity;
 import com.phone.library.entity.ProductEntity;
+import com.phone.library.mapper.CommentMapper;
 import com.phone.library.mapper.ProductMapper;
 import com.phone.library.model.ProductFilter;
 import com.phone.library.repository.ProductRepository;
 import com.phone.library.service.ProductService;
 import com.phone.library.utils.ImageUploadUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,17 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ProductMapper productMapper;
-    @Autowired
-    private ImageUploadUtils imageUploadUtils;
-
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
+    private final ImageUploadUtils imageUploadUtils;
+    private final CommentMapper commentMapper;
     @Override
     public List<ProductDto> findAll() {
         List<ProductEntity> listEntity = productRepository.getAll();
@@ -165,6 +168,38 @@ public class ProductServiceImpl implements ProductService {
             listDto.add(productMapper.toDto(entity));
         }
         return listDto;
+    }
+
+    @Override
+    public List<ProductDto> findBySearchKey(String key) {
+        List<ProductDto> productDTOList = new ArrayList<>();
+        List<ProductEntity> products = productRepository.search(key);
+        // convert
+        for (ProductEntity entity : products) {
+            ProductDto dto = productMapper.toDto(entity);
+            productDTOList.add(dto);
+        }
+
+        return productDTOList;
+    }
+
+    @Override
+    public ProductDto addComment(Long productId, CommentDto commentDto) {
+        ProductEntity product = productRepository.findById(productId).get();
+        if(product == null) {
+            return null;
+        }
+
+        CommentEntity comment = commentMapper.toEntity(commentDto);
+        comment.setProduct(product);
+        comment.setCommentDate(new Date());
+
+        List<CommentEntity> comments = product.getComments();
+        comments.add(comment);
+        product.setComments(comments);
+
+        ProductEntity productNew = productRepository.save(product);
+        return productMapper.toDto(productNew);
     }
 
     @Override

@@ -75,7 +75,8 @@
                         <a th:href="@{/products(pageNo = 0)}" class="nav-item nav-link"
                            th:classappend="${shopActive != null ? 'active' : ''}">Shop</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" th:classappend="${pagesActive != null ? 'active' : ''}"
+                            <a href="#" class="nav-link dropdown-toggle"
+                               th:classappend="${pagesActive != null ? 'active' : ''}"
                                data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 <a th:href="@{/cart}" class="dropdown-item">Shopping Cart</a>
@@ -87,9 +88,11 @@
                     </div>
 
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <a th:href="@{/account/profile}" th:if="${session.userLogin}" class="btn px-0 ml-3" style="margin: 0 30px;">
+                        <a th:href="@{/account/profile}" th:if="${session.userLogin}" class="btn px-0 ml-3"
+                           style="margin: 0 30px;">
                             <span class="text-secondary"
-                                  style="padding-bottom: 2px" th:text="'Wellcome, ' + ${session.userLogin.lastName}"> </span>
+                                  style="padding-bottom: 2px"
+                                  th:text="'Wellcome, ' + ${session.userLogin.lastName}"> </span>
                         </a>
                         <a th:href="@{/account/favorites}" class="btn px-0">
                             <i class="fas fa-heart text-primary"></i>
@@ -132,7 +135,8 @@
             <div class="d-inline-flex align-items-center">
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
-                        Account</button>
+                        Account
+                    </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" th:if="${session.userLogin} == null" th:href="@{/login}">Sign in</a>
                         <a class="dropdown-item" th:if="${session.userLogin} != null" th:href="@{/logout}">Logout</a>
@@ -150,13 +154,13 @@
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
-            <form action="">
+            <form th:action="@{/products/search}">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input type="text" class="form-control" name="key" placeholder="Search for products">
                     <div class="input-group-append">
-              <span class="input-group-text bg-transparent text-primary">
-                <i class="fa fa-search"></i>
-              </span>
+                        <button type="submit" class="input-group-text bg-transparent text-primary">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -174,7 +178,8 @@
     <div class="row px-xl-5 pt-5">
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
             <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
-            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>12 Nguyen Van Bao, Phuong 4, Go Vap, Ho
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>12 Nguyen Van Bao, Phuong 4, Go Vap,
+                Ho
                 Chi Minh, Viet Nam</p>
             <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>donchung12a2@gmail.com</p>
             <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>0867713557</p>
@@ -187,7 +192,8 @@
                         <a class="text-secondary mb-2" th:href="@{/home}"><i class="fa fa-angle-right mr-2"></i>Home</a>
                         <a class="text-secondary mb-2" th:href="@{/products(pageNo = 0)}"><i
                                 class="fa fa-angle-right mr-2"></i>Shop</a>
-                        <a class="text-secondary mb-2" th:href="@{/cart}"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                        <a class="text-secondary mb-2" th:href="@{/cart}"><i class="fa fa-angle-right mr-2"></i>Shopping
+                            Cart</a>
                         <a class="text-secondary mb-2" th:href="@{/checkout}"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
                         <a class="text-secondary" th:href="@{/contact}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
@@ -199,7 +205,8 @@
                                 class="fa fa-angle-right mr-2"></i>My order</a>
                         <a class="text-secondary mb-2" th:href="@{/account/favorites}"><i
                                 class="fa fa-angle-right mr-2"></i>Favorites</a>
-                        <a class="text-secondary mb-2" th:href="@{/account/profile}"><i class="fa fa-angle-right mr-2"></i>Personal Information</a>
+                        <a class="text-secondary mb-2" th:href="@{/account/profile}"><i
+                                class="fa fa-angle-right mr-2"></i>Personal Information</a>
                         <a class="text-secondary mb-2" th:href="@{/account/change-password}"><i
                                 class="fa fa-angle-right mr-2"></i>Change password</a>
                         <a class="text-secondary mb-2" th:href="@{/logout}"><i
@@ -209,8 +216,10 @@
                 <div class="col-md-4 mb-5">
                     <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
-                        <a class="btn btn-primary btn-square mr-2" href="https://www.facebook.com/LDC01082003/"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-primary btn-square" href="https://www.instagram.com/ledonchung/"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="https://www.facebook.com/LDC01082003/"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-primary btn-square" href="https://www.instagram.com/ledonchung/"><i
+                                class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -225,9 +234,9 @@
         <div class="media align-items-center py-3">
             <div class="img-thumbnail rounded-circle position-relative" style="width: 3.1rem">
                 <img th:if="${customer.image == null}" style="width: 40px;" class="rounded-circle"
-                     src="https://soklyphone.com/img/avatar.jpeg" alt="avatar" />
+                     src="https://soklyphone.com/img/avatar.jpeg" alt="avatar"/>
                 <img th:if="${customer.image != null}" style="width: 40px;" class="rounded-circle"
-                     th:src="@{'data:image/jpeg;base64,' + ${customer.image}}" alt="avatar" />
+                     th:src="@{'data:image/jpeg;base64,' + ${customer.image}}" alt="avatar"/>
             </div>
             <div class="media-body pl-3">
                 <h6 class="font-size-base mb-0" th:text="${customer.firstName + ' ' + customer.lastName}"></h6>
@@ -240,8 +249,10 @@
         <ul class="list-unstyled">
             <li class="border-bottom justify-content-center px-4 py-3">
                 <a th:href="@{/account/order-history}">
-                    <div class="sidebar-item" th:classappend="${orderHistoryActive != null ? 'sidebar-item-active' : ''}">
-                        <svg class="mr-2" id="Group_24017" data-name="Group 24017" xmlns="http://www.w3.org/2000/svg" width="22"
+                    <div class="sidebar-item"
+                         th:classappend="${orderHistoryActive != null ? 'sidebar-item-active' : ''}">
+                        <svg class="mr-2" id="Group_24017" data-name="Group 24017" xmlns="http://www.w3.org/2000/svg"
+                             width="22"
                              height="22" viewBox="0 0 22 22">
                             <g id="Group_24016" data-name="Group 24016">
                                 <circle id="Ellipse_561" data-name="Ellipse 561" cx="0.47" cy="0.47" r="0.47"
@@ -287,7 +298,8 @@
             </li>
             <li class="border-bottom justify-content-center px-4 py-3">
                 <a th:href="@{/account/change-password}">
-                    <div class="sidebar-item" th:classappend="${changePasswordActive != null ? 'sidebar-item-active' : ''}">
+                    <div class="sidebar-item"
+                         th:classappend="${changePasswordActive != null ? 'sidebar-item-active' : ''}">
                         <!-- <i class="icons.change-password mr-2"></i>    -->
                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
                             <path id="Subtraction_8" data-name="Subtraction 8"

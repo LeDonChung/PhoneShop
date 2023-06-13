@@ -24,6 +24,9 @@ public class ProductMapper {
         if (dto.getMemory() != null) {
             entity.setMemory(dto.getMemory());
         }
+        if(dto.getComments() != null) {
+            entity.setComments(dto.getComments());
+        }
 
         return entity;
     }
@@ -41,6 +44,10 @@ public class ProductMapper {
         }
         if (dto.getMemory() != null) {
             entityNew.setMemory(dto.getMemory());
+        }
+
+        if(dto.getComments() != null) {
+            entityNew.setComments(dto.getComments());
         }
 
         return entityNew;
@@ -65,6 +72,10 @@ public class ProductMapper {
         }
         if (entity.getMemory() != null) {
             dto.setMemory(entity.getMemory());
+        }
+
+        if(entity.getComments() != null) {
+            dto.setComments(entity.getComments());
         }
 
         return dto;

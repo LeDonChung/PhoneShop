@@ -40,7 +40,7 @@
                 <body th:if="${fail}" onload="addToCartFail()"></body>
                 <form th:action="@{/add-to-cart/{id}(id = ${product.id})}" method="post">
                     <h3 th:text="${product.productName}"></h3>
-                    <h3 class="font-weight-semi-bold mb-4" th:if="${price}"  th:text="'$' + ${price}"></h3>
+                    <h3 class="font-weight-semi-bold mb-4" th:if="${price}" th:text="'$' + ${price}"></h3>
                     <h3 class="font-weight-semi-bold mb-4" th:if="${price == null}"
                         th:text="'$' + ${product.costPrice}"></h3>
                     <div class="d-flex align-items-center mb-4 pt-2">
@@ -98,30 +98,112 @@
                                 th:text="${color.name}"/>
                     </form>
                 </div>
-
-                </p>
             </div>
         </div>
-        <div class="row px-xl-5">
-            <div class="col">
-                <div class="bg-light p-30">
-                    <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#show-description"
-                           th:onclick="showDescription([[${product.description}]])">Description</a>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab-pane-1">
-                            <h4 id="header-description" class="mb-3">Please select description to view
-                            </h4>
-                            <p id="showDescription">
-                            </p>
-                        </div>
 
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light p-30">
+                <div class="nav nav-tabs mb-4">
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#show-description">Description</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#show-review">Review</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="show-description">
+                        <p id="showDescription" th:utext="${product.description}">
+                        </p>
+                    </div>
+                    <input type="hidden" id="idProductComment" th:value="${product.id}">
+                    <div class="tab-pane fade" id="show-review">
+                        <form id="formSubmit">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="mb-4">[[${product.comments.size()}]] review for
+                                    "[[${product.productName}]]"</h4>
+                                <div class="media mb-4" th:each="comment : ${product.comments}">
+                                    <div class="media-body">
+                                        <h6 th:text="${comment.fullName}"><small> - <i
+                                                th:text="${comment.commentDate}"></i></small>
+                                        </h6>
+                                        <div class="text-primary mb-2">
+                                            <i th:each="i : ${#numbers.sequence(1, 5)}" class="fa-star"
+                                               th:classappend="${i <= comment.stars ? 'fas' : 'far'}"></i>
+                                        </div>
+                                        <p th:text="${comment.content}">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Leave a review</h4>
+                                    <div class="d-flex my-3">
+                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <div class="text-primary">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="stars"
+                                                       id="inlineRadio1" value="1"/>
+                                                <label class="form-check-label" for="inlineRadio1">1</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="stars"
+                                                       id="inlineRadio2" value="2"/>
+                                                <label class="form-check-label" for="inlineRadio2">2</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="stars"
+                                                       id="inlineRadio3" value="3"/>
+                                                <label class="form-check-label" for="inlineRadio3">3</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="stars"
+                                                       id="inlineRadio4" value="4"/>
+                                                <label class="form-check-label" for="inlineRadio4">4</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="stars"
+                                                       id="inlineRadio5" value="5" checked/>
+                                                <label class="form-check-label" for="inlineRadio5">5</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea id="content" cols="30" rows="5" name="content"
+                                                  class="form-control"
+                                                  placeholder="Please comment or ask questions"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="fullName" name="fullName" class="form-control"
+                                               placeholder="Full name"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="email" name="email" class="form-control"
+                                               placeholder="Email"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                                               placeholder="Phone"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" id="comment" value="Comment"
+                                               class="btn btn-primary px-3"/>
+                                    </div>
+                            </div>
+
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 <!-- Shop Detail End -->
 
@@ -170,10 +252,47 @@
 
 <div th:replace="~{fragments::script}"></div>
 <script th:inline="javascript">
-    function showDescription(data) {
-        $('#showDescription').text('');
-        $('#showDescription').append(data);
-        $('#header-description').hide();
+
+    $('#comment').click(function (e) {
+        e.preventDefault();
+        let data = {};
+        let formData = $('#formSubmit').serializeArray();
+
+        $.each(formData, function (i, v) {
+            data["" + v.name + ""] = v.value;
+        });
+        console.log(data);
+
+        let id = $('#idProductComment').val();
+
+        createComment(id, data);
+    });
+
+    function createComment(productId, data) {
+        $.ajax({
+            url: `http://localhost:8021/shop/product/${productId}/comment`,
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function (result) {
+                swal({
+                    title: "Success!",
+                    text: "Create comment successfully!",
+                    icon: "success",
+                    button: "Close!",
+                }).then((value) => {
+                    window.location.href = `http://localhost:8021/shop/product/${result.id}`;
+                });
+            },
+            error: function (error) {
+                swal({
+                    title: "Error!",
+                    text: "The server has been errors!",
+                    icon: "error",
+                });
+            }
+        });
     }
 
     function addToCartSuccess() {

@@ -1,5 +1,6 @@
 package com.phone.library.service;
 
+import com.phone.library.dto.CommentDto;
 import com.phone.library.dto.ProductDto;
 import com.phone.library.entity.ProductEntity;
 import com.phone.library.model.ProductFilter;
@@ -24,6 +25,6 @@ public interface ProductService {
     List<ProductDto> findOfferProducts();
     Page<ProductDto> getPageProducts(ProductFilter filter);
     List<ProductDto> findAlsoLike(String category);
-
-
+    List<ProductDto> findBySearchKey(String key);
+    ProductDto addComment(Long productId, CommentDto commentDto);
 }

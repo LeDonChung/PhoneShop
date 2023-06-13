@@ -8,16 +8,12 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@RequestMapping("/product")
 @Controller
 public class ProductController {
     @Autowired
@@ -28,7 +24,8 @@ public class ProductController {
     private CategoryService categoryService;
     @Autowired
     private CustomerService customerService;
-    @GetMapping("/product/{id}")
+
+    @GetMapping("/{id}")
     public String showProduct(Model model, @PathVariable("id") Long id, HttpSession session,
                               @RequestParam(value = "storageCode", required = false) String storageCode,
                               @RequestParam(value = "colorCode", required = false) String colorCode,
@@ -72,5 +69,14 @@ public class ProductController {
             e.printStackTrace();
         }
         return "product-detail";
+    }
+
+    @PostMapping("/{id}/comment")
+    @ResponseBody
+    public ProductDto addComment(@PathVariable("id") Long productId,
+                                 @RequestBody CommentDto commentDto) {
+        ProductDto productDto = productService.addComment(productId, commentDto);
+        System.out.println(productDto);
+        return productDto;
     }
 }

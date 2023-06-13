@@ -2,10 +2,13 @@ package com.phone.library.dto;
 
 import com.phone.library.entity.BrandEntity;
 import com.phone.library.entity.CategoryEntity;
+import com.phone.library.entity.CommentEntity;
 import com.phone.library.entity.MemoryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -37,5 +40,7 @@ public class ProductDto {
     private String colorCode;
 
     private String storageCode;
+
+    private List<CommentEntity> comments;
 
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -44,6 +45,10 @@ public class ProductEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "memory_id", referencedColumnName = "memory_id")
     private MemoryEntity memory;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<CommentEntity> comments;
 
     @Override
     public boolean equals(Object o) {
