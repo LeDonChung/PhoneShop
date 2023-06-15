@@ -1,6 +1,8 @@
 package com.phone.library.dto;
 
 import com.phone.library.entity.ProductEntity;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,14 +17,16 @@ public class CustomerDto {
 
     private Long id;
 
-    @Size(min = 3, max = 15, message ="First name should have 3-15 characters")
+    @NotEmpty(message ="First name cannot be empty")
     private String firstName;
 
-    @Size(min = 3, max = 15, message ="Last name should have 3-15 characters")
+    @NotEmpty(message ="First name cannot be empty")
     private String lastName;
 
     private String phone;
 
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotEmpty(message = "Email cannot be empty")
     private String username;
 
     @Size(min = 6, message ="The password must be at least 6 characters.")

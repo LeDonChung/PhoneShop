@@ -8,6 +8,7 @@ import com.phone.library.repository.CustomerRepository;
 import com.phone.library.repository.ProductRepository;
 import com.phone.library.repository.RoleRepository;
 import com.phone.library.service.CustomerService;
+import com.phone.library.service.MailService;
 import com.phone.library.utils.ImageUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,15 +30,27 @@ public class CustomerServiceImpl implements CustomerService {
     private ProductRepository productRepository;
     @Autowired
     private ImageUploadUtils imageUploadUtils;
+    @Autowired
+    private MailService mailService;
 
     @Override
     public CustomerDto save(CustomerDto dto) {
-        CustomerEntity entity = customerMapper.toEntity(dto);
-        if(dto.getId() != null) {
-            entity.setId(dto.getId());
+        try {
+            CustomerEntity entity = customerMapper.toEntity(dto);
+            if(dto.getId() != null) {
+                entity.setId(dto.getId());
+            }
+            entity.setRoles(Collections.singletonList(roleRepository.findByName("CUSTOMER")));
+            CustomerDto customerDto = customerMapper.toDto(customerRepository.save(entity));
+            // send email
+            if(customerDto != null) {
+                mailService.createAccountSuccess(customerDto);
+            }
+            return customerDto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        entity.setRoles(Collections.singletonList(roleRepository.findByName("CUSTOMER")));
-        return customerMapper.toDto(customerRepository.save(entity));
     }
 
     @Override

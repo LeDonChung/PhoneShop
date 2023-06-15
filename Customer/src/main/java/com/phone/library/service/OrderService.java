@@ -15,4 +15,5 @@ public interface OrderService {
     OrderDto updateStatus(Long orderId, String status);
     OrderDto saveOrder(ShoppingCartModel cart, Set<CartItemModel> cartItems, CustomerDto customer, int payment, String notes);
     List<OrderDto> findAll();
+
 }

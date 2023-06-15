@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <style>
+        #details {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #details td,
+        #details th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #details tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #details tr:hover {
+            background-color: #ddd;
+        }
+
+        #details th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+<table align="center" border="0" cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+        <th style="height: 25px; background-color: rgb(2, 149, 192)">&nbsp;</th>
+    </tr>
+    <tr>
+        <th class="gradientBG" style="height: 5px; background-color: rgb(2, 149, 192)">&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td style="padding: 30px 60px; font-size: 14px;">
+            <p>Dear <b><i><span>, [[${last_name}]]</span></i></b></p>
+            <p>Thanks for your Order!</span></b></p>
+            <p><b><i>Here is the detail information:</i></b></p>
+            <p><b><i>Email: </i></b> <span>[[${email}]]</span></p>
+            <p><b><i>Fullname: </i></b> <span>[[${first_name + last_name}]]</span></p>
+            <p><b><i>Order ID: </i></b> <span>[[${order_id}]]</span></p>
+            <p><b><i>Order Status: </i></b> <span>[[${order_status}]]</span></p>
+            <p><b><i>Discount: </i></b> <span>0%</span></p>
+            <p><b><i>Date: </i></b> <span>[[${order_date}]]</span></p>
+            <p><b><i>Recepits Voucher: </i></b> <span>NaN</span></p>
+            <p><b><i>Delivery Charges: </i></b> <span>Free</span></p>
+            <p><b><i>Total Price: </i></b> <span>$[[${total_price}]]</span></p>
+            <p><b><i>Order Details:</i></b> <span></span></p>
+            <table id="details">
+                <thead>
+                <th>Product Name</th>
+                <th>Color</th>
+                <th>Storage</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${order_details}">
+                    <td>[[${item.product.productName}]]</td>
+                    <td>[[${item.color.name}]]</td>
+                    <td>[[${item.storage.name}]]</td>
+                    <td>[[${item.quantity}]]</td>
+                    <td>$[[${item.totalPrice}]]</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Best Regards,</p>
+            <p><b>[THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL]</b></p>
+        </td>
+    </tbody>
+</table>
+
+</body>
+
+</html>

@@ -32,6 +32,7 @@ public class OrderDto {
 
     private String notes;
 
+    @JsonIgnore
     private CustomerEntity customer;
 
     @JsonIgnore

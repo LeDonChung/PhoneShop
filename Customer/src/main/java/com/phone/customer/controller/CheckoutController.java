@@ -10,6 +10,7 @@ import com.phone.library.model.CartSession;
 import com.phone.library.model.ShoppingCartModel;
 import com.phone.library.service.CategoryService;
 import com.phone.library.service.CustomerService;
+import com.phone.library.service.MailService;
 import com.phone.library.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class CheckoutController {
     private OrderService orderService;
     @Autowired
     private CartSession cartSession;
+    @Autowired
+    private MailService mailService;
 
 
     @GetMapping("/checkout")

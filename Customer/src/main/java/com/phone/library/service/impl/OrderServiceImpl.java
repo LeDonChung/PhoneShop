@@ -11,6 +11,7 @@ import com.phone.library.repository.CustomerRepository;
 import com.phone.library.repository.OrderDetailRepository;
 import com.phone.library.repository.OrderRepository;
 import com.phone.library.repository.ProductRepository;
+import com.phone.library.service.MailService;
 import com.phone.library.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private OrderMapper orderMapper;
-
-
+    @Autowired
+    private MailService mailService;
     @Override
     public List<OrderDto> findByCustomerId(Long id) {
         List<OrderDto> dtos = new ArrayList<>();
@@ -87,7 +88,11 @@ public class OrderServiceImpl implements OrderService {
         }
         entity.setOrderDetails(orders);
         entity = orderRepository.save(entity);
-        return orderMapper.toDto(entity);
+        OrderDto dto = orderMapper.toDto(entity);
+
+        mailService.sendEmailOrderSuccess(dto);
+
+        return dto;
     }
 
     @Override

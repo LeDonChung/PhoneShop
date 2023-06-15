@@ -63,7 +63,7 @@ public class LoginController {
             CustomerDto customerDto = customerService.findByUsername(username);
             if (customerDto != null) {
                 // have account
-                model.addAttribute(SystemConstants.MESSAGE, "Your username has been registered");
+                model.addAttribute(SystemConstants.MESSAGE, "Your email has been registered");
                 return "register";
             }
             // check repeatPassword
