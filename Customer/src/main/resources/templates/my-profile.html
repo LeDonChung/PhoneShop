@@ -36,8 +36,8 @@
                         <div class="bg-secondary rounded-lg p-4 mb-4">
                             <div class="avatar-wrapper">
                                 <div id="avatar-controls" class="media align-items-center px-4">
-                                    <img class="rounded-circle" th:if="${customer.image == null}" src="https://soklyphone.com/img/avatar.jpeg" width="90" alt="avatar" />
-                                    <img class="rounded-circle" th:if="${customer.image != null}" th:src="@{'data:image/jpeg;base64,' + ${customer.image}}" width="90" alt="avatar" />
+                                    <img class="rounded-circle" id="b64" th:if="${customer.image == null}" src="https://soklyphone.com/img/avatar.jpeg" width="90" alt="avatar" />
+                                    <img class="rounded-circle" id="b64" th:if="${customer.image != null}" th:src="@{'data:image/jpeg;base64,' + ${customer.image}}" width="90" alt="avatar" />
 
                                     <div class="media-body pl-3">
                                         <input type="file" name="imageUser" id="avatar-upload" accept="image/png, image/jpeg">
@@ -79,8 +79,9 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="email" class>Email</label>
-                                    <input type="email" id="email" name="email" th:field="*{email}" placeholder="Enter your email" class="form-control" />
-                                    <p class="alert alert-danger"  style="margin-top: 10px;" th:if="${emailError}" th:text="${emailError}"></p>
+                                    <input type="text" id="email" name="email" th:field="*{email}" placeholder="Enter your email" class="form-control" />
+                                    <p class="alert alert-danger" th:errors="*{email}" style="margin-top: 10px;"
+                                       th:if="${#fields.hasErrors('email')}"></p>
                                 </div>
                             </div>
 
@@ -119,6 +120,24 @@
 <a th:replace="~{fragments::back-to-top}"></a>
 
 <div th:replace="~{fragments::script}"></div>
+<script>
+    function readFile() {
+
+        if (!this.files || !this.files[0]) return;
+
+        const FR = new FileReader();
+
+        FR.addEventListener("load", function(evt) {
+            document.querySelector("#b64").src         = evt.target.result;
+        });
+
+        FR.readAsDataURL(this.files[0]);
+
+    }
+
+    document.querySelector("#avatar-upload").addEventListener("change", readFile);
+
+</script>
 </body>
 
 </html>

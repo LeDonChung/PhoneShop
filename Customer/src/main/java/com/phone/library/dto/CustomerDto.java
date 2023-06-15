@@ -17,16 +17,16 @@ public class CustomerDto {
 
     private Long id;
 
-    @NotEmpty(message ="First name cannot be empty")
+    @NotEmpty(message ="First name field is required.")
     private String firstName;
 
-    @NotEmpty(message ="First name cannot be empty")
+    @NotEmpty(message ="Last name field is required.")
     private String lastName;
 
     private String phone;
 
     @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @NotEmpty(message = "Email cannot be empty")
+    @NotEmpty(message = "The email field is required.")
     private String username;
 
     @Size(min = 6, message ="The password must be at least 6 characters.")
