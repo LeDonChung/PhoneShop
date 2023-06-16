@@ -207,8 +207,10 @@
                                 class="fa fa-angle-right mr-2"></i>Favorites</a>
                         <a class="text-secondary mb-2" th:href="@{/account/profile}"><i
                                 class="fa fa-angle-right mr-2"></i>Personal Information</a>
-                        <a class="text-secondary mb-2" th:href="@{/account/change-password}"><i
-                                class="fa fa-angle-right mr-2"></i>Change password</a>
+                        <div th:if="${session.userLogin}" th:remove="tag">
+                            <a th:if="${session.userLogin.providerId == 'local'}" class="text-secondary mb-2" th:href="@{/account/change-password}"><i
+                                    class="fa fa-angle-right mr-2"></i>Change password</a>
+                        </div>
                         <a class="text-secondary mb-2" th:href="@{/logout}"><i
                                 class="fa fa-angle-right mr-2"></i>Logout</a>
                     </div>
@@ -296,7 +298,7 @@
                     </div>
                 </a>
             </li>
-            <li class="border-bottom justify-content-center px-4 py-3">
+            <li class="border-bottom justify-content-center px-4 py-3" th:if="${customer.providerId == 'local'}">
                 <a th:href="@{/account/change-password}">
                     <div class="sidebar-item"
                          th:classappend="${changePasswordActive != null ? 'sidebar-item-active' : ''}">

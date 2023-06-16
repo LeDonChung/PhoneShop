@@ -26,6 +26,12 @@
                 You have been logged out
             </p>
             <form th:action="@{/do-login}" method="post">
+                <div class="text-center mb-3">
+                    <p>Sign in with:</p>
+                    <a th:href="@{/oauth2/authorization/google}" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </a>
+                </div>
                 <!-- Email input -->
                 <div class="form-outline mb-4">
                     <input type="email" id="username" name="username" class="form-control" />

@@ -80,8 +80,8 @@
                                 <div class="form-group">
                                     <label for="email" class>Email</label>
                                     <input type="text" id="email" name="email" th:field="*{email}" placeholder="Enter your email" class="form-control" />
-                                    <p class="alert alert-danger" th:errors="*{email}" style="margin-top: 10px;"
-                                       th:if="${#fields.hasErrors('email')}"></p>
+                                    <p class="alert alert-danger" th:text="${emailError}" style="margin-top: 10px;"
+                                       th:if="${emailError}"></p>
                                 </div>
                             </div>
 

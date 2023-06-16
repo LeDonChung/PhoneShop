@@ -1,5 +1,6 @@
 package com.phone.library.service.impl;
 
+import com.phone.library.constants.Provider;
 import com.phone.library.dto.CustomerDto;
 import com.phone.library.entity.CustomerEntity;
 import com.phone.library.entity.ProductEntity;
@@ -39,11 +40,14 @@ public class CustomerServiceImpl implements CustomerService {
             CustomerEntity entity = customerMapper.toEntity(dto);
             if(dto.getId() != null) {
                 entity.setId(dto.getId());
+            } else {
+                entity.setRoles(Collections.singletonList(roleRepository.findByName("CUSTOMER")));
+                entity.setProviderId(Provider.local.name());
             }
-            entity.setRoles(Collections.singletonList(roleRepository.findByName("CUSTOMER")));
             CustomerDto customerDto = customerMapper.toDto(customerRepository.save(entity));
-            // send email
-            if(customerDto != null) {
+
+            // send email if register
+            if(dto.getId() == null) {
                 mailService.createAccountSuccess(customerDto);
             }
             return customerDto;

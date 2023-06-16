@@ -1,6 +1,8 @@
 package com.phone.library.model;
 
 import com.phone.library.entity.ProductEntity;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,10 +17,10 @@ public class CustomerModel {
 
     private Long id;
 
-    @Size(min = 3, max = 15, message ="First name should have 3-15 characters")
+    @NotEmpty(message ="First name field is required.")
     private String firstName;
 
-    @Size(min = 3, max = 15, message ="Last name should have 3-15 characters")
+    @NotEmpty(message ="Last name field is required.")
     private String lastName;
 
     private String phone;

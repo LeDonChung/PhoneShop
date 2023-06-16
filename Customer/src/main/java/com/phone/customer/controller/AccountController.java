@@ -13,6 +13,7 @@ import com.phone.library.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,19 +44,17 @@ public class AccountController {
     public String showMyOrder(Principal principal, Model model) {
         if (principal == null) {
             return "redirect:/login";
-        } else {
-            CustomerDto customer = customerService.findByUsername(principal.getName());
-            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
-
-        List<CategoryDto> categories = categoryService.findAllByActivated();
         CustomerDto customer = customerService.findByUsername(principal.getName());
+        List<CategoryDto> categories = categoryService.findAllByActivated();
         List<OrderDto> orders = orderService.findByCustomerId(customer.getId());
-        model.addAttribute(SystemConstants.CUSTOMER, customer);
+
+        model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         model.addAttribute(SystemConstants.ORDERS, orders);
         model.addAttribute(SystemConstants.CATEGORIES, categories);
         model.addAttribute(SystemConstants.ORDER_HISTORY_ACTIVE, "active");
         model.addAttribute(SystemConstants.TITLE, "Orders");
+        model.addAttribute(SystemConstants.CUSTOMER, customer);
         return "my-order";
     }
     @GetMapping("/order/{id}")
@@ -65,17 +64,15 @@ public class AccountController {
 
         if(principal == null) {
             return "redirect:/login";
-        } else {
-            CustomerDto customer = customerService.findByUsername(principal.getName());
-            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
+        CustomerDto customer = customerService.findByUsername(principal.getName());
+        model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
 
         List<CategoryDto> categories = categoryService.findAllByActivated();
-        CustomerDto customer = customerService.findByUsername(principal.getName());
         OrderDto order = orderService.findById(id);
         model.addAttribute(SystemConstants.ORDER, order);
-        model.addAttribute(SystemConstants.CUSTOMER, customer);
         model.addAttribute(SystemConstants.CATEGORIES, categories);
+        model.addAttribute(SystemConstants.CUSTOMER, customer);
         model.addAttribute(SystemConstants.TITLE, "Orders");
         return "order-details";
     }
@@ -83,21 +80,17 @@ public class AccountController {
     public String showFavorites(Principal principal, Model model) {
         if (principal == null) {
             return "redirect:/login";
-        } else {
-            CustomerDto customer = customerService.findByUsername(principal.getName());
-            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
+        CustomerDto customer = customerService.findByUsername(principal.getName());
+        model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         List<CategoryDto> categories = categoryService.findAllByActivated();
 
-        CustomerDto customer = customerService.findByUsername(principal.getName());
         List<ProductEntity> favorites = customer.getFavorites();
-
         model.addAttribute(SystemConstants.FAVORITES, favorites);
-        model.addAttribute(SystemConstants.CUSTOMER, customer);
         model.addAttribute(SystemConstants.CATEGORIES, categories);
         model.addAttribute(SystemConstants.FAVORITE_ACTIVE, "active");
         model.addAttribute(SystemConstants.TITLE, "Favorites");
-
+        model.addAttribute(SystemConstants.CUSTOMER, customer);
         return "my-favorite";
     }
 
@@ -134,16 +127,15 @@ public class AccountController {
                                      Principal principal) {
         if (principal == null) {
             return "redirect:/login";
-        } else {
-            CustomerDto customer = customerService.findByUsername(principal.getName());
-            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
+
         CustomerDto customer = customerService.findByUsername(principal.getName());
+        model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         List<CategoryDto> categories = categoryService.findAllByActivated();
-        model.addAttribute(SystemConstants.CUSTOMER, customer);
         model.addAttribute(SystemConstants.CATEGORIES, categories);
         model.addAttribute(SystemConstants.CHANGE_PASSWORD_ACTIVE, "active");
         model.addAttribute(SystemConstants.TITLE, "Change Password");
+        model.addAttribute(SystemConstants.CUSTOMER, customer);
         return "change-password";
     }
 
@@ -172,18 +164,14 @@ public class AccountController {
                               Principal principal) {
         if (principal == null) {
             return "redirect:/login";
-        } else {
-            CustomerDto customer = customerService.findByUsername(principal.getName());
-            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
-
         CustomerDto customer = customerService.findByUsername(principal.getName());
+        model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         List<CategoryDto> categories = categoryService.findAllByActivated();
-        model.addAttribute(SystemConstants.CUSTOMER, customerMapper.toModel(customer));
         model.addAttribute(SystemConstants.CATEGORIES, categories);
-
         model.addAttribute(SystemConstants.PROFILE_ACTIVE, "active");
         model.addAttribute(SystemConstants.TITLE, "Profile");
+        model.addAttribute(SystemConstants.CUSTOMER, customer);
         return "my-profile";
     }
     @PostMapping("/profile/avatar-update")
@@ -213,25 +201,22 @@ public class AccountController {
                         Model model) {
         if (principal == null) {
             return "redirect:/login";
-        } else {
-            CustomerDto customer = customerService.findByUsername(principal.getName());
-            model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
         }
-        List<CategoryDto> categories = categoryService.findAllByActivated();
-        model.addAttribute(SystemConstants.CATEGORIES, categories);
-
-        model.addAttribute(SystemConstants.PROFILE_ACTIVE, "active");
-        model.addAttribute(SystemConstants.TITLE, "Profile");
-
         CustomerDto customer = customerService.findByUsername(principal.getName());
+
         customer.setFirstName(customerModel.getFirstName());
         customer.setLastName(customerModel.getLastName());
         customer.setPhone(customerModel.getPhone());
         customer.setEmail(customerModel.getEmail());
         customer.setAddress(customerModel.getAddress());
         customer.setBirthDate(customerModel.getBirthDate());
-        model.addAttribute(SystemConstants.CUSTOMER, customerMapper.toModel(customer));
 
+        model.addAttribute(SystemConstants.FAVORITE_SIZE, customer.getFavorites().size());
+        List<CategoryDto> categories = categoryService.findAllByActivated();
+        model.addAttribute(SystemConstants.CATEGORIES, categories);
+        model.addAttribute(SystemConstants.PROFILE_ACTIVE, "active");
+        model.addAttribute(SystemConstants.TITLE, "Profile");
+        model.addAttribute(SystemConstants.CUSTOMER, customer);
         try {
             if (result.hasErrors()) {
                 return "my-profile";

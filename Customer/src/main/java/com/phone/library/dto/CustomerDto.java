@@ -45,6 +45,8 @@ public class CustomerDto {
     private String address;
 
     private int status;
+
+    private String providerId;
     
     private List<ProductEntity> favorites;
 

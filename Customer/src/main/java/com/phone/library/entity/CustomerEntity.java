@@ -38,13 +38,15 @@ public class CustomerEntity {
 
     private String birthDate;
 
+    private String providerId;
+
     private String address;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "customers_favorites", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id"),
     inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"))
     private List<ProductEntity> favorites;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(name = "customers_roles", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private Collection<RoleEntity> roles;

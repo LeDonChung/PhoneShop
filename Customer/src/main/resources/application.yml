@@ -14,3 +14,13 @@ spring:
         debug: true
     test-connection: false
     protocol: smtp
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1071083891846-gf0j2a1707in6f9rb0gdvv2mp8d12ms1.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile

@@ -16,6 +16,7 @@ public class CustomerMapper {
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setBirthDate(entity.getBirthDate());
+        dto.setProviderId(entity.getProviderId());
         dto.setPhone(entity.getPhone());
         dto.setEmail(entity.getEmail());
         dto.setGender(entity.isGender());
@@ -65,6 +66,7 @@ public class CustomerMapper {
         entity.setLastName(dto.getLastName());
         entity.setBirthDate(dto.getBirthDate());
         entity.setPhone(dto.getPhone());
+        entity.setProviderId(dto.getProviderId());
         entity.setEmail(dto.getEmail());
         entity.setGender(dto.isGender());
         entity.setAddress(dto.getAddress());
