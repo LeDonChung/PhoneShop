@@ -1,6 +1,6 @@
 function changeStatus(orderId, status) {
     $.ajax({
-        url: `http://localhost:8021/shop/order/${orderId}?status=${status}`,
+        url: `http://phoneshop.azurewebsites.net/shop/order/${orderId}?status=${status}`,
         type: 'POST',
         contentType: 'application/json',
         success: function (result) {
@@ -10,7 +10,7 @@ function changeStatus(orderId, status) {
                 icon: "success",
                 button: "Close!",
             }).then((value) => {
-                window.location.href = "http://localhost:8021/shop/account/order-history";
+                window.location.href = "http://phoneshop.azurewebsites.net/shop/account/order-history";
             });
 
         },
@@ -30,6 +30,15 @@ function orderSuccess() {
         title: "Order!",
         text: "Order success!",
         icon: "success",
+        button: "Close!",
+    });
+}
+
+function orderFailed() {
+    swal({
+        title: "Order!",
+        text: "Order failed!",
+        icon: "error",
         button: "Close!",
     });
 }

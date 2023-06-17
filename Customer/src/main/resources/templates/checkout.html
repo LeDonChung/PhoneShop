@@ -22,7 +22,7 @@
 
 <!-- Checkout Start -->
 <div class="container-fluid">
-    <form th:action="@{/do-checkout}" method="post" id="formSubmit">
+    <form th:action="@{/do-checkout}" method="post" id="formSubmit" th:object="${order}">
         <div class="row px-xl-5">
             <div class="col-lg-8">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
@@ -30,17 +30,17 @@
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label>Mobile No</label>
-                            <input class="form-control" id="phoneNumber" name="phoneNumber" type="text" th:value="${customer.phone}" placeholder="+123 456 789">
+                            <input class="form-control" id="phoneNumber" name="phoneNumber" type="text" th:field="*{phoneNumber}" th:value="${customer.phone}" placeholder="+123 456 789">
                             <div class="alert alert-warning form-message" style="display: none; margin-top: 10px;"></div>
                         </div>
                         <div class="col-md-12 form-group">
                             <label>Delivery Address</label>
-                            <textarea class="form-control" id="address" name="address" rows="3" th:text="${customer.address}" placeholder="123  Street"></textarea>
+                            <textarea class="form-control" id="address" name="address" rows="3" th:field="*{address}" th:text="${customer.address}" placeholder="123  Street"></textarea>
                             <div class="alert alert-warning form-message" style="display: none; margin-top: 10px;"></div>
                         </div>
                         <div class="col-md-12 form-group">
                             <label>Notes</label>
-                            <textarea class="form-control" name="notes" rows="3"  placeholder="Note"></textarea>
+                            <textarea class="form-control" name="notes" rows="3" th:field="*{notes}" placeholder="Note"></textarea>
                         </div>
                     </div>
                 </div>
@@ -77,20 +77,14 @@
                     <div class="bg-light p-30">
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" value="1" name="payment" id="paypal" checked>
+                                <input type="radio" class="custom-control-input" value="paypal" name="payment" id="paypal" checked>
                                 <label class="custom-control-label" for="paypal" >Paypal</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" value="2" name="payment" id="directcheck">
-                                <label class="custom-control-label" for="directcheck" >Direct Check</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-4">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" value="3" name="payment" id="banktransfer">
-                                <label class="custom-control-label" for="banktransfer" >Bank Transfer</label>
+                                <input type="radio" class="custom-control-input" value="cash" name="payment" id="directcheck">
+                                <label class="custom-control-label" for="directcheck" >Cash</label>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3" id="do-checkout">Place Order</button>

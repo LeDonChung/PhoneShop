@@ -61,23 +61,23 @@
                         </div>
 
                         <div class="d-flex justify-content-between pt-2">
-                            <p class="text-muted mb-0">OrderID : [[${order.id}]]</p>
+                            <p class="text-muted mb-0">Order ID : [[${order.id}]]</p>
                             <p class="text-muted mb-0"><span class="fw-bold me-4">Discount : </span> $0</p>
                         </div>
-
-                        <div class="d-flex justify-content-between">
-                            <p class="text-muted mb-0">Invoice Date : [[${order.orderDate}]]</p>
+                        <div class="d-flex justify-content-between pt-2">
+                            <p class="text-muted mb-0">Payment Method : [[${order.paymentMethod}]]</p>
+                            <p class="text-muted mb-0"><span class="fw-bold me-4">Payment Status : </span> [[${order.paymentStatus}]]</p>
                         </div>
 
-                        <div class="d-flex justify-content-between mb-5">
-                            <p class="text-muted mb-0">Recepits Voucher : NaN</p>
-                            <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="text-muted mb-0">Invoice Date : [[${order.orderDate}]]</p>
+                            <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges : </span> Free</p>
                         </div>
                     </div>
                     <div class="card-footer border-0 px-4 py-5"
                          style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
                         <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-                            paid: <span class="h2 mb-0 ms-2">$[[${order.totalPrice}]]</span></h5>
+                            paid: <span class="h2 mb-0 ms-2"> $[[${order.totalPrice}]]</span></h5>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 package com.phone.customer.controller;
 
+import com.phone.library.constants.PaymentMethod;
 import com.phone.library.constants.SystemConstants;
 import com.phone.library.dto.CategoryDto;
 import com.phone.library.dto.CustomerDto;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -70,16 +72,15 @@ public class CheckoutController {
         model.addAttribute(SystemConstants.CATEGORIES, categories);
         session.setAttribute(SystemConstants.SHOPPING_CART, cart);
         session.setAttribute(SystemConstants.CART_ITEMS, cartItems);
+        model.addAttribute(SystemConstants.ORDER, new OrderDto());
         model.addAttribute(SystemConstants.PAGES_ACTIVE, "active");
 
         return "checkout";
     }
     @PostMapping("/do-checkout")
     public String saveOrder(Principal principal,
-                            @RequestParam("phoneNumber") String phoneNumber,
-                            @RequestParam("address") String address,
-                            @RequestParam("payment") int payment,
-                            @RequestParam("notes") String notes,
+                            @ModelAttribute(SystemConstants.ORDER) OrderDto order,
+                            @RequestParam("payment") String payment,
                             RedirectAttributes attributes,
                             HttpSession session) {
         if (principal == null) {
@@ -95,14 +96,20 @@ public class CheckoutController {
             return "redirect:/cart";
         }
 
+        if(payment.equals(PaymentMethod.paypal.name())) {
+            attributes.addFlashAttribute(SystemConstants.ORDER, order);
+            return "redirect:/paypal";
+        }
+        System.out.println(payment);
 
         CustomerDto customerDto = customerService.findByUsername(principal.getName());
-        customerDto.setAddress(address);
-        customerDto.setPhone(phoneNumber);
+        customerDto.setAddress(order.getAddress());
+        customerDto.setPhone(order.getPhoneNumber());
 
-        OrderDto dto = orderService.saveOrder(cart, cartItems, customerDto, payment, notes);
+        OrderDto dto = orderService.saveOrder(cart, cartItems, customerDto, payment, order.getNotes());
         if(dto == null) {
-            return "redirect:/cart";
+            attributes.addFlashAttribute(SystemConstants.ORDER_FAIL, "fail");
+            return "redirect:/account/order-history";
         }
         cartSession.removeAll(session);
         attributes.addFlashAttribute(SystemConstants.ORDER_SUCCESS, "success");

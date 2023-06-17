@@ -270,7 +270,7 @@
 
     function createComment(productId, data) {
         $.ajax({
-            url: `http://localhost:8021/shop/product/${productId}/comment`,
+            url: `http://phoneshop.azurewebsites.net/shop/product/${productId}/comment`,
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json',
@@ -282,7 +282,7 @@
                     icon: "success",
                     button: "Close!",
                 }).then((value) => {
-                    window.location.href = `http://localhost:8021/shop/product/${result.id}`;
+                    window.location.href = `http://phoneshop.azurewebsites.net/shop/product/${result.id}`;
                 });
             },
             error: function (error) {

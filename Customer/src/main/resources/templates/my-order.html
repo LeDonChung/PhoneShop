@@ -21,6 +21,8 @@
         <div class="container pb-5">
             <h5 class="home-title text-primary mb-lg-5 font-weight-medium"></h5>
             <body th:if="${orderSuccess}" onload="orderSuccess();"></body>
+            <body th:if="${orderFail}" onload="orderFailed();"></body>
+
             <div class="row">
                 <div class="col-lg-4 pt-4 pt-lg-0">
                     <div th:replace="~{fragments::sidebar-user}"></div>
@@ -49,8 +51,8 @@
                                 <td th:text="${order.totalPrice}"></td>
                                 <td th:text="${order.orderStatus}"></td>
                                 <td>
-                                    <a class="btn btn-primary" id="btnCancel" th:if="${order.orderStatus == 'PENDING'}"
-                                       th:onclick="changeStatus([[${order.id}]], 'CANCEL');">Cancel</a>
+                                    <a class="btn btn-primary" id="btnCancel" th:if="${order.orderStatus == 'pending'}"
+                                       th:onclick="changeStatus([[${order.id}]], 'cancel');">Cancel</a>
                                     <a class="btn btn-primary" th:href="@{/account/order/{id}(id = ${order.id})}">Show Detail</a>
 
                                 </td>

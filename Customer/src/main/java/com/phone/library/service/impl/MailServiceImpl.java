@@ -73,6 +73,9 @@ public class MailServiceImpl implements MailService {
             variables.put("order_date", orderDto.getOrderDate());
             variables.put("order_status", orderDto.getOrderStatus());
             variables.put("order_details", orderDto.getOrderDetails());
+            variables.put("payment_method", orderDto.getPaymentMethod());
+            variables.put("is_payment", orderDto.isPaymentStatus());
+
             hepper.setText(thymeleafService.createContent("send-email-order-success.html", variables), true);
 
             hepper.setFrom(email);

@@ -34,6 +34,10 @@ public class OrderEntity {
 
     private String orderStatus;
 
+    private String paymentMethod;
+
+    private boolean paymentStatus;
+
     private String notes;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

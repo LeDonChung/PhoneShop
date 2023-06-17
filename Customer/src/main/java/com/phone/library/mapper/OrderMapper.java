@@ -16,6 +16,8 @@ public class OrderMapper {
         dto.setPhoneNumber(entity.getPhoneNumber());
         dto.setTotalPrice(entity.getTotalPrice());
         dto.setShippingFee(entity.getShippingFee());
+        dto.setPaymentStatus(entity.isPaymentStatus());
+        dto.setPaymentMethod(entity.getPaymentMethod());
         dto.setOrderStatus(entity.getOrderStatus());
         dto.setNotes(entity.getNotes());
         if(entity.getCustomer() != null) {
@@ -37,13 +39,14 @@ public class OrderMapper {
         entity.setTotalPrice(dto.getTotalPrice());
         entity.setShippingFee(dto.getShippingFee());
         entity.setOrderStatus(dto.getOrderStatus());
+        entity.setPaymentStatus(dto.isPaymentStatus());
+        entity.setPaymentMethod(dto.getPaymentMethod());
         entity.setNotes(dto.getNotes());
         if(dto.getCustomer() != null) {
             entity.setCustomer(dto.getCustomer());
         }
         if(dto.getOrderDetails() != null) {
             entity.setOrderDetails(dto.getOrderDetails());
-
         }
         return entity;
     }

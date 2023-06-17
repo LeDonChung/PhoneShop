@@ -1,5 +1,7 @@
 package com.phone.library.service.impl;
 
+import com.phone.library.constants.OrderStatus;
+import com.phone.library.constants.PaymentMethod;
 import com.phone.library.dto.CustomerDto;
 import com.phone.library.dto.OrderDto;
 import com.phone.library.entity.OrderDetailEntity;
@@ -58,14 +60,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto saveOrder(ShoppingCartModel cart, Set<CartItemModel> cartItems, CustomerDto customer, int payment, String notes) {
+    public OrderDto saveOrder(ShoppingCartModel cart, Set<CartItemModel> cartItems, CustomerDto customer, String paymentMethod, String notes) {
         OrderEntity entity = new OrderEntity();
         entity.setOrderDate(new Date());
         entity.setAddress(customer.getAddress());
         entity.setPhoneNumber(customer.getPhone());
         entity.setTotalPrice(cart.getTotalPrice());
         entity.setShippingFee(0);
-        entity.setOrderStatus("PENDING");
+        entity.setOrderStatus(OrderStatus.pending.name());
+        entity.setPaymentMethod(paymentMethod);
+        if(paymentMethod.equals(PaymentMethod.cash.name())) {
+            entity.setPaymentStatus(false);
+        } else {
+            entity.setPaymentStatus(true);
+        }
         entity.setNotes(notes);
         if (customer != null) {
             entity.setCustomer(customerRepository.findByUsername(customer.getUsername()));
