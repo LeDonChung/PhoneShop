@@ -54,4 +54,5 @@ public class SystemConstants {
     public static final String ORDER_SUCCESS = "orderSuccess";
     public static final String STORE = "store";
     public static final String ORDER_FAIL = "orderFail";
+    public static final String RESET_PASSWORD = "resetPassword";
 }

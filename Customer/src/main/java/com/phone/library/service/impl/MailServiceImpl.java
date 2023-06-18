@@ -32,7 +32,6 @@ public class MailServiceImpl implements MailService {
     @Override
     public void createAccountSuccess(CustomerDto customerDto) {
         try {
-            System.out.println(customerDto);
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper hepper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
             hepper.setTo(customerDto.getUsername());
@@ -82,6 +81,26 @@ public class MailServiceImpl implements MailService {
 
             mailSender.send(message);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendEmailResetPassword(String emailSender) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper hepper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+            hepper.setSubject("Set Password");
+
+            String content = String.format("<div>\n" +
+                    "          <a href=\"http://phoneshop.azurewebsites.net/shop/set-password?email=%s\" target=\"_blank\">click link to set password</a>\n" +
+                    "        </div>", emailSender);
+            hepper.setText(content, true);
+
+            hepper.setFrom(email);
+            hepper.setTo(emailSender);
+            mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();
         }

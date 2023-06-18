@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -117,6 +118,16 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity customer = customerRepository.findByUsername(customerDto.getUsername());
         customer.setPassword(newPassword);
         return customerMapper.toDto(customerRepository.save(customer));
+    }
+
+    @Override
+    public CustomerDto findByUsernameAndProviderId(String username, String providerId) {
+        Optional<CustomerEntity> entity = customerRepository.findByUsernameAndProviderId(username, providerId);
+        CustomerDto dto = null;
+        if(entity.isPresent()) {
+            dto = customerMapper.toDto(entity.get());
+        }
+        return dto;
     }
 
 }
