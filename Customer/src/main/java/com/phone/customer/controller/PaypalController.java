@@ -52,8 +52,8 @@ public class PaypalController {
         session.setAttribute(SystemConstants.ORDER, order);
 
         Payment payment = service.createPayment(cart.getTotalPrice(), "USD", PaymentMethod.paypal.name(),
-                "sale", order.getNotes(), "http://phoneshop.azurewebsites.net/shop/" + CANCEL_URL,
-                "http://phoneshop.azurewebsites.net/shop/" + SUCCESS_URL);
+                "sale", order.getNotes(), "http://localhost:8021/shop/" + CANCEL_URL,
+                "http://localhost:8021/shop/" + SUCCESS_URL);
         for(Links link:payment.getLinks()) {
             if(link.getRel().equals("approval_url")) {
                 return "redirect:"+link.getHref();

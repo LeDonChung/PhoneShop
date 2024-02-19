@@ -2,9 +2,9 @@ package com.phone.library.mapper;
 
 import com.phone.library.dto.AdminDto;
 import com.phone.library.dto.CustomerDto;
-import com.phone.library.dto.CustomerModel;
 import com.phone.library.entity.AdminEntity;
 import com.phone.library.entity.CustomerEntity;
+import com.phone.library.model.CustomerModel;
 import org.springframework.stereotype.Component;
 
 @Component
