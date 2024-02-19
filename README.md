@@ -7,6 +7,7 @@
 
 - Khách hàng có thể xem, tra cứu thông tin, đặt hàng, phản hồi cho PhoneShop.
 - Khách hàng có thể đăng nhập bằng Google, Facebook .
+- Khách hàng có thể thanh toán trực tuyến bằng Paypal Sanbox khi đặt hàng.
 - Quản lý có thể quản lý thông tin khách hàng, quản lý đơn hàng được đặt, quản lý sản phẩm, thống kê.
 - Ngoài ra website còn tích hợp chức năng tư vấn trực tiếp trên website và gửi mail về cho khách hàng.
 ## Tác giả
